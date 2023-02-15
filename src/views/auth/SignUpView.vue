@@ -15,6 +15,7 @@ import AuthSideLayout from "@/components/AuthSideLayout.vue";
 import PhoneNumber from "google-libphonenumber";
 import {useGenericStore} from "@/stores/generic";
 import PhoneNumberInput from "@/components/PhoneNumberInput.vue";
+import { vMaska } from "maska"
 
 const managerStore = useManagerStore();
 const genericStore = useGenericStore();
@@ -67,7 +68,7 @@ const schemas = [
   }),
   object({
     number: number("Not a Valid Account Number").required().label("Account Number"),
-    bank: string().required().label("Bank"),
+    code: string().required().label("Bank"),
   }),
 ];
 
@@ -89,7 +90,7 @@ const onSubmit = handleSubmit( async (values, actions) => {
   }
   if (currentStep.value === 2) {
     await managerStore
-      .signUp(values)
+      .signUp({...values, name: accountName.value})
       .then(() => {
         Toast.fire({
           icon: "success",
@@ -99,7 +100,7 @@ const onSubmit = handleSubmit( async (values, actions) => {
       }).catch((error) => {
         Toast.fire({
           icon: "error",
-          title: error.data.message,
+          title: error.message,
         });
         actions.setErrors(error.data.errors);
       });
@@ -303,21 +304,22 @@ const resolveAccountNumber = async () => {
             </div>
             <Spacer size="8" />
             <div class="space-y-5">
-              <BaseSelect
+              <BaseSelect 
+                v-model="bankCode"
                 label="Bank"
                 label-prop="name"
                 :options="genericStore.banks"
                 value-prop="code"
-                track-by="code"
+                track-by="name"
                 placeholder="Select Bank"
-                name="bank"
+                name="code"
                 :searchable="true"
                 class="rounded border border-light-grey focus:border-light-grey"
-                :error="errors.bank"
+                :error="errors.code"
               />
 
               <BaseInput
-                v-model="account_number"
+                v-model="accountNumber"
                 label="Account number"
                 name="number"
                 type="text"
@@ -327,6 +329,9 @@ const resolveAccountNumber = async () => {
                 class="rounded border-beerus focus:border-beerus"
                 :error="errors.number"
               />
+              <p class="font-semibold">
+                {{ accountName }}
+              </p>
 
 
 

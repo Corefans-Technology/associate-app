@@ -68,10 +68,10 @@ const { handleSubmit, errors, isSubmitting } = useForm({
 const requestReset = handleSubmit( async (values, actions) => {
   await managerStore
     .forgetPassword(values)
-    .then(() => {
+    .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "We have emailed your password reset link!",
+        title: response.message,
       });
 
       const email = values.email;

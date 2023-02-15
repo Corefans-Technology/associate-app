@@ -1,7 +1,7 @@
 <template>
   <FormHeader
     name="We’ve sent a mail"
-    desc="`A mail was sent to ${email} Please view the mail
+    :desc="`A mail was sent to ${values.email} Please view the mail
             for instructions on how to reset your password`"
   />
   <form
@@ -25,22 +25,20 @@
       </BaseButton>
     </div>
   </form>
-  <div class="mt-3 space-x-2 flex items-center w-72 text-1E1D24 text-sm">
+  <div class="mt-3 space-x flex items-center w-72">
     <p>Don’t get any mail?</p>
-    <BaseButton>
+    <BaseButton class="text-1E1D24 font-medium">
       Resend Mail
     </BaseButton>
   </div>
 </template>
 
 <script setup>
-import AuthLayout from "@/layouts/AuthLayout.vue";
-import {computed, reactive, ref} from "vue";
+import {computed} from "vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseOtpInput from "@/components/base/BaseOtpInput.vue";
 import { useManagerStore } from "@/stores/manager";
 import { useRouter, useRoute } from "vue-router";
-import AuthSideLayout from "@/components/AuthSideLayout.vue";
 import FormHeader from "@/components/FormHeader.vue";
 import {object, string} from "yup";
 import {useForm} from "vee-validate";
@@ -57,7 +55,7 @@ const schema = computed(() => {
   })
 });
 
-const { handleSubmit, errors, isSubmitting } = useForm({
+const { handleSubmit, errors, isSubmitting, values } = useForm({
   validationSchema: schema,
   initialValues: {
     email: decodeURIComponent(route.params.email),
@@ -67,10 +65,10 @@ const { handleSubmit, errors, isSubmitting } = useForm({
 const verifyToken = handleSubmit( async (values, actions) => {
   await managerStore
     .verifyToken(values)
-    .then(() => {
+    .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "correct",
+        title: response.data,
       });
 
       const email = values.email;

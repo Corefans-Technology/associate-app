@@ -113,6 +113,8 @@ export const useManagerStore = defineStore("manager", {
         body: form,
       });
 
+      console.log(data)
+
       this.data = data;
 
     },
