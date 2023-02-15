@@ -6,7 +6,7 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
-      sans: ["\"Euclid Circular B\"", "sans-serif"],
+      sans: ["Euclid Circular B", "sans-serif"],
     },
     extend: {
       backgroundImage: (theme) => ({
@@ -17,10 +17,11 @@ module.exports = {
         )}")`,
       }),
       colors: {
-        orange: "#F18B1B",
+        orange: "#FF9E0B",
         red: "#E52053",
         beerus: "#EBEBEB",
-        "grey-1": "#626E8B",
+        "gray-1": "#626E8B",
+        "gray-2": "#667085",
         "light-grey": "#D9D9D9",
         "light-grey-2": "#98A2B3",
         "light-grey-3": "#EDEDED",
@@ -29,6 +30,7 @@ module.exports = {
         green: "#00A438",
         D0C9C9: "#D0C9C9",
         E5E5E5: "#E5E5E5",
+        "09121F": "#09121F",
         F6F6F6: "#F6F6F6",
         "626E8B": "#626E8B",
         "1E1D24": "#1E1D24",
@@ -41,10 +43,10 @@ module.exports = {
         "7B7B7B": "#7B7B7B",
         "999CA0": "#999CA0",
         "98A2B3": "#98A2B3",
+        "272643": "#272643",
         "#EBEBEB": "#EBEBEB",
         "D5D5D5": "#D5D5D5",
         "F2F4F7": "#F2F4F7",
-        "#667085": "#667085",
         "#2E0B34": "#2E0B34",
         "#FFFBF7": "#FFFBF7",
         "#FFF9F3": "#FFF9F3",

@@ -86,7 +86,7 @@
               <div class="flex space-x-4 pt-6">
                 <BaseButton
                   type="button"
-                  class="rounded text-grey-1 border border-grey-1 leading-snug"
+                  class="rounded text-gray-1 border border-gray-1 leading-snug"
                   @click="$router.push({name: 'campaigns.funding', params: {'id': $route.params.id }})"
                 >
                   Previous

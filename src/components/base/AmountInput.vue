@@ -54,7 +54,7 @@ let inputSize = computed(() => value.value ? value.value.length : 4  );
   <div
     class="flex w-full space-x-2 justify-center"
   >
-    <h3 class="text-sm text-grey-1 leading-10 flex-none -mt-1">
+    <h3 class="text-sm text-gray-1 leading-10 flex-none -mt-1">
       NGN
     </h3>
     <input

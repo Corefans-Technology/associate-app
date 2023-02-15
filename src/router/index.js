@@ -18,6 +18,9 @@ import PasswordForgotVerifyView from "../views/auth/PasswordForgotVerifyView.vue
 import PasswordResetView from "../views/auth/PasswordResetView.vue";
 import WaitListView from "../views/auth/WaitListView.vue";
 import CampaignIndexView from "../views/campaign/IndexView.vue";
+import TalentIndexView from "../views/talents/IndexView.vue";
+import TalentSendInviteView from "../views/talents/SendInviteView.vue";
+import TalentShowView from "../views/talents/ShowView.vue";
 import CampaignCreateView from "../views/campaign/CreateView.vue";
 import CampaignBasicFormView from "../views/campaign/BasicFormView.vue";
 import CampaignContentFormView from "../views/campaign/ContentFormView.vue";
@@ -47,6 +50,29 @@ const router = createRouter({
       path: "/dashboard",
       name: "dashboard",
       component: DashboardView,
+      meta: {
+        middleware: "auth",
+      },
+    },
+    {
+      path: "/talents",
+      name: "talents.index",
+      component: TalentIndexView,
+      meta: {
+        middleware: "auth",
+      },
+      children: [
+        {
+          path: "invite",
+          name: "talents.send.invite",
+          component: TalentSendInviteView,
+        },
+      ],
+    },
+    {
+      path: "/talents/:id",
+      name: "talents.show",
+      component: TalentShowView,
       meta: {
         middleware: "auth",
       },

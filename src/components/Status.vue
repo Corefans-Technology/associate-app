@@ -1,10 +1,10 @@
 <template>
   <div
     :class="[
-      'rounded-full px-5 py-1 flex items-center justify-center bg-opacity-10 text-xs',
+      'rounded-full px-5 py-1 flex items-center justify-center bg-opacity-10 text-xs capitalize',
       name === 'draft'
-        ? 'bg-[#FF9E0B] text-[#FF9E0B]'
-        : 'bg-[#00C48C] text-[#00C48C]',
+        ? 'bg-[#00C48C] text-[#00C48C]'
+        : 'bg-orange bg:opacity-10 text-orange',
       classes,
     ]"
   >

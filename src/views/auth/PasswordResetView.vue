@@ -2,7 +2,7 @@
   <FormHeader
     name="Create new password?"
     desc="Create your new password for your account for easing login."
-    desc-style="text-grey-1 font-light w-2/3"
+    desc-style="text-gray-1 font-light w-2/3"
   />
   <form
     class="mt-5 space-y-4"

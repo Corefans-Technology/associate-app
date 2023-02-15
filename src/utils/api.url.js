@@ -53,6 +53,8 @@ export const ROUTES = function (param = "") {
     resetPassword: "/v1/manager/password/reset",
     profile: "/v1/manager",
     profileUpdate: "/v1/manager/update",
+    talents: "/v1/manager/talents",
+    invite: "/v1/manager/talents/invite",
     saveForLater: "/v1/manager",
     fanLink: "/v1/manager/fanlink",
     notificationPreference: "/v1/manager/preferences/notifications",

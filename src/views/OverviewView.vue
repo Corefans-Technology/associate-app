@@ -13,10 +13,10 @@ managerStore.profile();
   <dashboard-layout>
     <div class="p-[40px] space-y-8">
       <div class="space-y-1">
-        <h1 class="text-2xl text-black font-medium">
+        <h1 class="text-2xl text-1E1D24 font-medium">
           Hi {{ managerStore.data.first_name }}
         </h1>
-        <p class="text-[#667085] text-sm">
+        <p class="text-gray-2 text-sm">
           Here’s an overview of your campaigns and funds
         </p>
       </div>
@@ -34,7 +34,7 @@ managerStore.profile();
           icon="pricing"
         />
         <HowTo
-          title="Branding and Marketing"
+          title="Roles and Responsibilty"
           text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
           xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
           icon="brand"
@@ -53,9 +53,9 @@ managerStore.profile();
               <DisclosureButton
                 class="flex w-full items-center space-x-2 py-3 border-b"
               >
-                <CheckCircleIcon class="h-5 w-5 text-#626E8B flex-none" />
-                <span class="text-#1E1D24 flex-grow text-left">Complete your profile</span>
-                <ChevronUpIcon class="h-5 w-5 text-#2E0B34 rotate-90" />
+                <CheckCircleIcon class="h-6 w-6 stroke-1 stroke-gray-2 flex-none" />
+                <span class="text-1E1D24 flex-grow text-left">Complete your profile</span>
+                <ChevronUpIcon class="h-5 w-5 text-1E1D24 rotate-90" />
               </DisclosureButton>
               <!-- <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
                 If you're unhappy with your purchase for any reason, email us
@@ -66,23 +66,9 @@ managerStore.profile();
               <DisclosureButton
                 class="flex w-full items-center space-x-2 py-3 border-b"
               >
-                <CheckCircleIcon class="h-5 w-5 text-#626E8B flex-none" />
-                <span class="text-#1E1D24 flex-grow text-left">Set up your first campaign</span>
-                <ChevronUpIcon class="h-5 w-5 text-#2E0B34 rotate-90" />
-              </DisclosureButton>
-              <!-- <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
-                If you're unhappy with your purchase for any reason, email us
-                within 90 days and we'll refund you in full, no questions asked.
-              </DisclosurePanel> -->
-            </Disclosure>
-
-            <Disclosure>
-              <DisclosureButton
-                class="flex w-full items-center space-x-2 py-3 border-b"
-              >
-                <CheckCircleIcon class="h-5 w-5 text-#626E8B flex-none" />
-                <span class="text-#1E1D24 flex-grow text-left">Reach your first campaign goal</span>
-                <ChevronUpIcon class="h-5 w-5 text-#2E0B34 rotate-90" />
+                <CheckCircleIcon class="h-6 w-6 stroke-1 stroke-gray-2 flex-none" />
+                <span class="text-1E1D24 flex-grow text-left">Set up your first campaign</span>
+                <ChevronUpIcon class="h-5 w-5 text-1E1D24 rotate-90" />
               </DisclosureButton>
               <!-- <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
                 If you're unhappy with your purchase for any reason, email us
@@ -94,9 +80,23 @@ managerStore.profile();
               <DisclosureButton
                 class="flex w-full items-center space-x-2 py-3 border-b"
               >
-                <CheckCircleIcon class="h-5 w-5 text-#626E8B flex-none" />
-                <span class="text-#1E1D24 flex-grow text-left">Sell your first Exclusive to your core fan</span>
-                <ChevronUpIcon class="h-5 w-5 text-#2E0B34 rotate-90" />
+                <CheckCircleIcon class="h-6 w-6 stroke-1 stroke-gray-2 flex-none" />
+                <span class="text-1E1D24 flex-grow text-left">Reach your first campaign goal</span>
+                <ChevronUpIcon class="h-5 w-5 text-1E1D24 rotate-90" />
+              </DisclosureButton>
+              <!-- <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
+                If you're unhappy with your purchase for any reason, email us
+                within 90 days and we'll refund you in full, no questions asked.
+              </DisclosurePanel> -->
+            </Disclosure>
+
+            <Disclosure>
+              <DisclosureButton
+                class="flex w-full items-center space-x-2 py-3 border-b"
+              >
+                <CheckCircleIcon class="h-6 w-6 stroke-1 stroke-gray-2 flex-none" />
+                <span class="text-1E1D24 flex-grow text-left">Sell your first Exclusive to your core fan</span>
+                <ChevronUpIcon class="h-5 w-5 text-1E1D24 rotate-90" />
               </DisclosureButton>
             </Disclosure>
           </div>

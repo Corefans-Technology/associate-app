@@ -7,26 +7,29 @@
       {{ title }}
     </h4>
 
-    <p class="text-sm text-#667085 pt-2 pb-4">
+    <p class="text-sm text-gray-2 pt-2 pb-4">
       {{ text }}
     </p>
 
-    <RouterLink to="/" class="flex items-center space-x-1 text-orange text-sm">
-      <span>View</span>
-      <ChevronRightIcon class="h-3"/>
-    </RouterLink>
+    <a
+      href="/"
+      class="flex items-center space-x-1 text-1E1D24"
+    >
+      <span class="text-sm font-medium leading-snug">Get Started</span>
+      <ChevronRightIcon class="h-4" />
+    </a>
   </div>
 </template>
 
 <script setup>
-import Icon from '@/components/Icon.vue'
+import Icon from "@/components/Icon.vue"
 import { ChevronRightIcon } from "@heroicons/vue/24/outline"
-import {RouterLink} from 'vue-router'
+import {RouterLink} from "vue-router"
 defineProps({
   title: String,
   text: String,
   link: String,
-  icon: String
+  icon: String,
 });
 </script>
 

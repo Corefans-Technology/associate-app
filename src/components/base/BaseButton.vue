@@ -19,7 +19,7 @@ const props = defineProps({
   <button
     id="submit"
     :type="props.type"
-    class="focus:outline-none font-medium px-4 flex items-center justify-center relative h-12"
+    class="focus:outline-none px-4 flex items-center justify-center relative h-12"
     :class="{
       'disabled opacity-90 cursor-not-allowed': disabled || props.isLoading,
     }"
@@ -46,6 +46,9 @@ const props = defineProps({
         fill="currentColor"
       />
     </svg>
-    <span :class="{ invisible: props.isLoading }"><slot /></span>
+    <span
+      class="flex items-center justify-center space-x-4"
+      :class="{ invisible: props.isLoading }"
+    ><slot /></span>
   </button>
 </template>

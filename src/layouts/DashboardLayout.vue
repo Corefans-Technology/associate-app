@@ -1,6 +1,6 @@
 <template>
   <div class="max-h-screen h-full flex flex-col bg-white">
-    <NavigationBar :isAuthenticated="managerStore.isAuthenticated" />
+    <NavigationBar :is-authenticated="managerStore.isAuthenticated" />
     <main class="flex-1 flex overflow-y-scroll">
       <SideBar />
       <div class="ml-60 flex-grow">
