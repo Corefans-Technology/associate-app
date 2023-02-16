@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import Icon from "@/components/Icon.vue";
 import DashboardLayout from "@/layouts/DashboardLayout.vue";
 import { PlusIcon } from "@heroicons/vue/24/outline";
@@ -83,87 +83,21 @@ import LoaderComponent from "@/components/LoaderComponent.vue";
 const talentStore = useTalentStore();
 talentStore.fetchAll();
 
-
-
-
-
-import useVuelidate from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
-import InputError from "@/components/InputError.vue";
 import {
-  TabGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  DialogTitle,
   Popover,
   PopoverButton,
   PopoverPanel,
-  DialogPanel,
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
 } from "@headlessui/vue";
-import {
-  XMarkIcon,
-  ChevronUpDownIcon,
-  PaperAirplaneIcon,
-} from "@heroicons/vue/24/outline";
+
 import {useGenericStore} from "@/stores/generic";
-// import Icon from "@/components/Icon.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
-// import { PlusIcon } from "@heroicons/vue/24/outline";
-// import TalentCard from "@/components/TalentCard.vue";
-// import Modal from "@/components/ModalComponent.vue";
-// import DashboardLayout from "@/layouts/DashboardLayout.vue";
-
-
 
 const genericStore = useGenericStore();
 genericStore.getCountries();
 
 const errors = ref([]);
-const isOpen = ref(false);
 const success = ref(false);
 const loading = ref(false);
-const tabs = ref(["All", "Active", "Pending"]);
-
-
-const form = ref({
-  first_name: null,
-  last_name: null,
-  email: null,
-  phone_number: null,
-});
-
-const invite = () => {
-  loading.value = true;
-  talent.sendInvite(form.value)
-    .then((response) => {
-      talent.data.data.unshift(response.data);
-      isOpen.value = false;
-      success.value = true;
-
-    }).catch((error) => {
-      errors.value = Object.values(error.data.errors).flat();
-    }).finally(() => loading.value = false)
-}
-const allTalent = computed(() => {
-  return talent.data.data;
-});
-
-const invitedTalent = computed(() => {
-  return talent.data.data.filter((talent) => talent.accept_invite);
-});
-
-const invitingTalent = computed(() => {
-  return talent.data.data.filter((talent) => !talent.accept_invite);
-});
-
-const selectedCountry = ref(genericStore.countries[0]);
-
 
 
 </script>

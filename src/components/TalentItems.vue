@@ -52,7 +52,7 @@
     >
       Recruit talents to start earning commissions from their campaigns
     </p>
-    <router-link :to="{ name: 'talents.sent.invite' }">
+    <router-link  :to="{ name: 'talents.send.invite' }">
       <div
         class="text-1E1D24 text-[0.8125rem] flex items-center justify-center space-x-2 mx-auto text-sm"
       >

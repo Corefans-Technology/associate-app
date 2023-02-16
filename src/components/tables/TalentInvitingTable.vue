@@ -1,17 +1,12 @@
 <template>
   <table-lite
-      :is-slot-mode="true"
     :has-checkbox="true"
     :columns="table.columns"
     :rows="table.rows"
     :total="table.totalRecordCount"
     :sortable="table.sortable"
     @is-finished="tableLoadingFinish"
-  >
-    <template #name="data">
-      <BaseButton>dddddd</BaseButton>
-    </template>
-  </table-lite>
+  />
 </template>
 
 <script setup>
@@ -30,13 +25,6 @@ const props = defineProps({
 const table = reactive({
   isLoading: false,
   columns: [
-    {
-      label: "ID",
-      field: "id",
-      width: "3%",
-      sortable: true,
-      isKey: true,
-    },
     {
       label: "First Name",
       field: "first_name",

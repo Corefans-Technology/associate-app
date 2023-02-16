@@ -118,10 +118,9 @@ export const useManagerStore = defineStore("manager", {
       API(ROUTES().logout, {
         method: "POST",
       }).finally(() => {
-        localStorage.removeItem("creative");
-        localStorage.removeItem("exclusive");
+        localStorage.removeItem("manager");
         localStorage.removeItem("settings");
-        localStorage.removeItem("campaign");
+        localStorage.removeItem("talent");
         localStorage.removeItem("wallet");
         this.data = null;
         window.location.pathname = "/";

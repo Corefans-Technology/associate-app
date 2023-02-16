@@ -14,7 +14,7 @@
             </span>
           </p>
           <h3 class="text-[#333333] text-[2rem] font-bold">
-            {{ useCurrency(walletStore.balance ?? 0.00) }}
+            {{ useCurrency(walletStore.balance) }}
           </h3>
         </div>
         <div class="flex-grow flex justify-end">
