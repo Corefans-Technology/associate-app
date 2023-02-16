@@ -24,7 +24,7 @@ export const API = $fetch.create({
   async onResponseError({ request, response, options }) {
     const managerStore = useManagerStore();
     if (response.status === 401 || response.status === 419) {
-     // managerStore.logout();
+      managerStore.logout();
     }
   },
 });
