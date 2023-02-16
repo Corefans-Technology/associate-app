@@ -1,18 +1,24 @@
 <template>
   <table-lite
+      :is-slot-mode="true"
     :has-checkbox="true"
     :columns="table.columns"
     :rows="table.rows"
     :total="table.totalRecordCount"
     :sortable="table.sortable"
     @is-finished="tableLoadingFinish"
-  />
+  >
+    <template #name="data">
+      <BaseButton>dddddd</BaseButton>
+    </template>
+  </table-lite>
 </template>
 
 <script setup>
 
 import { reactive } from "vue";
 import TableLite from "@/components/TableLite.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 
 const props = defineProps({
   talents: {
@@ -24,6 +30,13 @@ const props = defineProps({
 const table = reactive({
   isLoading: false,
   columns: [
+    {
+      label: "ID",
+      field: "id",
+      width: "3%",
+      sortable: true,
+      isKey: true,
+    },
     {
       label: "First Name",
       field: "first_name",
@@ -59,7 +72,9 @@ const table = reactive({
       // width: "15%",
       display: function (row) {
         return (
-          "<button type='button' data-id='" + row.id + "' class='revoke-invite text-red bg-red bg-opacity-10 text-xs py-1 px-2 rounded-full'>Revoke invite</button>"
+          "<button type='button' data-id='" + row.id + "' class='revoke-invite text-red bg-red bg-opacity-10 text-xs py-1 px-2 rounded-full'>" +
+          "Revoke invite" +
+          "</button>"
         );
       },
     },
@@ -122,8 +137,14 @@ const tableLoadingFinish = (elements) => {
 
 </script>
 
-<style src="../../../node_modules/@vueform/multiselect/themes/default.css"></style>
+<script>
+import Title from "@/components/Title.vue";
+export default {
+  components: {Title},
+}
+</script>
 
+<style src="../../../node_modules/@vueform/multiselect/themes/default.css"></style>
 <style scoped>
 ::v-deep(.Successful) {
   color: #00c48c;

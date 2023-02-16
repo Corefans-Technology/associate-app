@@ -82,38 +82,33 @@ export const useManagerStore = defineStore("manager", {
     async profileUpdate(form) {
 
 
-      const data = new FormData();
+      const formData = new FormData();
 
-      data.append("first_name", form.first_name);
-      data.append("last_name", form.last_name);
-      data.append("email", form.email);
-      data.append("phone_number", form.phone_number);
-      data.append("bio", form.bio);
-      data.append("genres", form.genres);
+      formData.append("first_name", form.first_name);
+      formData.append("last_name", form.last_name);
+      formData.append("email", form.email);
+      formData.append("phone_number", form.phone_number);
 
       if (typeof form.photo !== "string") {
-        data.append("photo", form.photo);
+        formData.append("photo", form.photo);
       }
 
 
-      let response = await API(ROUTES().profileUpdate, {
+      const { data } = await API(ROUTES().profileUpdate, {
         method: "POST",
-        body: data,
+        body: formData,
         headers: {
           "Accept": "application/json",
           "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
         },
-      }).catch((error) => error);
-      this.data = response.data
-      return response;
+      });
+      this.data = data;
     },
     async signUp(form) {
       const { data } = await API(ROUTES().register, {
         method: "POST",
         body: form,
       });
-
-      console.log(data)
 
       this.data = data;
 

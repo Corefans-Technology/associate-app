@@ -14,7 +14,7 @@
             </span>
           </p>
           <h3 class="text-[#333333] text-[2rem] font-bold">
-            {{ useCurrency(walletStore.balance) }}
+            {{ useCurrency(walletStore.balance ?? 0.00) }}
           </h3>
         </div>
         <div class="flex-grow flex justify-end">
@@ -37,12 +37,12 @@
       </div>
 
       <div>
-        <button
-          class="bg-gradient-to-r from-orange to-red text-white text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2"
+        <BaseButton
+          class="rounded bg-1E1D24 text-white text-sm h-[40px]"
           @click="$router.push({ name: 'wallet.withdraw' })"
         >
           Withdraw
-        </button>
+        </BaseButton>
       </div>
 
       <div>
@@ -112,7 +112,7 @@
               :class="[
                 'text-[15px]',
                 'focus:outline-none focus:ring-2 relative',
-                selected ? 'text-[#FF9E0B]' : 'text-[#878787]',
+                selected ? 'text-1E1D24' : 'text-[#878787]',
               ]"
             >
               {{ tab }}
@@ -120,7 +120,7 @@
                 :class="[selected ? 'opacity-100' : 'opacity-0']"
                 class="absolute -bottom-3 inset-x-0 flex justify-center"
               >
-                <span class="w-[6px] h-[6px] rounded-full bg-[#FF9E0B]" />
+                <span class="w-[6px] h-[6px] rounded-full bg-1E1D24" />
               </div>
             </button>
           </Tab>
@@ -174,6 +174,7 @@ import { ref, reactive } from "vue";
 import Layout from "@/layouts/DashboardLayout.vue";
 import VueApexCharts from "vue3-apexcharts";
 import TableLite from "@/components/TableLite.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 import { useWalletStore } from "@/stores/wallet";
 
 import { useCurrency } from "@/composables/currency";
@@ -213,7 +214,7 @@ let options = ref({
       },
     },
   },
-  colors: ["#00A438"],
+  colors: ["#1E1D24"],
   title: {
     enabled: false,
   },

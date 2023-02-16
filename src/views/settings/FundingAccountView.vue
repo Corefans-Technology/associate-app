@@ -15,8 +15,7 @@
       <div>
         <BaseButton
           type="button"
-          class="text-orange text-[0.8125rem] flex items-center py-3 px-4 font-semibold space-x-2 text-sm w-full
-        bg-gradient-to-r from-orange to-red text-white rounded"
+          class="rounded bg-1E1D24 text-white text-sm w-32"
           @click="openModal"
         >
           <span>
@@ -125,7 +124,7 @@
                   </BaseButton>
                   <BaseButton
                     :is-loading="isSubmitting"
-                    class="rounded bg-gradient-to-r from-orange to-red text-white"
+                    class="rounded bg-1E1D24 text-white text-sm w-32"
                   >
                     Add Account
                   </BaseButton>
@@ -234,7 +233,7 @@ const resolveAccountNumber = async () => {
       // console.log(error?.response)
       Toast.fire({
         icon: "error",
-        title: error?.data?.massage,
+        title: error.data.massage,
       });
       verifying.value = false;
     });

@@ -43,13 +43,6 @@
           class="rounded text-orange"
           desc="If you select this, customers will receive SMS notifications"
         />
-        <BaseCheckbox
-          v-model="campaign_goal"
-          name="campaign_goal"
-          label="Hide Campaign Goal"
-          class="rounded text-orange"
-          desc="If you select this, Campaign Goal will be hidden from the Fans"
-        />
         <button
           ref="notifyForm"
           type="submit"
@@ -87,17 +80,15 @@ const schema = computed(() => {
     email: boolean().label("Email Notification"),
     sms: boolean().label("SMS Notification"),
     app: boolean().label("Push Notification"),
-    campaign_goal: boolean().label("Campaign Goal"),
   })
 });
 
-const { handleSubmit, errors, isSubmitting } = useForm({
+const { handleSubmit, errors } = useForm({
   validationSchema: schema,
   initialValues: {
     email: settingsStore.notifications.email,
     sms: settingsStore.notifications.sms,
     app: settingsStore.notifications.app,
-    campaign_goal: settingsStore.notifications.campaign_goal,
   },
 })
 

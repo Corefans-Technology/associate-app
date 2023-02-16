@@ -3,13 +3,13 @@
     <form @submit="submit">
       <div class="space-y-20 border-b pb-14">
         <div class="flex space-x-20">
-          <div class="max-w-[20.25rem] w-full space-y-3">
+          <div class="max-w-sm w-full space-y-3">
             <h3 class="text-xl font-medium">
               Security
             </h3>
           </div>
 
-          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+          <div class="max-w-sm w-full space-y-5">
             <!-- Old Password -->
             <BaseInput
               label="Current Password"
@@ -52,7 +52,7 @@
       <div class="flex items-center justify-end py-10">
         <BaseButton
           :is-loading="isSubmitting"
-          class="px-12 py-3 rounded bg-gradient-to-r from-orange to-red text-white text-[0.8125rem] w-[8.125rem]"
+          class="rounded bg-1E1D24 text-white text-sm w-32"
         >
           Save
         </BaseButton>

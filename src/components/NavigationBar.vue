@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="h-20 bg-white w-full flex-none flex items-center sticky top-0 z-[60] border-EAECF0 border-b"
+    class="h-14 bg-white w-full flex-none flex items-center sticky top-0 z-[60] border-EAECF0 border-b"
   >
     <!-- navigations -->
     <ul
