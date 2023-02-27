@@ -92,8 +92,9 @@ const login = handleSubmit( async (values, actions) => {
   loading.value = true;
   await managerStore
     .login(values)
-    .then(() => {
-      Toast.fire({
+    .then(async () => {
+      await managerStore.profile()
+      await Toast.fire({
         icon: "success",
         title: `Welcome back ${managerStore.data.first_name}!`,
       });

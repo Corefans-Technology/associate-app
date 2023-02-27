@@ -21,9 +21,7 @@ export const useManagerStore = defineStore("manager", {
       await API.post(ROUTES().login,  {
         email: form.email,
         password: form.password,
-      }).then((response) => console.log(response))
-        .catch((error) => console.log(error));
-      await this.profile()
+      })
     },
 
     async profile() {
