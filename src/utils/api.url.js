@@ -1,5 +1,4 @@
-import { $fetch } from "ohmyfetch";
-import Cookies from "js-cookie";
+import axios from "axios";
 import NProgress from "nprogress";
 import { useManagerStore } from "@/stores/manager";
 
@@ -8,39 +7,49 @@ let baseURL = import.meta.env.VITE_LIVE_BASE_URL;
 
 if (baseType === "local") baseURL = import.meta.env.VITE_LOCAL_BASE_URL;
 
-export const API = $fetch.create({
+export const API = axios.create({
   baseURL: baseURL,
-  credentials: "include",
   headers: {
-    Accept: "application/json",
-    "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
+    "X-Requested-With": "XMLHttpRequest",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
   },
-  onRequest(ctx) {
-    NProgress.start();
-  },
-  onResponse(ctx) {
-    NProgress.done();
-  },
-  async onResponseError({ request, response, options }) {
-    const managerStore = useManagerStore();
-    if ( [401, 419].includes(response.status) && !request.endsWith("/v1/manager") ) {
-      managerStore.logout();
-    } else {
-      return response;
-    }
-  },
+  withCredentials: true,
 });
 
-export const apiConfig = (multipart = null) => {
-  return { headers: getHeader(multipart) };
-};
+axios.interceptors.request.use(async function (config) {
+  // Do something before request is sent
+  // csrf token
+  NProgress.start();
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
-function getHeader(type) {
-  const header = {};
-  if (type === true) header["Content-Type"] = "multipart/form-data";
-  if (type === false) header["Content-Type"] = "application/json";
-  return header;
-}
+API.interceptors.response.use(
+  (response) => {
+
+    NProgress.done();
+    return response;
+  },
+  (error) => {
+
+    // check if user session expiry or not login
+    if(
+      [401, 419].includes(error.response.status) && !error.request.responseURL.endsWith("/v1/manager")
+    ) {
+
+      console.log("from plugin");
+      // logout
+      const managerStore = useManagerStore();
+      managerStore.logout();
+    } else {
+      return Promise.reject(error)
+    }
+  }
+);
+
 
 export const ROUTES = function (param = "") {
   return {

@@ -17,21 +17,16 @@ export const useManagerStore = defineStore("manager", {
   },
   actions: {
     async login(form) {
-      await this.csrf();
-      return await API(ROUTES().login, {
-        method: "POST",
-        body: {
-          email: form.email,
-          password: form.password,
-        },
-      }).then(async () => {
-        this.data = await API(ROUTES().profile);
-        // this.data = data;s
+      await this.csrf()
+      await API.post(ROUTES().login,  {
+        email: form.email,
+        password: form.password,
       });
+      await this.profile()
     },
 
     async profile() {
-      this.data = await API(ROUTES().profile);
+      this.data = await API.get(ROUTES().profile);
     },
 
     async csrf() {
