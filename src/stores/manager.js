@@ -1,7 +1,6 @@
 // import { ref, computed } from "vue";
 import {defineStore} from "pinia";
 import {API, ROUTES} from "@/utils/api.url";
-import Cookies from "js-cookie";
 
 export const useManagerStore = defineStore("manager", {
   persist: true,
