@@ -21,7 +21,8 @@ export const useManagerStore = defineStore("manager", {
       await API.post(ROUTES().login,  {
         email: form.email,
         password: form.password,
-      });
+      }).then((response) => console.log(response))
+        .catch((error) => console.log(error));
       await this.profile()
     },
 
@@ -30,49 +31,29 @@ export const useManagerStore = defineStore("manager", {
     },
 
     async csrf() {
-      await API(ROUTES().csrfCookie);
+      await API.get(ROUTES().csrfCookie);
     },
 
     async forgetPassword(form) {
       await this.csrf();
-      return await API(ROUTES().forgetPassword, {
-        method: "POST",
-        body: form,
-      })
+      return await API.post(ROUTES().forgetPassword, form)
     },
     async verifyToken(form) {
       await this.csrf();
-      return await API(ROUTES().verifyToken, {
-        method: "POST",
-        body: form,
-      })
+      return await API.post(ROUTES().verifyToken, form)
     },
     async resetPassword(form) {
       await this.csrf();
-      return await API(ROUTES().resetPassword, {
-        method: "POST",
-        body: form,
-      })
+      return await API.post(ROUTES().resetPassword, form)
     },
     async verifyInviteCode(code) {
       await this.csrf();
-      return await API(ROUTES().verifyInviteCode, {
-        method: "POST",
-        body: {
-          invite_code: code,
-        },
+      return await API.post(ROUTES().verifyInviteCode, {
+        invite_code: code,
       });
     },
     async passwordUpdate(form) {
-      return await API(ROUTES().changePassword, {
-        method: "POST",
-        body: form,
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
-        },
-      });
+      return await API.post(ROUTES().changePassword, form);
     },
     async profileUpdate(form) {
 
@@ -100,19 +81,14 @@ export const useManagerStore = defineStore("manager", {
       this.data = data;
     },
     async signUp(form) {
-      const { data } = await API(ROUTES().register, {
-        method: "POST",
-        body: form,
-      });
+      const { data } = await API.post(ROUTES().register, form);
 
       this.data = data;
 
     },
 
     logout() {
-      API(ROUTES().logout, {
-        method: "POST",
-      }).finally(() => {
+      API.post(ROUTES().logout).finally(() => {
         localStorage.removeItem("manager");
         localStorage.removeItem("settings");
         localStorage.removeItem("talent");
