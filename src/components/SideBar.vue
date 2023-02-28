@@ -22,7 +22,7 @@
       <li class="flex-none">
         <router-link
           class="flex items-center space-x-3 py-[0.5rem] px-[1rem]"
-          :to="{ name: 'dashboard' }"
+          :to="{ name: 'wallet' }"
         >
           <Icon
             class="fill-current"
@@ -38,15 +38,6 @@
         >
           <Icon name="campaign" />
           <span>Talent</span>
-        </router-link>
-      </li>
-      <li class="flex-none">
-        <router-link
-          class="flex items-center space-x-3 py-[0.5rem] px-[1rem]"
-          :to="{ name: 'wallet' }"
-        >
-          <Icon name="wallet" />
-          <span>Wallet</span>
         </router-link>
       </li>
 

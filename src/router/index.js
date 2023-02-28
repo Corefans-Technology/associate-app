@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import DashboardView from "../views/DashboardView.vue";
 import OverviewView from "../views/OverviewView.vue";
 import SettingIndexView from "../views/settings/IndexView.vue";
 import SettingProfileView from "../views/settings/ProfileView.vue";
@@ -27,17 +26,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
+      path: "/overview",
       name: "overview",
       component: OverviewView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/dashboard",
-      name: "dashboard",
-      component: DashboardView,
       meta: {
         middleware: "auth",
       },
@@ -66,7 +57,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/wallet",
+      path: "/",
       name: "wallet",
       component: WalletIndexView,
       meta: {

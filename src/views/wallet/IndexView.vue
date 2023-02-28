@@ -1,10 +1,16 @@
 <template>
   <layout>
     <div class="p-[2.5rem] space-y-8">
-      <h2 class="text-2xl text-black font-medium pb-6 border-b">
-        Wallet
-      </h2>
+      <div class="space-y-1">
+        <h1 class="text-2xl text-1E1D24 font-medium">
+          Hi {{ managerStore.data.first_name }}
+        </h1>
+        <p class="text-gray-2 text-sm">
+          Here’s an overview of your talents and commission
+        </p>
+      </div>
 
+      <div class="p-6 space-y-8 border border-EAECF0 rounded-md shadow-[0_1px_rgba(16, 24, 40, 0.1)]">
       <div class="flex items-center space-x-4">
         <div class="flex-none text-sm text-[#272643] space-y-4">
           <p class="flex items-center space-x-2">
@@ -24,16 +30,16 @@
         </div>
         <div class="flex-grow flex justify-end">
           <div class="flex items-center space-x-2">
-            <div class="bg-[#00A438] h-[6px] w-[20px]" />
-            <p class="text-sm text-[#626E8B]">
-              Inflows
+            <div class="bg-1E1D24 h-[6px] w-[20px]" />
+            <p class="text-sm text-626E8B">
+              Commissions
             </p>
           </div>
         </div>
         <div class="flex-none">
           <input
             id=""
-            class="w-[7.875rem] h-[2.25rem] border border-[#D6DFE8] rounded-[4px] text-[#626E8B]"
+            class="w-36 h-12 border border-D6DFE8 rounded-[4px] text-626E8B"
             type="date"
             name=""
             :value="new Date()"
@@ -58,7 +64,7 @@
           :series="series"
         />
       </div>
-
+      </div>
       <div class="flex items-center space-x-4">
         <h2 class="text-2xl font-medium text-black flex-none pr-[2rem]">
           Transactions
@@ -176,7 +182,10 @@ import TableLite from "@/components/TableLite.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import AccountBalance from "@/components/AccountBalance.vue";
 import {useWalletStore} from "@/stores/wallet";
+import { useManagerStore } from "@/stores/manager";
 
+const managerStore = useManagerStore();
+managerStore.profile();
 
 const walletStore = useWalletStore();
 walletStore.getTransactions();
