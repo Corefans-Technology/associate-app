@@ -23,57 +23,20 @@ export const useTalentStore = defineStore("talent", {
     isAuthenticated: (state) => !! state.data,
   },
   actions: {
-    async login(form) {
-      await this.csrf();
-      return await API(ROUTES().login, {
-        method: "POST",
-        body: {
-          email: form.email,
-          password: form.password,
-        },
-      }).then(async () => {
-        const {data: profile} = await API(ROUTES().profile);
-        this.data = profile;
-      });
-
-
-    },
 
     async fetchAll() {
-      const { talents } = await API(ROUTES().talents, {
-        retry: 3,
-      });
-      this.data = talents;
-    },
-
-    async csrf() {
-      await API(ROUTES().csrfCookie);
+      const { data } = await API.get(ROUTES().talents);
+      this.data = data.talents;
     },
 
     async sendInvite(form) {
-      const { talent } = await API(ROUTES().invite, {
-        method: "POST",
-        body: form,
-      });
+      const { data: talent } = await API.post(ROUTES().invite, form );
 
       this.data.unshift(talent);
     },
 
-    async signUp(form) {
-      return await API(ROUTES().register, {
-        method: "POST",
-        body: form,
-      });
-    },
-
     invite() {
-      API(ROUTES().invite, {
-        method: "POST",
-      }).then(r => {
-        localStorage.setItem("creative", null)
-        this.data = null;
-        window.location.pathname = "/";
-      });
+      API.post(ROUTES().invite);
 
     },
   },

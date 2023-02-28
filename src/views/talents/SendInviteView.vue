@@ -209,9 +209,9 @@ const onSubmit = handleSubmit( async ( values, actions ) => {
     }).catch((error) => {
       Toast.fire({
         icon: "error",
-        title: error.data.message,
+        title: error.response.data.message,
       });
-      actions.setErrors(error.data.errors);
+      actions.setErrors(error.response.data.errors);
     });
 
 });

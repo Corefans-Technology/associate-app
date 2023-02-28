@@ -25,7 +25,8 @@ export const useManagerStore = defineStore("manager", {
     },
 
     async profile() {
-      this.data = await API.get(ROUTES().profile);
+      const { data } = await API.get(ROUTES().profile);
+      this.data = data;
     },
 
     async csrf() {
