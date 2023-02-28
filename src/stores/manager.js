@@ -21,6 +21,7 @@ export const useManagerStore = defineStore("manager", {
         email: form.email,
         password: form.password,
       })
+      await this.profile()
     },
 
     async profile() {

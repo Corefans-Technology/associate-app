@@ -70,8 +70,6 @@ import { object, boolean, string } from "yup";
 import Spacer from "@/components/Spacer.vue";
 import FormHeader from "@/components/FormHeader.vue";
 import AuthSideLayout from "@/components/AuthSideLayout.vue";
-import {API, ROUTES} from "@/utils/api.url";
-
 
 const router = useRouter()
 
@@ -91,23 +89,21 @@ const { handleSubmit, errors, isSubmitting } = useForm({
 })
 
 const login = handleSubmit( async (values, actions) => {
-  await API.get(ROUTES().csrfCookie);
-  await API.post(ROUTES().login,  {
-    email: values.email,
-    password: values.password,
-  }).then(async () => {
-    await Toast.fire({
-      icon: "success",
-      title: `Welcome back ${managerStore.data.first_name}!`,
-    });
+  await managerStore
+    .login(values)
+    .then(() => {
+      Toast.fire({
+        icon: "success",
+        title: `Welcome back ${managerStore.data.first_name}!`,
+      });
 
-    return router.push({name: "overview"});
-  }).catch((error) => {
-    if ( error.status === 500 ) {
-      return actions.setFieldError("email", "!Oops, unable to login at this time");
-    }
-    actions.setFieldError("email", error.data.message);
-  });
+      return router.push({name: "overview"});
+    }).catch((error) => {
+      if ( error.status === 500 ) {
+        return actions.setFieldError("email", "!Oops, unable to login at this time");
+      }
+      actions.setFieldError("email", error.data.message);
+    });
 });
 
 // async function login() {
