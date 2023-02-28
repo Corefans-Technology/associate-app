@@ -246,7 +246,7 @@ let series = ref([
   },
 ]);
 
-const tabs = ref(["Campaigns", "Inflows"]);
+const tabs = ref(["Campaigns", "Commissions"]);
 
 
 const table = reactive({
