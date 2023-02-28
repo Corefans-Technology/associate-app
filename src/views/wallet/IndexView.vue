@@ -13,9 +13,14 @@
               <Icon name="help" />
             </span>
           </p>
-          <h3 class="text-[#333333] text-[2rem] font-bold">
-            {{ useCurrency(walletStore.balance) }}
-          </h3>
+          <Suspense>
+            <template #default>
+              <AccountBalance />
+            </template>
+            <template #fallback>
+              loading...
+            </template>
+          </Suspense>
         </div>
         <div class="flex-grow flex justify-end">
           <div class="flex items-center space-x-2">
@@ -161,27 +166,19 @@
 </template>
 
 <script setup>
-import {
-  TabGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@headlessui/vue";
+import {Tab, TabGroup, TabList, TabPanel, TabPanels} from "@headlessui/vue";
 
 
-import { ref, reactive } from "vue";
+import {reactive, ref} from "vue";
 import Layout from "@/layouts/DashboardLayout.vue";
 import VueApexCharts from "vue3-apexcharts";
 import TableLite from "@/components/TableLite.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
-import { useWalletStore } from "@/stores/wallet";
-
-import { useCurrency } from "@/composables/currency";
+import AccountBalance from "@/components/AccountBalance.vue";
+import {useWalletStore} from "@/stores/wallet";
 
 
 const walletStore = useWalletStore();
-walletStore.getBalance();
 walletStore.getTransactions();
 
 

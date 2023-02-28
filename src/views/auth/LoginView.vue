@@ -99,10 +99,10 @@ const login = handleSubmit( async (values, actions) => {
 
       return router.push({name: "overview"});
     }).catch((error) => {
-      if ( error.status === 500 ) {
+      if ( error.response.status === 500 ) {
         return actions.setFieldError("email", "!Oops, unable to login at this time");
       }
-      actions.setFieldError("email", error.data.message);
+      actions.setFieldError("email", error.response.data.message);
     });
 });
 

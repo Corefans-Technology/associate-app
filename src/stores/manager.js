@@ -69,16 +69,14 @@ export const useManagerStore = defineStore("manager", {
       }
 
 
-      const { data } = await API(ROUTES().profileUpdate, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Accept": "application/json",
-          "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
+      const { data:response } = await API.post(ROUTES().profileUpdate, formData,  {
+        "headers": {
+          "Content-Type": "multipart/form-data",
         },
       });
-      this.data = data;
+      this.data = response.data;
     },
+
     async signUp(form) {
       const { data } = await API.post(ROUTES().register, form);
 

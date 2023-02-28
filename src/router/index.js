@@ -17,22 +17,10 @@ import PasswordView from "../views/auth/PasswordView.vue";
 import PasswordForgotVerifyView from "../views/auth/PasswordForgotVerifyView.vue";
 import PasswordResetView from "../views/auth/PasswordResetView.vue";
 import WaitListView from "../views/auth/WaitListView.vue";
-import CampaignIndexView from "../views/campaign/IndexView.vue";
 import TalentIndexView from "../views/talents/IndexView.vue";
 import TalentSendInviteView from "../views/talents/SendInviteView.vue";
 import TalentShowView from "../views/talents/ShowView.vue";
-import CampaignCreateView from "../views/campaign/CreateView.vue";
-import CampaignBasicFormView from "../views/campaign/BasicFormView.vue";
-import CampaignContentFormView from "../views/campaign/ContentFormView.vue";
-import CampaignExclusiveView from "../views/campaign/ExclusiveView.vue";
-import CampaignFundingFormView from "../views/campaign/FundingFormView.vue";
-import CampaignReviewView from "../views/campaign/ReviewView.vue";
-import CampaignPreView from "../views/campaign/PreView.vue";
-import ExclusiveIndexView from "../views/exclusives/IndexView.vue";
-import ExclusiveCreateView from "../views/exclusives/CreateView.vue";
-import ExclusiveEditView from "../views/exclusives/EditView.vue";
 import PasswordForgotView from "../views/auth/PasswordForgotView.vue";
-import CampaignShowView from "../views/campaign/ShowView.vue";
 import { useManagerStore } from "@/stores/manager";
 
 const router = createRouter({
@@ -73,102 +61,6 @@ const router = createRouter({
       path: "/talents/:id",
       name: "talents.show",
       component: TalentShowView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/campaigns",
-      name: "campaigns.index",
-      component: CampaignIndexView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/campaigns/create",
-      component: CampaignCreateView,
-      meta: {
-        middleware: "auth",
-      },
-      children: [
-        {
-          path: "",
-          name: "campaigns.create",
-          component: CampaignBasicFormView,
-        },
-      ],
-    },
-    {
-      path: "/campaigns/create/:id",
-      component: CampaignCreateView,
-      meta: {
-        middleware: "auth",
-      },
-      children: [
-        {
-          path: "basic",
-          name: "campaigns.basic",
-          component: CampaignBasicFormView,
-        },
-        {
-          path: "content",
-          name: "campaigns.content",
-          component: CampaignContentFormView,
-        },
-        {
-          path: "exclusive",
-          name: "campaigns.exclusive",
-          component: CampaignExclusiveView,
-        },
-        {
-          path: "funding",
-          name: "campaigns.funding",
-          component: CampaignFundingFormView,
-        },
-        {
-          path: "review",
-          name: "campaigns.review",
-          component: CampaignReviewView,
-        },
-      ],
-    },
-    {
-      path: "/exclusives",
-      name: "exclusives.index",
-      component: ExclusiveIndexView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/exclusives/create",
-      name: "exclusives.create",
-      component: ExclusiveCreateView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/exclusives/:id/edit",
-      name: "exclusives.edit",
-      component: ExclusiveEditView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/campaigns/:id",
-      name: "campaigns.show",
-      component: CampaignShowView,
-      meta: {
-        middleware: "auth",
-      },
-    },
-    {
-      path: "/campaigns/:id/preview",
-      name: "campaigns.preview",
-      component: CampaignPreView,
       meta: {
         middleware: "auth",
       },

@@ -77,7 +77,7 @@ const verifyToken = handleSubmit( async (values, actions) => {
       const pinEncoded = encodeURIComponent(pin);
       return router.push({name: "reset.password", params: { email: emailEncoded, pin: pinEncoded }});
     }).catch((error) => {
-      actions.setFieldError("pin", error.data.message);
+      actions.setFieldError("pin", error.response.data.message);
     });
 });
 

@@ -42,18 +42,6 @@
           Contact
         </app-link>
       </li>
-      <!-- Start a campaign button -->
-      <li
-        v-show="!isAuthenticated"
-        class="flex-grow hidden lg:flex items-center justify-end"
-      >
-        <app-link
-          :to="{ name: 'campaigns.create' }"
-          class="bg-gradient-to-r from-orange to-red text-white font-medium text-base h-12 px-4 rounded-lg flex items-center justify-center"
-        >
-          Start a campaign
-        </app-link>
-      </li>
       <!-- Log in -->
       <li
         v-show="!isAuthenticated"
@@ -156,7 +144,7 @@
                       active ? 'bg-1E1D24 bg-opacity-10 text-1E1D24' : 'text-1E1D24',
                       'group flex w-full items-center px-4 py-2 text-sm space-x-2',
                     ]"
-                    to="{ name: 'settings.preference' }"
+                    :to="{ name: 'settings.preference' }"
                   >
                     <AdjustmentsVerticalIcon class="h-4" />
                     <span class="text-sm">Preferences</span>

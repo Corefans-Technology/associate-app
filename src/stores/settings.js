@@ -14,27 +14,27 @@ export const useSettingsStore = defineStore("settings", {
 
   actions: {
     async getBanks() {
-      const { banks } = await API.get(ROUTES().listBanks);
-      this.banks = banks;
+      const { data } = await API.get(ROUTES().listBanks);
+      this.banks = data.banks;
     },
 
     async addBank(form) {
-      const { bank } = await API.post(ROUTES().addBank, form );
+      const { data } = await API.post(ROUTES().addBank, form );
 
-      this.banks.push( bank );
+      this.banks.push( data.bank );
     },
 
 
 
     async getNotificationPreference() {
-      const { response }  = await API.get(ROUTES().notificationPreference);
-      this.notifications = response.notifications;
+      const { data }  = await API.get(ROUTES().notificationPreference);
+      this.notifications = data.notifications;
     },
 
     async updateNotificationPreference(form) {
-      const { response } = await API.post(ROUTES().notificationPreference, form );
-      this.notifications = response?.notifications
-      return response;
+      const { data } = await API.post(ROUTES().notificationPreference, form );
+      this.notifications = data.notifications
+      return data;
     },
 
 

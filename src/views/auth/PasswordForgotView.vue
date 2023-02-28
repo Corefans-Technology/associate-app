@@ -71,14 +71,14 @@ const requestReset = handleSubmit( async (values, actions) => {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: response.message,
+        title: response.data.message,
       });
 
       const email = values.email;
       const emailEncoded = encodeURIComponent(email);
       return router.push({name: "forgot.password.verify", params: { email: emailEncoded }});
     }).catch((error) => {
-      actions.setFieldError("email", error.data.message);
+      actions.setFieldError("email", error.response.data.message);
     });
 });
 </script>

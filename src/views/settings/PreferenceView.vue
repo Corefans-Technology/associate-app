@@ -72,7 +72,6 @@ const loading = ref(false);
 const email = ref("");
 const sms = ref("");
 const app = ref("");
-const campaign_goal = ref("");
 const notifyForm = ref(null);
 
 const schema = computed(() => {
@@ -88,11 +87,11 @@ const { handleSubmit, errors } = useForm({
   initialValues: {
     email: settingsStore.notifications.email,
     sms: settingsStore.notifications.sms,
-    app: settingsStore.notifications.app,
+    app: settingsStore.notifications.push,
   },
 })
 
-watch([email, sms, app, campaign_goal], ([newEmail, newSMS, newAPP, newCampaignGoal]) => {
+watch([email, sms, app], ([newEmail, newSMS, newAPP]) => {
   notifyForm.value.click();
 })
 
@@ -105,9 +104,9 @@ const submit = handleSubmit( async (values, actions) => {
   }).catch((error) => {
     Toast.fire({
       icon: "error",
-      title: error.data.message,
+      title: error.response.data.message,
     });
-    actions.setErrors(error.data.errors);
+    actions.setErrors(error.response.data.errors);
   });
 });
 

@@ -16,6 +16,10 @@ import "./assets/css/main.css";
 //import 'sweetalert2/src/sweetalert2.scss'
 
 import {LoadingPlugin} from "vue-loading-overlay";
+import axios from "axios";
+import NProgress from "nprogress";
+import {API} from "./utils/api.url";
+import {useManagerStore} from "./stores/manager";
 
 window.Toast = Swal.mixin({
   toast: true,
@@ -29,6 +33,39 @@ window.Toast = Swal.mixin({
   },
 });
 
+
+axios.interceptors.request.use(async function (config) {
+  // Do something before request is sent
+  // csrf token
+  NProgress.start();
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
+API.interceptors.response.use(
+  (response) => {
+
+    NProgress.done();
+    return response;
+  },
+  (error) => {
+
+    // check if user session expiry or not login
+    if(
+      [401, 419].includes(error.response.status) && !error.request.responseURL.endsWith("/v1/manager")
+    ) {
+
+      console.log("from plugin");
+      // logout
+      const managerStore = useManagerStore();
+      managerStore.logout();
+    } else {
+      return Promise.reject(error)
+    }
+  }
+);
 
 
 //

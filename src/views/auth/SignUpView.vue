@@ -100,9 +100,9 @@ const onSubmit = handleSubmit( async (values, actions) => {
       }).catch((error) => {
         Toast.fire({
           icon: "error",
-          title: error.message,
+          title: error.response.data.message,
         });
-        actions.setErrors(error.data.errors);
+        actions.setErrors(error.response.data.errors);
       });
   }
 
@@ -125,7 +125,7 @@ const verifyInviteCode = (value) =>  {
 
     })
     .catch(( error ) => {
-      setErrors({"invite_code": error.data.message});
+      setErrors({"invite_code": error.response.data.message});
     });
 };
 
@@ -136,15 +136,15 @@ const resolveAccountNumber = async () => {
       account_number: accountNumber.value,
       bank_code: bankCode.value,
     })
-    .then(({ data }) => {
-      accountName.value = data.account_name;
+    .then((response) => {
+      accountName.value = response.data.account_name;
       verifying.value = false;
     })
     .catch((error) => {
       // console.log(error?.response)
       Toast.fire({
         icon: "error",
-        title: error?.data?.massage,
+        title: error.response.data.massage,
       });
       verifying.value = false;
     });

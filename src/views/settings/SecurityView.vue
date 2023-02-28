@@ -102,10 +102,10 @@ const submit = handleSubmit( async (values, actions) => {
     });
     actions.resetForm();
   }).catch((error) => {
-    actions.setErrors(error.data.errors);
+    actions.setErrors(error.response.data.errors);
     Toast.fire({
       icon: "error",
-      title: error.data.message,
+      title: error.response.data.message,
     });
   })
 });

@@ -93,7 +93,7 @@ const resetPassword = handleSubmit( async (values, actions) => {
 
       return router.push({name: "login" });
     }).catch((error) => {
-      actions.setErrors(error.data.errors);
+      actions.setErrors(error.response.data.errors);
     });
 });
 

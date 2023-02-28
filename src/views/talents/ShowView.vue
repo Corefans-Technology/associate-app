@@ -82,9 +82,6 @@
 <script setup>
 // import TableLite from "vue3-table-lite";
 import { ref } from "vue";
-import Icon from "@/components/Icon.vue";
-import Status from "@/components/Status.vue";
-import CampaignItem from "@/components/CampaignItem.vue";
 import DashboardLayout from "@/layouts/DashboardLayout.vue";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 

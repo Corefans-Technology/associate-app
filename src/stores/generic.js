@@ -6,8 +6,6 @@ export const useGenericStore = defineStore("generic", {
   persist: true,
   state: () => ({
     banks: null,
-    attributes: null,
-    genres: null,
     countries: null,
   }),
   //   getters: {
@@ -18,13 +16,15 @@ export const useGenericStore = defineStore("generic", {
       const { data } = await API.get(ROUTES().banks);
       this.banks = data;
     },
-    async resolveAccountNumber(data) {
-      return await API.post(ROUTES().resolve_account_number, data );
+    async resolveAccountNumber(form) {
+      const { data }  = await API.post(ROUTES().resolve_account_number, form );
+      return data;
     },
 
 
     async getCountries() {
-      this.countries =  await API.get(ROUTES().countries);
+      const { data } =  await API.get(ROUTES().countries);
+      this.countries = data;
     },
   },
 });
