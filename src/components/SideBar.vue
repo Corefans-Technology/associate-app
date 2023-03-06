@@ -34,7 +34,7 @@
       <li class="flex-none">
         <router-link
           class="flex items-center space-x-3 py-[0.5rem] px-[1rem]"
-          :to="{ name: 'talents.index' }"
+          :to="{ name: 'talents.invited' }"
         >
           <Icon name="campaign" />
           <span>Talent</span>

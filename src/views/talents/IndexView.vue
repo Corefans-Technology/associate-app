@@ -56,19 +56,27 @@
           <PopoverPanel class="absolute z-50 bg-white" />
         </Popover>
       </div>
-
-      <Suspense>
-        <template #default>
-          <TalentItems />
-        </template>
-        <template #fallback>
-          <div class="border rounded border-#F2F4F7 flex flex-col items-center justify-center min-h-[42.625rem] space-y-3">
-            <LoaderComponent />
+      <div>
+        <div class="flex space-x-5 900/20 border-b py-5">
+          <div>
+            <router-link :to="{ name: 'talents.invited' }"
+                class="focus:outline-none focus:ring-0 relative py-5 mr-5 text-98A2B3"
+            >
+              {{ 'Invited' }}
+            </router-link>
           </div>
-        </template>
-      </Suspense>
+          <div>
+            <router-link :to="{ name: 'talents.invitee' }"
+                class="focus:outline-none focus:ring-0 relative py-5 mr-5 text-98A2B3"
+            >
+              {{ 'Inviting' }}
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <router-view></router-view>
     </div>
-    <router-view></router-view>
+
   </dashboard-layout>
 </template>
 
@@ -80,8 +88,7 @@ import { PlusIcon } from "@heroicons/vue/24/outline";
 import { useTalentStore } from "@/stores/talent";
 import TalentItems from "@/components/TalentItems.vue";
 import LoaderComponent from "@/components/LoaderComponent.vue";
-const talentStore = useTalentStore();
-talentStore.fetchAll();
+
 
 import {
   Popover,
@@ -101,3 +108,16 @@ const loading = ref(false);
 
 
 </script>
+
+<style scoped>
+.router-link-active {
+  color: #272643;
+  border-bottom: #272643 2px solid;
+}
+
+.router-link-exact-active {
+  color: #272643;
+  border-bottom: #272643 2px solid;
+}
+
+</style>

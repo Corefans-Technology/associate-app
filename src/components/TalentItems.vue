@@ -1,43 +1,15 @@
 <template>
   <div
-    v-if="talentStore.data?.length"
+    v-if="talentStore.invitedList?.data?.length"
     class="space-y-6 flex flex-col overflow-hidden"
   >
-    <TabGroup>
-      <TabList class="flex space-x-5 900/20 border-b">
-        <Tab
-          v-for="(tab, index) in tabs"
-          :key="index"
-          v-slot="{ selected }"
-          as="template"
-        >
-          <button
-            type="button"
-            :class="[
-              'focus:outline-none focus:ring-0 relative py-5 border-b-2 mr-5',
-              selected
-                ? 'border-272643 text-272643'
-                : 'border-transparent text-98A2B3',
-            ]"
-          >
-            {{ tab }}
-          </button>
-        </Tab>
-      </TabList>
-
-      <TabPanels>
-        <TabPanel class="flex flex-wrap gap-5">
+        <div class="flex flex-wrap gap-5">
           <TalentCard
-            v-for="(talent, index) in invitedTalent"
+            v-for="(talent, index) in talentStore.invitedList?.data"
             :key="index"
             :talent="talent"
           />
-        </TabPanel>
-        <TabPanel>
-          <TalentInvitingTable :talents="invitingTalent" />
-        </TabPanel>
-      </TabPanels>
-    </TabGroup>
+        </div>
   </div>
   <div
     v-else
@@ -66,13 +38,7 @@
 <script setup>
 import TalentCard from "@/components/TalentCard.vue";
 import {computed, ref} from "vue";
-import {
-  TabGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@headlessui/vue";
+
 
 import {useTalentStore} from "@/stores/talent";
 import TalentInvitingTable from "@/components/tables/TalentInvitingTable.vue";
@@ -80,17 +46,9 @@ import { PlusIcon } from "@heroicons/vue/24/outline";
 import Icon from "@/components/Icon.vue";
 
 const talentStore = useTalentStore();
-await talentStore.fetchAll();
+await talentStore.fetchInvited();
 
-const tabs = ref(["Invited", "Inviting"]);
 
-const invitedTalent = computed(() => {
-  return talentStore.data.filter((talent) => talent.accept_invite);
-});
-
-const invitingTalent = computed(() => {
-  return talentStore.data.filter((talent) => !talent.accept_invite);
-});
 </script>
 
 <style lang="scss" scoped></style>

@@ -153,7 +153,9 @@ import BaseInput from "@/components/base/BaseInput.vue";
 import PhoneNumberInput from "@/components/PhoneNumberInput.vue";
 import PhoneNumber from "google-libphonenumber";
 import {useGenericStore} from "@/stores/generic";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const genericStore = useGenericStore();
 genericStore.getCountries();
 const talentStore = useTalentStore();
@@ -205,7 +207,7 @@ const onSubmit = handleSubmit( async ( values, actions ) => {
       });
       isSuccessOpen.value = true;
       isInviteOpen.value = false;
-      talentStore.fetchAll()
+      router.push({ name: "talents.invitee"})
     }).catch((error) => {
       Toast.fire({
         icon: "error",

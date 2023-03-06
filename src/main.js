@@ -46,18 +46,15 @@ axios.interceptors.request.use(async function (config) {
 
 API.interceptors.response.use(
   (response) => {
-
     NProgress.done();
     return response;
   },
   (error) => {
-
     // check if user session expiry or not login
     if(
-      [401, 419].includes(error.response.status) && !error.request.responseURL.endsWith("/v1/manager")
+      [401, 419].includes(error.request.status) && !error.request.responseURL.endsWith("/v1/manager")
     ) {
 
-      console.log("from plugin");
       // logout
       const managerStore = useManagerStore();
       managerStore.logout();

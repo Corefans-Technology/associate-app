@@ -45,6 +45,8 @@ const countryCodeRef = toRef(props, 'code');
 const { value: phoneNumber } = useField(phoneNumberRef);
 const { value: countryCode } = useField(countryCodeRef);
 
+countryCode.value = "+234";
+
 const uuid = UniqueID().getID();
 
 </script>

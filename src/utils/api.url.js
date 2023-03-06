@@ -17,39 +17,6 @@ export const API = axios.create({
   withCredentials: true,
 });
 
-axios.interceptors.request.use(async function (config) {
-  // Do something before request is sent
-  // csrf token
-  NProgress.start();
-  return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
-});
-
-API.interceptors.response.use(
-  (response) => {
-
-    NProgress.done();
-    return response;
-  },
-  (error) => {
-
-    // check if user session expiry or not login
-    if(
-      [401, 419].includes(error.response.status) && !error.request.responseURL.endsWith("/v1/manager")
-    ) {
-
-      console.log("from plugin");
-      // logout
-      const managerStore = useManagerStore();
-      managerStore.logout();
-    } else {
-      return Promise.reject(error)
-    }
-  }
-);
-
 
 export const ROUTES = function (param = "") {
   return {
@@ -64,7 +31,10 @@ export const ROUTES = function (param = "") {
     resetPassword: "/v1/manager/password/reset",
     profile: "/v1/manager",
     profileUpdate: "/v1/manager/update",
-    talents: "/v1/manager/talents",
+
+    // talents
+    invitedTalents: "/v1/manager/talents/invited",
+    inviteeTalents: "/v1/manager/talents/invitee",
     invite: "/v1/manager/talents/invite",
     saveForLater: "/v1/manager",
     fanLink: "/v1/manager/fanlink",

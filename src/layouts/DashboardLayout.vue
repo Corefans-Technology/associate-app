@@ -3,7 +3,7 @@
     <NavigationBar :is-authenticated="managerStore.isAuthenticated" />
     <main class="flex-1 flex overflow-y-scroll">
       <SideBar />
-      <div class="ml-60 flex-grow">
+      <div class="ml-60 flex-grow h-full">
         <slot />
       </div>
     </main>

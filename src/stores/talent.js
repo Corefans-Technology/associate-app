@@ -4,7 +4,8 @@ import {API, ROUTES} from "@/utils/api.url";
 export const useTalentStore = defineStore("talent", {
   persist: true,
   state: () => ({
-    data: null,
+    invitedList: null,
+    inviteeList: null,
     step: 1,
     form: {
       first_name: null,
@@ -24,15 +25,18 @@ export const useTalentStore = defineStore("talent", {
   },
   actions: {
 
-    async fetchAll() {
-      const { data } = await API.get(ROUTES().talents);
-      this.data = data.talents;
+    async fetchInvited() {
+      const { data } = await API.get(ROUTES().invitedTalents);
+      this.invitedList = data;
+    },
+
+    async fetchInvitee() {
+      const { data } = await API.get(ROUTES().inviteeTalents);
+      this.inviteeList = data;
     },
 
     async sendInvite(form) {
-      const { data: talent } = await API.post(ROUTES().invite, form );
-
-      this.data.unshift(talent);
+      return await API.post(ROUTES().invite, form );
     },
 
     invite() {

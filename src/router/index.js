@@ -17,8 +17,11 @@ import PasswordForgotVerifyView from "../views/auth/PasswordForgotVerifyView.vue
 import PasswordResetView from "../views/auth/PasswordResetView.vue";
 import WaitListView from "../views/auth/WaitListView.vue";
 import TalentIndexView from "../views/talents/IndexView.vue";
+import TalentInvitedView from "../views/talents/InvitedView.vue";
+import TalentInviteeView from "../views/talents/InviteeView.vue";
 import TalentSendInviteView from "../views/talents/SendInviteView.vue";
 import TalentShowView from "../views/talents/ShowView.vue";
+import ErrorView from "../views/ErrorView.vue";
 import PasswordForgotView from "../views/auth/PasswordForgotView.vue";
 import { useManagerStore } from "@/stores/manager";
 
@@ -41,6 +44,16 @@ const router = createRouter({
         middleware: "auth",
       },
       children: [
+        {
+          path: "invited",
+          name: "talents.invited",
+          component: TalentInvitedView,
+        },
+        {
+          path: "invitee",
+          name: "talents.invitee",
+          component: TalentInviteeView,
+        },
         {
           path: "invite",
           name: "talents.send.invite",
@@ -166,6 +179,15 @@ const router = createRouter({
       meta: {
         middleware: "auth",
       },
+    },
+    {
+      path: "/error-page",
+      name: "error-page",
+      component: ErrorView,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      component: ErrorView,
     },
     // {
     //   path: "/about",
