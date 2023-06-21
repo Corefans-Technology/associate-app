@@ -10,7 +10,7 @@
         @is-finished="tableLoadingFinish"
     >
       <template v-slot:status="data">
-        <BaseButton :is-loading="loading" type='button' @click="revokeInvite(data.value.id)" class='revoke-invite text-red bg-red bg-opacity-10 text-xs py-1 px-2 rounded-full'>
+        <BaseButton :is-loading="loading" type='button' @click="revokeInvite(data.value.id)" class='revoke-invite text-red bg-red bg-opacity-10 text-xs max-h-10 rounded-full'>
           Revoke invite
           </BaseButton>
       </template>
@@ -54,7 +54,7 @@ const talentStore = useTalentStore();
 await talentStore.fetchInvitee();
 let loading = ref(false);
 
-const { invitee } = storeToRefs(talentStore)
+const { inviteeList } = storeToRefs(talentStore)
 
 const revokeInvite = async (id) => {
   loading.value = true;
@@ -140,8 +140,8 @@ const table = reactive({
     //   sortable: true,
     // },
   ],
-  rows: invitee.inviteeList?.data,
-  totalRecordCount: invitee.inviteeList?.data?.length ?? 0,
+  rows: inviteeList.value?.data,
+  totalRecordCount: inviteeList.value?.data?.length,
   sortable: {
     order: "created_at",
     sort: "asc",
