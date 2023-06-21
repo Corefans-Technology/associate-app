@@ -17,8 +17,7 @@ export const useGenericStore = defineStore("generic", {
       this.banks = data;
     },
     async resolveAccountNumber(form) {
-      const { data }  = await API.post(ROUTES().resolve_account_number, form );
-      return data;
+      return await API.post(ROUTES().resolve_account_number, form );
     },
 
 

@@ -39,6 +39,12 @@ export const useTalentStore = defineStore("talent", {
       return await API.post(ROUTES().invite, form );
     },
 
+    async revokeInvite(invite) {
+      return await API.get(ROUTES(invite).inviteRevoke).then(() => {
+        this.inviteeList.data = this.inviteeList.data.filter(invitee => invitee.id !== invite);
+      });
+    },
+
     invite() {
       API.post(ROUTES().invite);
 

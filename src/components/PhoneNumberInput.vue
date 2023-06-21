@@ -13,7 +13,7 @@ import BaseError from "@/components/base/BaseError.vue";
 
 const props = defineProps({
   number: {
-    type: Number,
+    type: String,
     required: true,
   },
   code: {

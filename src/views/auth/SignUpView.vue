@@ -31,22 +31,16 @@ const accountNumber = ref("");
 const accountName = ref("");
 const verifying = ref(false);
 
-watch( accountNumber, (value) => {
-  if (value.length === 10) {
-    resolveAccountNumber();
-  }
-});
-
 const schemas = [
   object({
-    invite_code: number("Invite Code format").required().label("Invitation Code"),
+    invite_code: number("Invite Code format").required().typeError("Invite Code format").label("Invitation Code"),
   }),
   object({
     email: string().required().email().label("Email Address"),
     password: string().required().label("Password"),
     first_name: string().required().label("First Name"),
     last_name: string().required().label("Last Name"),
-    phone_number: string().required().test({
+    phone_number: string().required().typeError("Invalid phone number").test({
       name: "phone",
       message: "Invalid phone number",
       test: async (value, ctx) => {
@@ -63,7 +57,7 @@ const schemas = [
           return false;
         }
       },
-    }).label("Phone Number"),
+    }).nullable().label("Phone Number"),
     country_code: string().required().label("Country Code"),
   }),
   object({
@@ -90,7 +84,7 @@ const onSubmit = handleSubmit( async (values, actions) => {
   }
   if (currentStep.value === 2) {
     await managerStore
-      .signUp({...values, name: accountName.value})
+      .signUp({ name: accountName.value, ...values })
       .then(() => {
         Toast.fire({
           icon: "success",
@@ -109,22 +103,22 @@ const onSubmit = handleSubmit( async (values, actions) => {
   currentStep.value += 1;
 });
 
-const verifyInviteCode = (value) =>  {
-  managerStore
+const verifyInviteCode = async (value) => {
+  await managerStore
     .verifyInviteCode(value)
     .then((response) => {
       setValues({
         invite_code: value,
-        email: response.data.email,
-        first_name: response.data.first_name,
-        last_name: response.data.last_name,
-        phone_number: response.data.phone_number,
+        email: response.data.data.email,
+        first_name: response.data.data.first_name,
+        last_name: response.data.data.last_name,
+        phone_number: response.data.data.phone_number,
       });
 
       currentStep.value = 1;
 
     })
-    .catch(( error ) => {
+    .catch((error) => {
       setErrors({"invite_code": error.response.data.message});
     });
 };
@@ -137,14 +131,18 @@ const resolveAccountNumber = async () => {
       bank_code: bankCode.value,
     })
     .then((response) => {
-      accountName.value = response.data.account_name;
+      console.log(response.data)
+      accountName.value = response.data.data.account_name;
       verifying.value = false;
     })
     .catch((error) => {
-      // console.log(error?.response)
       Toast.fire({
         icon: "error",
-        title: error.response.data.massage,
+        title: error.response.data.message,
+      });
+      setErrors({
+        "code": error.response.data.errors.bank_code,
+        "number": error.response.data.errors.account_number,
       });
       verifying.value = false;
     });
@@ -242,7 +240,7 @@ const resolveAccountNumber = async () => {
                 />
                 <!-- Last name -->
                 <BaseInput
-                  readonly
+                  readonly="readonly"
                   name="last_name"
                   label="Last Name"
                   type="text"
@@ -269,6 +267,7 @@ const resolveAccountNumber = async () => {
                 aria-autocomplete="inline"
                 autofocus
                 :error="errors.email"
+                readonly="readonly"
               />
               <BaseInput
                 name="password"
@@ -338,6 +337,16 @@ const resolveAccountNumber = async () => {
 
               <div class="pt-5">
                 <BaseButton
+                    v-if="accountName?.length < 1"
+                  type="button"
+                  class="bg-1E1D24 text-white rounded py-3 w-full"
+                  :is-loading="verifying"
+                  @click.prevent="resolveAccountNumber"
+                >
+                  Verify Account Number
+                </BaseButton>
+                <BaseButton
+                    v-else
                   class="bg-1E1D24 text-white rounded py-3 w-full"
                   :is-loading="isSubmitting"
                 >

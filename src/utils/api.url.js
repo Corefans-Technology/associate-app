@@ -36,6 +36,7 @@ export const ROUTES = function (param = "") {
     invitedTalents: "/v1/manager/talents/invited",
     inviteeTalents: "/v1/manager/talents/invitee",
     invite: "/v1/manager/talents/invite",
+    inviteRevoke: `/v1/manager/talents/invite-revoke/${param}`,
     saveForLater: "/v1/manager",
     fanLink: "/v1/manager/fanlink",
     notificationPreference: "/v1/manager/preferences/notifications",

@@ -1,13 +1,20 @@
 <template>
   <div v-if="talentStore.inviteeList?.data?.length">
     <table-lite
+        :is-slot-mode="true"
         :has-checkbox="true"
         :columns="table.columns"
         :rows="table.rows"
         :total="table.totalRecordCount"
         :sortable="table.sortable"
         @is-finished="tableLoadingFinish"
-    />
+    >
+      <template v-slot:status="data">
+        <BaseButton :is-loading="loading" type='button' @click="revokeInvite(data.value.id)" class='revoke-invite text-red bg-red bg-opacity-10 text-xs py-1 px-2 rounded-full'>
+          Revoke invite
+          </BaseButton>
+      </template>
+    </table-lite>
   </div>
   <div
       v-else
@@ -37,14 +44,28 @@
 
 <script setup>
 
-import {computed, reactive} from "vue";
+import {ref, reactive} from "vue";
 import TableLite from "@/components/TableLite.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import { useTalentStore } from "@/stores/talent";
+import {storeToRefs} from "pinia";
 
 const talentStore = useTalentStore();
 await talentStore.fetchInvitee();
+let loading = ref(false);
 
+const { invitee } = storeToRefs(talentStore)
+
+const revokeInvite = async (id) => {
+  loading.value = true;
+  await talentStore.revokeInvite(id).then(() => {
+    Toast.fire({
+      icon: "success",
+      title: "Invite Revoke",
+    });
+  });
+  loading.value = false;
+}
 
 const table = reactive({
   isLoading: false,
@@ -81,14 +102,6 @@ const table = reactive({
     {
       label: "Action",
       field: "status",
-      // width: "15%",
-      display: function (row) {
-        return (
-          "<button type='button' data-id='" + row.id + "' class='revoke-invite text-red bg-red bg-opacity-10 text-xs py-1 px-2 rounded-full'>" +
-          "Revoke invite" +
-          "</button>"
-        );
-      },
     },
 
     // {
@@ -127,8 +140,8 @@ const table = reactive({
     //   sortable: true,
     // },
   ],
-  rows: talentStore.inviteeList?.data,
-  totalRecordCount: talentStore.inviteeList?.data?.length ?? 0,
+  rows: invitee.inviteeList?.data,
+  totalRecordCount: invitee.inviteeList?.data?.length ?? 0,
   sortable: {
     order: "created_at",
     sort: "asc",
