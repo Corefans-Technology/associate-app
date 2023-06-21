@@ -72,7 +72,7 @@ let options = ref({
       },
     },
   },
-  colors: ["#00A438"],
+  colors: ["#1E1D24"],
   title: {
     enabled: false,
   },
