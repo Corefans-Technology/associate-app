@@ -1,53 +1,61 @@
 <template>
   <div
-    class="flex-none w-60 bg-FAFAFB py-[3.125rem] px-[0.875rem] fixed left-0 h-full"
+    class="flex-none md:w-60 w-full bg-#121216 md:bg-#2D1713 py-4 px-3.5 left-0 h-fit md:h-full rounded-t-none rounded-b-none md:rounded-t-2xl md:rounded-b-2xl flex flex-col divide-y divide-#3A2622"
   >
-    <ul class="flex flex-col h-full pb-10 text-gray-1">
-      <li class="flex-none">
+    <button
+      class="flex-none relative md:pb-4"
+      @click="router.push('/')"
+    >
+      <img
+        src="@/assets/images/logo_3.png"
+        alt=""
+        class="mx-auto h-7"
+      />
+    </button>
+    <ul class="hidden md:flex flex-col h-full flex-grow pt-8">
+      <!-- <p class="text-xs text-1E1D24 text-opacity-30 pb-2">
+        ACTIVITY
+      </p> -->
+      <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-1E1D24 py-[0.5rem] px-[1rem]"
+          class="flex items-center space-x-3 text-white py-2 px-4"
           :to="{ name: 'overview' }"
         >
           <Icon
             class="fill-current"
-            name="home"
+            name="started"
           />
-          <span>Overview</span>
+          <span>Get Started</span>
         </router-link>
       </li>
-
-      <p class="text-xs text-1E1D24 text-opacity-30 pt-8 pb-2">
-        ACTIVITY
-      </p>
-      <li class="flex-none">
+      <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 py-[0.5rem] px-[1rem]"
+          class="flex items-center space-x-3 text-white py-2 px-4"
           :to="{ name: 'wallet' }"
         >
           <Icon
             class="fill-current"
             name="dashboard"
           />
-          <span>Dashboard</span>
+          <span>Home</span>
         </router-link>
       </li>
-      <li class="flex-none">
+      <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 py-[0.5rem] px-[1rem]"
-          :to="{ name: 'talents.invited' }"
+          class="flex items-center space-x-3 text-white py-2 px-4"
+          :to="{ name: 'talents.index' }"
         >
-          <Icon name="campaign" />
-          <span>Talent</span>
+          <Icon name="users" />
+          <span>Talents</span>
         </router-link>
       </li>
+    </ul>
 
-      <p class="text-xs text-1E1D24 text-opacity-30 pt-8 pb-2">
-        MANAGEMENT
-      </p>
-      <li class="">
+    <ul class="hidden md:flex flex-col flex-none pt-4">
+      <li class="links">
         <router-link
-          class="flex items-center w-full space-x-3 py-[0.5rem] px-[1rem]"
-          :to="{ name: 'settings.profile' }"
+          class="flex items-center w-full space-x-3 text-white py-2 px-4"
+          :to="{ name: 'settings.profile', query: { tab: 'Profile' } }"
         >
           <Icon
             class="fill-current"
@@ -56,38 +64,46 @@
           <span>Settings</span>
         </router-link>
       </li>
-
-      <!-- <li class="flex-grow flex items-end">
+      <li class="flex-grow flex items-end">
         <button
-          @click="logout"
-          class="flex items-center w-full space-x-3 py-[0.5rem] px-[1rem]"
+          class="flex items-center w-full space-x-3 text-white py-[0.5rem] px-[1rem]"
           href="/settings"
+          @click="logout"
         >
-          <Icon name="more" />
+          <Icon name="logout" />
           <span>Logout</span>
         </button>
-      </li> -->
+      </li>
     </ul>
   </div>
 </template>
 
 <script setup>
+import { useRouter } from "vue-router"
 import Icon from "@/components/Icon.vue";
+import { useManagerStore } from "@/stores/manager";
 
+const managerStore = useManagerStore();
+
+function logout() {
+  managerStore.logout();
+}
+const router = useRouter()
 </script>
 
 <style scoped>
-.router-link-active {
-  color: #1E1D24;
-  background: rgba(30, 29, 36, 0.1);
+.links .router-link-active {
+  color: white;
+  /* background: rgba(255, 255, 255, 0.20); */
   border-radius: 4px;
-  border: none;
+  @apply bg-gradient-to-br from-orange to-red
 }
 
-.router-link-exact-active {
-  color: #1E1D24;
-  background: rgba(30, 29, 36, 0.1);
+.links .router-link-exact-active {
+  color: white;
+  /* background: rgba(255, 255, 255, 0.20); */
   border-radius: 4px;
   border: none;
+  @apply bg-gradient-to-br from-orange to-red
 }
 </style>

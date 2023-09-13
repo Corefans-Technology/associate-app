@@ -1,9 +1,9 @@
 <template>
-  <div class="max-h-screen h-full flex flex-col bg-white">
-    <NavigationBar :is-authenticated="managerStore.isAuthenticated" />
-    <main class="flex-1 flex overflow-y-scroll">
-      <SideBar />
-      <div class="ml-60 flex-grow h-full">
+  <div class="max-h-screen h-screen flex flex-col md:flex-row bg-white md:p-4">
+    <SideBar />
+    <main class="flex-grow  overflow-y-scroll">
+      <NavigationBar :is-authenticated="managerStore.isAuthenticated" />
+      <div class="">
         <slot />
       </div>
     </main>

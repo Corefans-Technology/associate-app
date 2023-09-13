@@ -1,10 +1,9 @@
 <template>
   <auth-layout>
-    <AuthSideLayout />
-    <div class="flex items-center justify-center">
-      <div class="space-y-5 w-full max-w-md m-5">
+    <div class="flex items-center justify-center md:relative bg-white order-2 md:order-1 pt-2">
+      <div class="space-y-5 w-full max-w-md m-4">
         <FormHeader
-          name="Login"
+          name="Sign in"
           desc="Welcome back! Please fill in your details."
         />
         <form @submit="login">
@@ -12,7 +11,7 @@
             name="email"
             type="email"
             label="Email Address"
-            class="rounded border border-beerus focus:border-beerus w-full"
+            class="rounded-lg border border-#DCDCE4 focus:border-#DCDCE4 w-full"
             aria-autocomplete="inline"
             autofocus
             :error="errors.email"
@@ -23,42 +22,65 @@
             type="password"
             label="Password"
             :obscure="true"
-            class="rounded border border-beerus focus:border-beerus"
+            class="rounded-lg border border-#DCDCE4 focus:border-#DCDCE4"
             :error="errors.password"
           />
+
+          <div class="flex items-center justify-between pt-4">
+            <BaseCheckbox
+              name="remember"
+              label="Remember for 30 days"
+            />
+            <RouterLink
+              class="font-medium text-sm"
+              :to="{ name: 'forget.password' }"
+            >
+              Forgot Password
+            </RouterLink>
+          </div>
           <div class="pt-8 pb-3">
             <base-button
-              class="bg-1E1D24 text-white rounded py-3 w-full"
+              class="bg-gradient-to-br from-orange to-red text-white rounded-lg py-3 w-full text-sm font-medium"
               :is-loading="isSubmitting"
             >
-              Log into your account
+              Sign in
             </base-button>
           </div>
         </form>
-        <div class="flex flex-col justify-center items-center">
-          <div class="space-x">
-            <span class="leading-loose">Don’t have an account?</span>
+        <div class="flex flex-col justify-center items-center text-orange text-sm">
+          <div class="space-x-1">
+            <span class="text-black">Don’t have an account?</span>
             <RouterLink
+              class="text-transparent bg-clip-text bg-gradient-to-br from-orange to-red underline font-medium"
               :to="{ name: 'sign.up' }"
-              class="text-1E1D24 font-medium"
             >
-              Sign up
+              Sign up for free
             </RouterLink>
           </div>
-          <div class="mt-2">
-            <RouterLink :to="{ name: 'forget.password' }">
-              Forget your password ?
-            </RouterLink>
-          </div>
+          <!-- <div class="mt-2">
+            
+          </div> -->
         </div>
       </div>
+
+      <RouterLink
+        to="/"
+        class="text-orange flex-none"
+      >
+        <img
+          class="w-[6.813rem] bg-cover absolute left-20 top-11"
+          src="@/assets/images/logo_3.png"
+          alt="Corefans"
+        />
+      </RouterLink>
     </div>
+    <AuthSideLayout class="order-1 md:order-2" />
   </auth-layout>
 </template>
 
 <script setup>
 import AuthLayout from "@/layouts/AuthLayout.vue";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import { useManagerStore } from "@/stores/manager";
@@ -74,7 +96,7 @@ import AuthSideLayout from "@/components/AuthSideLayout.vue";
 const router = useRouter()
 
 
-const loading = ref(false);
+// const loading = ref(false);
 
 const schema = computed(() => {
   return object({
@@ -92,6 +114,7 @@ const login = handleSubmit( async (values, actions) => {
   await managerStore
     .login(values)
     .then(() => {
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "success",
         title: `Welcome back ${managerStore.data.first_name}!`,

@@ -2,7 +2,7 @@
   <FormHeader
     name="Create new password?"
     desc="Create your new password for your account for easing login."
-    desc-style="text-gray-1 font-light w-2/3"
+    desc-style="text-grey-1 font-light w-2/3"
   />
   <form
     class="mt-5 space-y-4"
@@ -14,7 +14,7 @@
       type="password"
       label="Password"
       :obscure="true"
-      class="rounded border border-beerus focus:border-beerus"
+      class="rounded-lg border border-beerus focus:border-beerus"
       :error="errors.password"
     />
     <!-- Password -->
@@ -23,25 +23,25 @@
       type="password"
       label="Repeat New Password"
       :obscure="true"
-      class="rounded border border-beerus focus:border-beerus"
+      class="rounded-lg border border-beerus focus:border-beerus"
       :error="errors.password_confirmation"
     />
 
     <div class="pt-5">
       <base-button
-        class="bg-1E1D24 text-white rounded py-3 w-full"
+        class="bg-gradient-to-br from-orange to-red text-white rounded-lg py-3 w-full"
         :is-loading="isSubmitting"
       >
         Reset Password
       </base-button>
     </div>
   </form>
-  <div class="flex flex-col justify-center items-center text-1E1D24 mt-4">
-    <div class="space-x">
-      <span>Already have an account?</span>
+  <div class="flex flex-col justify-center items-center text-orange text-sm mt-4">
+    <div class="space-x-2">
+      <span class="text-black">Already have an account?</span>
       <RouterLink
+        class="text-transparent bg-clip-text bg-gradient-to-br from-orange to-red underline font-medium"
         :to="{ name: 'login' }"
-        class="text-1E1D24 font-medium"
       >
         Login
       </RouterLink>
@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import FormHeader from "@/components/FormHeader.vue";
 import { useManagerStore } from "@/stores/manager";
@@ -86,6 +86,7 @@ const resetPassword = handleSubmit( async (values, actions) => {
   await managerStore
     .resetPassword(values)
     .then(() => {
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "success",
         title: "password reset successfully!",

@@ -33,7 +33,6 @@ window.Toast = Swal.mixin({
   },
 });
 
-
 axios.interceptors.request.use(async function (config) {
   // Do something before request is sent
   // csrf token
@@ -64,7 +63,6 @@ API.interceptors.response.use(
   }
 );
 
-
 //
 // for (const path in requireComponent) {
 //     requireComponent[path]().then((mod) => {
@@ -77,6 +75,5 @@ const app = createApp(App);
 app.use(pinia);
 app.use(router);
 app.use(LoadingPlugin);
-
 
 app.mount("#app");

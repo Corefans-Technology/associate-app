@@ -1,7 +1,6 @@
 <template>
   <auth-layout>
-    <AuthSideLayout />
-    <div class="flex items-center justify-center w-full mx-auto">
+    <div class="flex items-center justify-center w-full mx-auto relative">
       <div class="w-[31.75rem] 2xl:w-[40rem] rounded-[1rem] p-[3rem]">
         <div class="w-[19.77625rem] h-[18.830625rem] mx-auto">
           <img
@@ -12,10 +11,10 @@
         </div>
 
         <div>
-          <h1 class="text-[1.75rem] font-semibold text-center">
+          <h1 class="text-[1.75rem] font-semibold text-[#000000] text-center">
             You’re in🚀
           </h1>
-          <p class="text-434345 text-lg font-light text-center">
+          <p class="text-[#434345] text-lg font-light text-center">
             Let’s start raising funds for your next project.
           </p>
         </div>
@@ -23,14 +22,25 @@
         <div class="pt-8 pb-6">
           <BaseButton
             type="button"
-            class="bg-1E1D24 text-white rounded w-full"
+            class="bg-gradient-to-r from-orange to-red text-white rounded w-full"
             @click="$router.push({ name: 'overview' })"
           >
             Continue
           </BaseButton>
         </div>
       </div>
+      <RouterLink
+        to="/"
+        class="text-orange flex-none"
+      >
+        <img
+          class="w-[6.813rem] bg-cover absolute left-20 top-11"
+          src="@/assets/images/logo_3.png"
+          alt="Corefans"
+        />
+      </RouterLink>
     </div>
+    <AuthSideLayout />
   </auth-layout>
 </template>
 

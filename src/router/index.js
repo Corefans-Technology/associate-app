@@ -34,6 +34,7 @@ const router = createRouter({
       component: OverviewView,
       meta: {
         middleware: "auth",
+        name: "Get Started",
       },
     },
     {
@@ -42,6 +43,7 @@ const router = createRouter({
       component: TalentIndexView,
       meta: {
         middleware: "auth",
+        name: "Talents",
       },
       children: [
         {
@@ -75,6 +77,7 @@ const router = createRouter({
       component: WalletIndexView,
       meta: {
         middleware: "auth",
+        name: "Home"
       },
       children: [
         {

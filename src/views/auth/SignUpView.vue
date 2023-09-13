@@ -1,6 +1,8 @@
+<!-- eslint-disable no-console -->
+<!-- eslint-disable no-undef -->
 <script setup>
 import AuthLayout from "@/layouts/AuthLayout.vue";
-import {computed, ref, watch } from "vue";
+import {computed, ref } from "vue";
 import { useManagerStore } from "@/stores/manager";
 import { ChevronRightIcon } from "@heroicons/vue/24/outline";
 import BaseButton from "@/components/base/BaseButton.vue";
@@ -152,9 +154,8 @@ const resolveAccountNumber = async () => {
 </script>
 <template>
   <auth-layout>
-    <AuthSideLayout />
-    <div class="flex items-center justify-center w-full mx-auto">
-      <div class="w-[31.75rem] 2xl:w-[40rem] rounded-[1rem] p-[3rem]">
+    <div class="flex items-center justify-center w-full mx-auto md:relative order-2 md:order-1 pt-2 md:pt-28">
+      <div class="w-full max-w-md rounded-[1rem] p-4">
         <form @submit.prevent="onSubmit">
           <template v-if="currentStep === 0">
             <FormHeader
@@ -187,7 +188,7 @@ const resolveAccountNumber = async () => {
               <div class="space-y-3">
                 <RouterLink
                   :to="{ name: 'awaiting.list' }"
-                  class="flex items-center justify-center border border-1E1D24 text-1E1D24 rounded text-base font-medium h-12"
+                  class="flex items-center justify-center border border-orange text-transparent bg-clip-text bg-gradient-to-b from-orange to-red rounded-lg text-base font-medium h-12"
                 >
                   <span>I don’t have an invitation</span>
                 </RouterLink>
@@ -195,9 +196,9 @@ const resolveAccountNumber = async () => {
 
                 <BaseButton
                   :is-loading="isSubmitting"
-                  class="bg-1E1D24 text-white rounded w-full"
+                  class="bg-gradient-to-br from-orange to-red text-white rounded-lg w-full font-medium text-sm"
                 >
-                  Continue
+                  Get Started
                 </BaseButton>
               </div>
               <Spacer size="8" />
@@ -205,7 +206,7 @@ const resolveAccountNumber = async () => {
                 Already have an account?
                 <RouterLink
                   :to="{ name: 'login' }"
-                  class="text-1E1D24 font-medium"
+                  class="text-transparent bg-clip-text bg-gradient-to-b from-orange to-red underline font-medium"
                 >
                   Login
                 </RouterLink>
@@ -219,10 +220,10 @@ const resolveAccountNumber = async () => {
             />
             <Spacer size="8" />
             <div class="space-y-2">
-              <div class="w-full h-1 rounded-[10px] bg-#D5D5D5 relative">
-                <div class="w-2/4 absolute inset-y-0 bg-1E1D24 rounded-[10px]" />
+              <div class="w-full h-1 rounded-[10px] bg-#D5D8DD relative">
+                <div class="w-2/4 absolute inset-y-0 bg-gradient-to-r from-orange to-red rounded-[10px]" />
               </div>
-              <p class="text-1E1D24">
+              <p class="">
                 Personal Information: 1/2
               </p>
             </div>
@@ -235,16 +236,16 @@ const resolveAccountNumber = async () => {
                   name="first_name"
                   label="First Name"
                   type="text"
-                  class="rounded border-beerus focus:border-beerus cursor-not-allowed"
+                  class="rounded-lg border-#DCDCE4 focus:border-#DCDCE4 cursor-not-allowed"
                   :error="errors.first_name"
                 />
                 <!-- Last name -->
                 <BaseInput
-                  readonly="readonly"
+                  readonly
                   name="last_name"
                   label="Last Name"
                   type="text"
-                  class="rounded border border-beerus focus:border-beerus cursor-not-allowed"
+                  class="rounded-lg border border-#DCDCE4 focus:border-#DCDCE4 cursor-not-allowed"
                   :error="errors.last_name"
                 />
               </div>
@@ -255,7 +256,7 @@ const resolveAccountNumber = async () => {
                 code="country_code"
                 number="phone_number"
                 :options="genericStore.countries"
-                class="bg-white rounded border border-beerus focus:border-beerus focus:border-beerus"
+                class=""
                 :error="errors.phone_number"
               />
 
@@ -263,29 +264,43 @@ const resolveAccountNumber = async () => {
                 name="email"
                 type="email"
                 label="Email Address"
-                class="rounded border-beerus focus:border-beerus w-full"
+                class="rounded-lg border-#DCDCE4 focus:border-#DCDCE4 w-full"
                 aria-autocomplete="inline"
                 autofocus
                 :error="errors.email"
-                readonly="readonly"
               />
-              <BaseInput
-                name="password"
-                type="password"
-                label="Password"
-                :obscure="true"
-                class="rounded border-beerus focus:border-beerus"
-                :error="errors.password"
-              />
+              <div>
+                <BaseInput
+                  name="password"
+                  type="password"
+                  label="Password"
+                  :obscure="true"
+                  class="rounded-lg border-#DCDCE4 focus:border-#DCDCE4"
+                  :error="errors.password"
+                />
+                <p class="text-sm font-medium text-1E1D24">
+                  Must be at least 8 characters
+                </p>
+              </div>
               <div class="pt-5">
                 <BaseButton
-                  class="bg-1E1D24 text-white rounded py-3 w-full"
+                  class="bg-gradient-to-br from-orange to-red text-white rounded-lg py-3 w-full"
                   :is-loading="isSubmitting"
                 >
                   Continue
                 </BaseButton>
               </div>
             </div>
+            <Spacer size="8" />
+            <p class="text-center">
+              Already have an account?
+              <RouterLink
+                :to="{ name: 'login' }"
+                class="text-transparent bg-clip-text bg-gradient-to-b from-orange to-red underline font-medium"
+              >
+                Login
+              </RouterLink>
+            </p>
           </template>
           <template v-if="currentStep === 2">
             <FormHeader
@@ -295,9 +310,9 @@ const resolveAccountNumber = async () => {
             <Spacer size="8" />
             <div class="space-y-2">
               <div class="w-full h-1 rounded-[10px] bg-#D5D5D5 relative">
-                <div class="w-full absolute inset-y-0 bg-1E1D24 rounded-[10px]" />
+                <div class="w-full absolute inset-y-0 bg-gradient-to-r from-orange to-red rounded-[10px]" />
               </div>
-              <p class="text-1E1D24">
+              <p class="">
                 Talent Information: 2/2
               </p>
             </div>
@@ -313,7 +328,7 @@ const resolveAccountNumber = async () => {
                 placeholder="Select Bank"
                 name="code"
                 :searchable="true"
-                class="rounded border border-light-grey focus:border-light-grey"
+                class="rounded-lg border border-light-grey focus:border-light-grey"
                 :error="errors.code"
               />
 
@@ -325,38 +340,56 @@ const resolveAccountNumber = async () => {
                 inputmode="numeric"
                 :disabled="!bankCode"
                 autofocus
-                class="rounded border-beerus focus:border-beerus"
+                class="rounded-lg border-beerus focus:border-beerus"
                 :error="errors.number"
               />
               <p class="font-semibold">
                 {{ accountName }}
               </p>
-
-
-
-
               <div class="pt-5">
                 <BaseButton
-                    v-if="accountName?.length < 1"
+                  v-if="accountName?.length < 1"
                   type="button"
-                  class="bg-1E1D24 text-white rounded py-3 w-full"
+                  class="bg-gradient-to-br from-orange to-red text-white py-3 w-full rounded-lg"
                   :is-loading="verifying"
                   @click.prevent="resolveAccountNumber"
                 >
                   Verify Account Number
                 </BaseButton>
                 <BaseButton
-                    v-else
-                  class="bg-1E1D24 text-white rounded py-3 w-full"
+                  v-else
+                  class="bg-gradient-to-br from-orange to-red text-white py-3 w-full rounded-lg"
                   :is-loading="isSubmitting"
                 >
                   Create Your Account
                 </BaseButton>
               </div>
             </div>
+            <Spacer size="8" />
+            <p class="text-center">
+              Already have an account?
+              <RouterLink
+                :to="{ name: 'login' }"
+                class="text-transparent bg-clip-text bg-gradient-to-br from-orange to-red underline font-medium"
+              >
+                Login
+              </RouterLink>
+            </p>
           </template>
         </form>
+
+        <RouterLink
+          to="/"
+          class="text-orange flex-none"
+        >
+          <img
+            class="w-[6.813rem] bg-cover absolute left-20 top-11"
+            src="@/assets/images/logo_3.png"
+            alt="Corefans"
+          />
+        </RouterLink>
       </div>
     </div>
+    <AuthSideLayout class="order-1 md:order-2" />
   </auth-layout>
 </template>

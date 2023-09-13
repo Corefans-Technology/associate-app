@@ -1,69 +1,137 @@
+
 <template>
   <nav
-    class="h-14 bg-white w-full flex-none flex items-center sticky top-0 z-[60] border-EAECF0 border-b"
+    class="h-[68px] bg-#121216 md:bg-white w-full flex-none flex items-center sticky top-0 z-[60] border-EAECF0 border-b rounded-b-2xl md:rounded-b-none px-6 md:px-10"
   >
     <!-- navigations -->
     <ul
-      class="w-full px-6 md:px-10 xl:px-[4rem] mx-auto flex items-center space-x-8 text-gray-1 font-medium text-base"
+      class="w-full mx-auto flex items-center gap-x-8 text-[#626E8B] font-medium text-base border-t md:border-t-0 border-1E1D24 pt-3 md:pt-0"
     >
-      <!-- logo -->
-      <li class="flex-none">
-        <app-link to="/">
-          <img
-            class="w-24 max-w-sm"
-            src="@/assets/images/logo.png"
-            alt=""
+      <li class="flex-none text-white md:hidden">
+        <Bars3Icon
+          class="w-7 h-7"
+          @click="toggle = !toggle"
+        />
+      </li>
+      <div
+        v-show="toggle"
+        class="bg-#121216 absolute inset-x-0 top-0 h-96 md:hidden z-30"
+      >
+        <ul class="flex flex-col h-full flex-grow pt-4 relative">
+          <li class="flex-none mobile_links">
+            <router-link
+              class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
+              :to="{ name: 'overview' }"
+            >
+              <span>Get Started</span>
+            </router-link>
+          </li>
+          <li class="flex-none mobile_links">
+            <router-link
+              class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
+              :to="{ name: 'wallet' }"
+            >
+              <span>Home</span>
+            </router-link>
+          </li>
+          <li class="flex-none mobile_links">
+            <router-link
+              class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
+              :to="{ name: 'talents.index' }"
+            >
+              <span>Talents</span>
+            </router-link>
+          </li>
+          <li class="mobile_links">
+            <router-link
+              class="flex items-center justify-center uppercase w-full space-x-3 text-white py-3 px-4"
+              :to="{ name: 'settings.profile' }"
+            >
+              <span>Settings</span>
+            </router-link>
+          </li>
+          <li class="mobile_links flex items-end">
+            <button
+              class="flex items-center justify-center uppercase w-full space-x-3 text-white py-[0.5rem] px-[1rem]"
+              href="/settings"
+              @click="logout"
+            >
+              <span>Logout</span>
+            </button>
+          </li>
+
+          <XMarkIcon
+            class="w-5 h-5 absolute left-4 top-7  z-50 text-white"
+            @click="toggle = !toggle"
           />
-        </app-link>
+        </ul>
+      </div>
+      <!-- logo -->
+      <li class="flex-grow">
+        <h3 class="text-base md:text-2xl text-white text-center md:text-left md:text-1E1D24 md:font-bold font-medium font-sans md:font-power uppercase md:capitalize">
+          {{ route.meta.name }}
+        </h3>
       </li>
       <!-- About Us -->
-      <li
+      <!-- <li
         v-show="!isAuthenticated"
         class="flex-none hidden lg:block"
       >
         <app-link to="https://demo.corefans.co/about">
           About Us
         </app-link>
-      </li>
+      </li> -->
       <!-- Explore -->
-      <li
+      <!-- <li
         v-show="!isAuthenticated"
         class="flex-none hidden lg:block"
       >
         <app-link to="https://demo.corefans.co/explore">
           Explore
         </app-link>
-      </li>
-      <li
+      </li> -->
+      <!-- <li
         v-show="!isAuthenticated"
         class="flex-none hidden lg:block"
       >
         <app-link to="https://demo.corefans.co/explore">
           Contact
         </app-link>
-      </li>
+      </li> -->
+      <!-- Start a campaign button -->
+      <!-- <li
+        v-show="!isAuthenticated"
+        class="flex-grow hidden lg:flex items-center justify-end"
+      >
+        <app-link
+          :to="{ name: 'campaigns.create' }"
+          class="bg-gradient-to-r from-orange to-red text-white font-medium text-base h-12 px-4 rounded-lg flex items-center justify-center"
+        >
+          Start a campaign
+        </app-link>
+      </li> -->
       <!-- Log in -->
-      <li
+      <!-- <li
         v-show="!isAuthenticated"
         class="flex-none hidden lg:block"
       >
         <app-link :to="{ name: 'login' }">
           Log in
         </app-link>
-      </li>
+      </li> -->
       <!-- Sign up -->
-      <li
+      <!-- <li
         v-show="!isAuthenticated"
         class="flex-none hidden lg:block"
       >
         <app-link :to="{ name: 'sign.up' }">
           Sign up
         </app-link>
-      </li>
+      </li> -->
 
       <li
         v-if="isAuthenticated"
-        class="flex-grow flex items-center justify-end"
+        class="flex-grow hidden lg:flex items-center justify-end"
       >
         <Popover class="relative">
           <PopoverButton class="focus:outline-none relative">
@@ -151,40 +219,6 @@
                   </router-link>
                 </MenuItem>
               </div>
-              <!--              <div class="px-1 py-1">-->
-              <!--                <MenuItem v-slot="{ active }">-->
-              <!--                  <button-->
-              <!--                      @click="$router.push({ name: 'settings.preference' })"-->
-              <!--                      :class="[-->
-              <!--                  active ? 'bg-violet-500 text-white' : 'text-gray-900',-->
-              <!--                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',-->
-              <!--                ]"-->
-              <!--                  >-->
-              <!--                    <ChevronDownIcon-->
-              <!--                        :active="active"-->
-              <!--                        class="mr-2 h-5 w-5 text-violet-400"-->
-              <!--                        aria-hidden="true"-->
-              <!--                    />-->
-              <!--                    Archive-->
-              <!--                  </button>-->
-              <!--                </MenuItem>-->
-              <!--                <MenuItem v-slot="{ active }">-->
-              <!--                  <button-->
-              <!--                      :class="[-->
-              <!--                  active ? 'bg-violet-500 text-white' : 'text-gray-900',-->
-              <!--                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',-->
-              <!--                ]"-->
-              <!--                  >-->
-              <!--                    <ChevronDownIcon-->
-              <!--                        :active="active"-->
-              <!--                        class="mr-2 h-5 w-5 text-violet-400"-->
-              <!--                        aria-hidden="true"-->
-              <!--                    />-->
-              <!--                    Move-->
-              <!--                  </button>-->
-              <!--                </MenuItem>-->
-              <!--              </div>-->
-
               <div>
                 <MenuItem v-slot="{ active }">
                   <button
@@ -202,81 +236,26 @@
             </MenuItems>
           </transition>
         </Menu>
-        <!--        <Popover class="relative">-->
-        <!--          <PopoverButton class="flex items-center space-x-3 focus:outline-none">-->
-        <!--            <img-->
-        <!--              class="w-[2rem] h-[2rem] rounded-full object-cover"-->
-        <!--              :src="managerStore.data.photo_path"-->
-        <!--              alt=""-->
-        <!--              srcset=""-->
-        <!--            />-->
-        <!--            <div class="text-right">-->
-        <!--              <h3 class="text-sm font-medium text-1E1D24 leading-snug">-->
-        <!--                {{ managerStore.data.first_name }}-->
-        <!--              </h3>-->
-        <!--              <p class="text-xs font-normal text-gray-1">-->
-        <!--                {{ managerStore.data.type }}-->
-        <!--              </p>-->
-        <!--            </div>-->
-        <!--            <ChevronDownIcon-->
-        <!--                :class="open ? '' : 'text-opacity-70'"-->
-        <!--                class="ml-2 h-5 w-5 text-1E1D24 transition duration-150 ease-in-out group-hover:text-opacity-80"-->
-        <!--                aria-hidden="true"-->
-        <!--            />-->
-        <!--          </PopoverButton>-->
-
-        <!--          <PopoverPanel-->
-        <!--            class="absolute right-0 z-50 bg-white rounded w-[10rem] shadow-[0px_2px_20px_rgba(0,0,0,0.13)]"-->
-        <!--          >-->
-        <!--            <ul class="py-[0.625rem]">-->
-        <!--              <li>-->
-        <!--                <RouterLink-->
-        <!--                  class="hover:text-orange text-#1E1D24 flex items-center space-x-2 py-2 px-4 hover:bg-#FFF9F3"-->
-        <!--                  :to="{ name: 'settings.profile' }"-->
-        <!--                >-->
-        <!--                  <Icon name="person" class="" />-->
-        <!--                  <span class="text-sm">Profile</span>-->
-        <!--                </RouterLink>-->
-        <!--              </li>-->
-
-        <!--              <li>-->
-        <!--                <RouterLink-->
-        <!--                  class="hover:text-orange text-#1E1D24 flex items-center space-x-2 py-2 px-4 hover:bg-#FFF9F3"-->
-        <!--                  :to="{ name: 'settings.preference' }"-->
-        <!--                >-->
-        <!--                  <AdjustmentsVerticalIcon class="h-4" />-->
-        <!--                  <span class="text-sm">Preferences</span>-->
-        <!--                </RouterLink>-->
-        <!--              </li>-->
-
-        <!--              <li>-->
-        <!--                <button-->
-        <!--                  @click="logout"-->
-        <!--                  class="hover:text-orange text-#1E1D24 flex items-center space-x-2 py-2 px-4 hover:bg-#FFF9F3"-->
-        <!--                  to="/"-->
-        <!--                >-->
-        <!--                  <ArrowRightOnRectangleIcon class="h-4" />-->
-        <!--                  <span class="text-sm">Log Out</span>-->
-        <!--                </button>-->
-        <!--              </li>-->
-        <!--            </ul>-->
-        <!--          </PopoverPanel>-->
-        <!--        </Popover>-->
       </li>
     </ul>
   </nav>
 </template>
 
 <script setup>
+import { ref} from "vue"
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue"
 import {
   AdjustmentsVerticalIcon,
   ArrowRightOnRectangleIcon,
   ChevronDownIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import Icon from "@/components/Icon.vue";
-import AppLink from "@/components/AppLink.vue";
+// import AppLink from "@/components/AppLink.vue";
+// import { useCreativeStore } from "@/stores/creative";
+import { useRoute } from "vue-router"
 import { useManagerStore } from "@/stores/manager";
 
 const managerStore = useManagerStore();
@@ -284,6 +263,7 @@ const managerStore = useManagerStore();
 function logout() {
   managerStore.logout();
 }
+
 defineProps({
   layout: {
     type: String,
@@ -294,6 +274,24 @@ defineProps({
     default: false,
   },
 });
+const route = useRoute()
+const toggle = ref(false)
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.mobile_links .router-link-active {
+  color: white;
+  /* background: rgba(255, 255, 255, 0.20); */
+  /* border-radius: 4px; */
+  /* @apply bg-gradient-to-br from-orange to-red */
+}
+
+.mobile_links .router-link-exact-active {
+  color: white;
+  /* background: rgba(255, 255, 255, 0.20); */
+  /* border-radius: 4px; */
+  border: none;
+  /* @apply bg-gradient-to-br from-orange to-red */
+  
+}
+</style>

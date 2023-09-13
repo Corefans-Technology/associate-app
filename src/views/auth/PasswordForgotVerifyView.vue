@@ -5,29 +5,30 @@
             for instructions on how to reset your password`"
   />
   <form
-    class="mt-8"
+    class="mt-5"
     @submit.prevent="verifyToken"
   >
     <!-- Verification Code -->
 
     <BaseOtpInput
       name="pin"
-      label="Verification Code"
       class="space-x-3"
       :error="errors.pin"
     />
     <div class="mt-5">
       <BaseButton
-        class="bg-1E1D24 text-white rounded w-72 max-w-full"
+        class="bg-gradient-to-br from-orange to-red text-white rounded-lg w-full md:w-72 max-w-full"
         :is-loading="isSubmitting"
       >
         Proceed
       </BaseButton>
     </div>
   </form>
-  <div class="mt-3 space-x flex items-center w-72">
-    <p>Don’t get any mail?</p>
-    <BaseButton class="text-1E1D24 font-medium">
+  <div class="mt-3 space-x-2 flex items-center md:justify-start justify-center w-full md:w-72 text-orange text-sm mx-auto">
+    <p class="text-black">
+      Don’t get any mail?
+    </p>
+    <BaseButton>
       Resend Mail
     </BaseButton>
   </div>
@@ -66,6 +67,7 @@ const verifyToken = handleSubmit( async (values, actions) => {
   await managerStore
     .verifyToken(values)
     .then((response) => {
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "success",
         title: response.data,

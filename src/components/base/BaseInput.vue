@@ -10,8 +10,7 @@ import UniqueID from "@/composables/unique_id";
 import {useField} from "vee-validate";
 import {toRef,  ref, computed } from "vue";
 import BaseError from "@/components/base/BaseError.vue";
-
-const emit = defineEmits(["changeAndBlur"])
+import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline"
 
 const props = defineProps({
   name: {
@@ -32,10 +31,6 @@ const props = defineProps({
   },
   desc: {
     type: String,
-    default: "",
-  },
-  modelValue: {
-    type: [String, Number],
     default: "",
   },
   error: {
@@ -84,7 +79,7 @@ const countText = computed(() => {
   <div class="relative w-full">
     <label
       :for="uuid"
-      class="text-black text-base"
+      class="text-black text-base font-medium"
     >{{ label }}</label>
     <input
       v-bind="$attrs"
@@ -96,11 +91,11 @@ const countText = computed(() => {
       :autocomplete="obscure ? 'off' : 'on'"
       :maxlength="maxlength"
       :readonly="disabled"
-      class="placeholder:text-98A2B3 placeholder:text-sm placeholder:text-left placeholder:font-normal focus:outline-none w-full text-sm text-1E1D24 focus:ring-0 h-12 px-4 aria-[invalid=true]:border-error mt-2.5 mb-1"
+      class="placeholder:text-98A2B3 placeholder:text-sm placeholder:text-left placeholder:font-normal focus:outline-none w-full text-sm text-1E1D24 focus:ring-0 h-12 px-4 aria-[invalid=true]:border-error mt-2.5 mb-1 border-d font-medium"
     />
     <div
       v-if="desc"
-      class="text-light-grey-2 text-xs flex items-center justify-between"
+      class="text-#7D7C80 text-xs flex items-center justify-between"
     >
       <span v-text="desc" />
       <span
@@ -114,9 +109,17 @@ const countText = computed(() => {
     />
     <span
       v-if="obscure"
-      class="absolute text-sm text-1E1D24 right-5 top-12 mb-10 cursor-pointer"
+      class="absolute text-sm text-black right-5 top-12 mb-10 cursor-pointer"
       @click="togglePasswordAction"
-      v-text="togglePassword ? 'Hide' : 'Show'"
-    />
+    >
+      <EyeIcon
+        v-if="togglePassword"
+        class="w-5 h-6"
+      />
+      <EyeSlashIcon
+        v-else
+        class="w-5 h-6"
+      />
+    </span>
   </div>
 </template>
