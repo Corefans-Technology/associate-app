@@ -84,11 +84,17 @@ const router = createRouter({
           path: "withdraw",
           name: "wallet.withdraw",
           component: WalletWithdrawView,
+          meta: {
+            name: "Withdraw"
+          },
         },
         {
           path: "withdraw/acknowledge",
           name: "wallet.withdraw.acknowledge",
           component: WalletWithdrawSuccessView,
+          meta: {
+            name: "Withdraw"
+          },
         },
       ],
     },
