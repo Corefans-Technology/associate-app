@@ -2,14 +2,17 @@
   <TabPanel>
     <form @submit="submit">
       <div class="space-y-20 border-b pb-14">
-        <div class="flex space-x-20">
-          <div class="max-w-sm w-full space-y-3">
-            <h3 class="text-xl font-medium">
+        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
+          <div class="max-w-[20.25rem] w-full space-y-3">
+            <h3 class="text-xl font-bold font-power">
               Security
             </h3>
+            <p class="text-sm text-[#7D7C80]">
+              Secure your account with a strong password.
+            </p>
           </div>
 
-          <div class="max-w-sm w-full space-y-5">
+          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
             <!-- Old Password -->
             <BaseInput
               label="Current Password"
@@ -52,9 +55,9 @@
       <div class="flex items-center justify-end py-10">
         <BaseButton
           :is-loading="isSubmitting"
-          class="rounded bg-1E1D24 text-white text-sm w-32"
+          class="px-4 py-3 rounded-lg bg-gradient-to-br from-orange to-red text-white text-[0.8125rem] w-fit h-11"
         >
-          Save
+          Save Changes
         </BaseButton>
       </div>
     </form>

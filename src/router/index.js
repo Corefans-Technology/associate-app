@@ -5,7 +5,7 @@ import SettingProfileView from "../views/settings/ProfileView.vue";
 import SettingSecurityView from "../views/settings/SecurityView.vue";
 import SettingFundingAccountView from "../views/settings/FundingAccountView.vue";
 import SettingFanLinkView from "../views/settings/FanLinkView.vue";
-import SettingPreferenceView from "../views/settings/PreferenceView.vue";
+import SettingPreferenceIndexView from "../views/settings/preference/IndexView.vue";
 import WalletIndexView from "../views/wallet/IndexView.vue";
 import WalletWithdrawView from "../views/wallet/WithdrawView.vue";
 import WalletWithdrawSuccessView from "../views/wallet/WithdrawSuccessView.vue";
@@ -123,7 +123,7 @@ const router = createRouter({
         {
           path: "preferences",
           name: "settings.preference",
-          component: SettingPreferenceView,
+          component: SettingPreferenceIndexView,
         },
       ],
     },

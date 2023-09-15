@@ -102,7 +102,7 @@ const uuid = UniqueID().getID();
     <label
       v-if="label"
       :for="uuid"
-      class="text-black text-base"
+      class="text-1E1D24 text-base font-medium"
     >{{ label }}</label>
     <Multiselect
       v-bind="$attrs"

@@ -1,11 +1,21 @@
 
 <template>
+  <button
+    class="flex-none relative mx-auto bg-#121216 w-full p-4 md:hidden"
+    @click="router.push('/')"
+  >
+    <img
+      src="@/assets/images/logo_3.png"
+      alt=""
+      class="mx-auto h-7"
+    />
+  </button>
   <nav
-    class="h-[68px] bg-#121216 md:bg-white w-full flex-none flex items-center sticky top-0 z-[60] border-EAECF0 border-b rounded-b-2xl md:rounded-b-none px-6 md:px-10"
+    class="h-[65px] md:h-[55px] bg-#121216 md:bg-white w-full flex-none flex  sticky top-0 z-[60] border-EAECF0 border-b rounded-b-2xl md:rounded-b-none px-6 md:px-10"
   >
     <!-- navigations -->
     <ul
-      class="w-full mx-auto flex items-center gap-x-8 text-[#626E8B] font-medium text-base border-t md:border-t-0 border-1E1D24 pt-3 md:pt-0"
+      class="w-full mx-auto flex gap-x-8 text-[#626E8B] items-center md:items-start font-medium text-base border-t md:border-t-0 border-1E1D24"
     >
       <li class="flex-none text-white md:hidden">
         <Bars3Icon
@@ -37,7 +47,7 @@
           <li class="flex-none mobile_links">
             <router-link
               class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
-              :to="{ name: 'talents.index' }"
+              :to="{ name: 'talents.index', query: { tab: 'All' } }"
             >
               <span>Talents</span>
             </router-link>
@@ -129,25 +139,11 @@
         </app-link>
       </li> -->
 
-      <li
-        v-if="isAuthenticated"
-        class="flex-grow hidden lg:flex items-center justify-end"
-      >
-        <Popover class="relative">
-          <PopoverButton class="focus:outline-none relative">
-            <Icon name="notification" />
-            <div
-              class="absolute right-0 top-0 rounded-full w-[0.5rem] h-[0.5rem] bg-[#00A438]"
-            />
-          </PopoverButton>
-
-          <PopoverPanel class="absolute z-50 bg-white" />
-        </Popover>
-      </li>
+      
 
       <li
         v-if="isAuthenticated"
-        class="flex-none hidden lg:block"
+        class="flex-none flex items-center space-x-4 md:h-full"
       >
         <Menu
           as="div"
@@ -158,22 +154,22 @@
               class="flex items-center space-x-3 focus:outline-none"
             >
               <img
-                class="w-[2rem] h-[2rem] rounded-full object-cover"
+                class="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
                 :src="managerStore.data.photo_path"
                 alt=""
                 srcset=""
               />
-              <div class="text-right">
-                <h3 class="text-sm font-medium text-1E1D24 leading-snug">
+              <div class="text-left space-y-1 hidden md:block">
+                <p class="text-xs font-normal text-gray-1 text-1E1D24">
+                  {{ managerStore.data.type ? managerStore.data.type : 'Associate' }} 
+                </p>
+                <h3 class="text-sm font-semibold text-#7D7C80 leading-snug">
                   {{ managerStore.data.first_name }}
                 </h3>
-                <p class="text-xs font-normal text-gray-1">
-                  {{ managerStore.data.type }}
-                </p>
               </div>
               <ChevronDownIcon
                 :class="open ? '' : 'text-opacity-70'"
-                class="ml-2 h-5 w-5 text-1E1D24 transition duration-150 ease-in-out group-hover:text-opacity-80"
+                class="ml-2 h-3 w-3 text-1E1D24 transition duration-150 ease-in-out group-hover:text-opacity-80 hidden md:block"
                 aria-hidden="true"
               />
             </MenuButton>
@@ -236,7 +232,27 @@
             </MenuItems>
           </transition>
         </Menu>
+
+        <div class="h-6 my-auto w-px bg-#E9E8E9 hidden md:block" />
+
+        <Popover class="relative hidden md:inline-block">
+          <PopoverButton class="focus:outline-none relative ">
+            <Icon name="notification" />
+            <!-- <div
+              class="absolute right-0 top-0 rounded-full w-[0.5rem] h-[0.5rem] bg-[#00A438]"
+            /> -->
+          </PopoverButton>
+
+          <PopoverPanel class="absolute z-50 bg-white" />
+        </Popover>
       </li>
+
+      <!-- <li
+        v-if="isAuthenticated"
+        class="flex-none hidden lg:flex items-center justify-end"
+      >
+        
+      </li> -->
     </ul>
   </nav>
 </template>
@@ -257,6 +273,8 @@ import Icon from "@/components/Icon.vue";
 // import { useCreativeStore } from "@/stores/creative";
 import { useRoute } from "vue-router"
 import { useManagerStore } from "@/stores/manager";
+import { useRouter } from "vue-router"
+const router = useRouter()
 
 const managerStore = useManagerStore();
 

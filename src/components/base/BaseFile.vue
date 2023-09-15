@@ -103,7 +103,7 @@ const togglePasswordAction = () => {
 
 <template>
   <div class="relative mt-2.5 mb-1">
-    <label :for="uuid" class="text-black text-base">{{ label }}</label>
+    <label :for="uuid" class="text-black text-base font-medium">{{ label }}</label>
     <div :class="`${width} ${height} border border-[#D9D9D9] rounded-[0.8rem] mt-2.5 mb-1`">
       <div v-if="!value" class="w-full h-full flex flex-col items-center justify-center space-y-2">
       <span class="text-light-grey-2 text-sm flex flex-col items-center justify-center">
@@ -129,7 +129,7 @@ const togglePasswordAction = () => {
           @change="onChangeFile"
       />
     </div>
-        <div v-if="desc" class="text-light-grey-2 text-xs flex items-center justify-between">
+        <div v-if="desc" class="text-#7D7C80 text-xs flex items-center justify-between">
           <span v-text="desc"></span>
         </div>
         <BaseError :message="error" :id="uuid"/>

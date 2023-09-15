@@ -8,7 +8,7 @@ export function useCurrency(amount, type = "NGN", locale = "en-NG", display = "c
   result.value = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: type,
-    currencyDisplay: display,
+    // currencyDisplay: display,
     minimumFractionDigits: 2,
   }).format(parseFloat(amt) / 100);
 

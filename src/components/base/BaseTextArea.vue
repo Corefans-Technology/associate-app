@@ -1,6 +1,6 @@
 <script>
 export default {
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -9,7 +9,7 @@ export default {
 import UniqueID from "@/composables/unique_id";
 import {useField} from "vee-validate";
 import {toRef, ref, computed} from "vue";
-import TextArea from "@/components/TextArea.vue";
+// import TextArea from "@/components/TextArea.vue";
 import BaseError from "@/components/base/BaseError.vue";
 
 const props = defineProps({
@@ -55,8 +55,8 @@ const props = defineProps({
   },
 });
 
-const input = ref('');
-const nameRef = toRef(props, 'name');
+const input = ref("");
+const nameRef = toRef(props, "name");
 const { value } = useField(nameRef);
 
 const countText = computed(() => {
@@ -69,22 +69,34 @@ const uuid = UniqueID().getID();
 </script>
 
 <template>
-<div class="relative">
-  <label :for="uuid" class="text-black text-base">{{ label }}</label>
-  <textarea
+  <div class="relative">
+    <label
+      :for="uuid"
+      class="text-1E1D24 text-base font-medium"
+    >{{ label }}</label>
+    <textarea
       v-bind="$attrs"
+      :id="uuid"
+      ref="input"
       v-model="value"
       :aria-describedby="error ? `${uuid}-error` : null"
       :aria-invalid="error ? true : null"
-      :id="uuid"
-      ref="input"
       :maxlength="maxlength"
       class="placeholder:text-98A2B3 placeholder:text-sm placeholder:text-left placeholder:font-normal border focus:outline-none w-full text-sm text-1E1D24 focus:ring-0 px-4 aria-[invalid=true]:border-error mt-2.5 mb-1"
-  ></textarea>
-  <div v-if="desc" class="text-light-grey-2 text-xs flex items-center justify-between">
-    <span v-text="desc"></span>
-    <span v-if="canCountText" v-text="countText"></span>
+    />
+    <div
+      v-if="desc"
+      class="text-light-grey-2 text-xs flex items-center justify-between"
+    >
+      <span v-text="desc" />
+      <span
+        v-if="canCountText"
+        v-text="countText"
+      />
+    </div>
+    <BaseError
+      :id="uuid"
+      :message="error"
+    />
   </div>
-  <BaseError :message="error" :id="uuid"/>
-</div>
 </template>

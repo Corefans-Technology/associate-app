@@ -10,9 +10,27 @@
         @is-finished="tableLoadingFinish"
     >
       <template v-slot:status="data">
-        <BaseButton :is-loading="loading" type='button' @click="revokeInvite(data.value.id)" class='revoke-invite text-red bg-red bg-opacity-10 text-xs max-h-10 rounded-full'>
-          Revoke invite
-          </BaseButton>
+        <p class="bg-gradient-to-br from-orange to-red p-px rounded-lg w-fit ">
+          <BaseButton type='button' @click="open(data.value.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8'>
+          <span class="flex items-center space-x-1">
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.4749 11.6819L4.81808 6.02502C4.6248 5.83174 4.6248 5.51118 4.81808 5.31791C5.01135 5.12463 5.33191 5.12463 5.52518 5.31791L11.182 10.9748C11.3753 11.168 11.3753 11.4886 11.182 11.6819C10.9888 11.8751 10.6682 11.8751 10.4749 11.6819Z" fill="url(#paint0_linear_3424_6552)"/>
+              <path d="M4.81796 11.6819C4.62469 11.4886 4.62469 11.168 4.81796 10.9748L10.4748 5.31791C10.6681 5.12463 10.9886 5.12463 11.1819 5.31791C11.3752 5.51118 11.3752 5.83174 11.1819 6.02502L5.52507 11.6819C5.33179 11.8751 5.01124 11.8751 4.81796 11.6819Z" fill="url(#paint1_linear_3424_6552)"/>
+              <defs>
+              <linearGradient id="paint0_linear_3424_6552" x1="5.17163" y1="4.96436" x2="3.92988" y2="6.51654" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F18B1B"/>
+              <stop offset="1" stop-color="#E52053"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear_3424_6552" x1="10.8284" y1="4.96436" x2="12.0701" y2="6.51654" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F18B1B"/>
+              <stop offset="1" stop-color="#E52053"/>
+              </linearGradient>
+              </defs>
+            </svg>
+            <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">Revoke invite</span>
+          </span>
+        </BaseButton>
+        </p>
       </template>
     </table-lite>
   </div>
@@ -22,7 +40,7 @@
   >
     <div class="flex flex-col items-center justify-center space-y-3">
       <Icon name="empty" />
-      <h4 class="text-xl text-#1D2939 text-center">
+      <h4 class="text-xl text-#1D2939 text-center font-bold font-power">
         No Talents Yet
       </h4>
       <p
@@ -32,59 +50,130 @@
       </p>
       <router-link  :to="{ name: 'talents.send.invite' }">
         <div
-            class="text-1E1D24 text-[0.8125rem] flex items-center justify-center space-x-2 mx-auto text-sm"
-        >
-          <PlusIcon class="h-4" />
-          <span>Invite Talent</span>
-        </div>
+        class="text-1E1D24 text-[0.8125rem] flex items-center justify-center space-x-2 mx-auto text-sm"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M12.5 8.49992H4.5" stroke="url(#paint0_linear_3424_695)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.50187 12.5V4.5" stroke="url(#paint1_linear_3424_695)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+          <linearGradient id="paint0_linear_3424_695" x1="4.5" y1="7.68359" x2="5.13974" y2="10.8183" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#F18B1B"/>
+          <stop offset="1" stop-color="#E52053"/>
+          </linearGradient>
+          <linearGradient id="paint1_linear_3424_695" x1="7.68555" y1="4.5" x2="10.8203" y2="5.13974" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#F18B1B"/>
+          <stop offset="1" stop-color="#E52053"/>
+          </linearGradient>
+          </defs>
+        </svg>
+        <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">Invite Talent</span>
+      </div>
       </router-link>
     </div>
   </div>
+
+  <Modal
+    :is-open="revokeModal"
+    @close="revokeModal = !revokeModal"
+  >
+    <form
+      class="w-full flex justify-center"
+      @submit.prevent="onSubmit"
+    >
+      <DialogPanel
+        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-10 text-left shadow-xl transition-all space-y-4"
+      >
+        <div class="mx-auto flex justify-center">
+          <!-- <Icon name="success" /> -->
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="48" height="48" rx="24" fill="#FEE4E2"/>
+            <path d="M31.367 32.4717L22.5281 23.6329C22.2261 23.3309 22.2261 22.83 22.5281 22.528C22.8301 22.226 23.331 22.226 23.633 22.528L32.4718 31.3668C32.7738 31.6688 32.7738 32.1697 32.4718 32.4717C32.1698 32.7737 31.669 32.7737 31.367 32.4717Z" fill="#F51211"/>
+            <path d="M22.5282 32.4717C22.2262 32.1697 22.2262 31.6688 22.5282 31.3668L31.367 22.528C31.669 22.226 32.1699 22.226 32.4719 22.528C32.7739 22.83 32.7739 23.3309 32.4719 23.6329L23.633 32.4717C23.331 32.7737 22.8302 32.7737 22.5282 32.4717Z" fill="#F51211"/>
+            <rect x="4" y="4" width="48" height="48" rx="24" stroke="#FEF3F2" stroke-width="8"/>
+          </svg>
+
+        </div>
+
+        <div class="space-y-1">
+          <h1 class="text-2xl font-bold text-black text-center font-power">
+            Revoke Invite ?
+          </h1>
+          <p class="text-434345 text-lg font-light text-center">
+            Are you sure you want to revoke this talent invite? This action cannot be undone.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center space-x-4 pt-4">
+          <BaseButton
+            type="button"
+            @click.prevent="revokeModal = !revokeModal"
+            class="tex-#7D7C80 border-#7D7C80 border rounded-lg flex-1"
+          >
+            Cancel
+          </BaseButton>
+          <BaseButton
+            :is-loading="loading"
+            type="button"
+            @click.prevent="revokeInvite"
+            class="bg-error text-white rounded text-center font-light flex-1"
+          >
+            <!-- <PaperAirplaneIcon class="h-4 -rotate-45 pb-x" /> -->
+            Yes, Revoke
+          </BaseButton>
+        </div>
+      </DialogPanel>
+    </form>
+  </Modal>
 </template>
 
 <script setup>
-
+import {
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/vue";
+import Modal from "@/components/ModalComponent.vue";
 import {ref, reactive} from "vue";
 import TableLite from "@/components/TableLite.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
+import Icon from "@/components/Icon.vue";
 import { useTalentStore } from "@/stores/talent";
 import {storeToRefs} from "pinia";
 
 const talentStore = useTalentStore();
 await talentStore.fetchInvitee();
 let loading = ref(false);
+let revokeModal = ref(false);
+let selectedId = ref(null);
 
 const { inviteeList } = storeToRefs(talentStore)
 
-const revokeInvite = async (id) => {
+
+
+const revokeInvite = async () => {
   loading.value = true;
-  await talentStore.revokeInvite(id).then(() => {
+  await talentStore.revokeInvite(selectedId.value).then(() => {
     Toast.fire({
       icon: "success",
       title: "Invite Revoke",
     });
   });
   loading.value = false;
+  selectedId.value = true
+  revokeModal.value = !revokeModal.value
 }
 
 const table = reactive({
   isLoading: false,
   columns: [
     {
-      label: "First Name",
-      field: "first_name",
+      label: "Name",
+      field: "name",
       // width: "3%",
       sortable: true,
       isKey: true,
     },
     {
-      label: "Last Name",
-      field: "last_name",
-      // width: "10%",
-      sortable: true,
-    },
-    {
-      label: "Email Address",
+      label: "Email",
       field: "email",
       // width: "15%",
     },
@@ -94,7 +183,12 @@ const table = reactive({
       // width: "15%",
     },
     {
-      label: "Date",
+      label: "Creator Type",
+      field: "type",
+      // width: "15%",
+    },
+    {
+      label: "Creator Type",
       field: "invite_date",
       // width: "15%",
       sortable: true,
@@ -140,7 +234,16 @@ const table = reactive({
     //   sortable: true,
     // },
   ],
-  rows: inviteeList.value?.data,
+  rows: inviteeList.value?.data.map( (item) => {
+    return {
+      accept_invite: item?.accept_invite,
+      email: item?.email,
+      name: `${item?.first_name} ${item?.last_name}`,
+      id: item?.id,
+      invite_date: item.invite_date,
+      phone_number: item.phone_number
+    }
+  }),
   totalRecordCount: inviteeList.value?.data?.length,
   sortable: {
     order: "created_at",
@@ -158,6 +261,11 @@ const tableLoadingFinish = (elements) => {
     }
   });
 };
+
+const open = (id) => {
+  revokeModal.value = !revokeModal.value
+  selectedId.value = id
+}
 
 
 </script>
@@ -243,9 +351,15 @@ export default {
 }
 
 ::v-deep(.vtl-tbody-td div) {
-  font-weight: normal !important;
+  font-weight: 500 !important;
   font-size: 14px;
-  padding: 6px 0px;
+  padding: 0px 0px;
+}
+
+::v-deep(.vtl-tbody-td div) {
+  font-weight: 500 !important;
+  font-size: 14px;
+  padding: 0px 0px;
 }
 
 ::v-deep(.vtl-paging-change-div) {

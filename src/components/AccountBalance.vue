@@ -1,5 +1,5 @@
 <template>
-  <h3 class="text-[#333333] text-[2rem] font-bold">
+  <h3 class="text-[#333333] text-[1.7rem] font-bold">
     {{
 
       useCurrency(walletStore.balance)

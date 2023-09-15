@@ -8,10 +8,10 @@ export default {
 
 import UniqueID from "@/composables/unique_id";
 import {useField} from "vee-validate";
-import {toRef,  ref, computed } from "vue";
+import { toRef } from "vue";
 import BaseError from "@/components/base/BaseError.vue";
 import VOtpInput from "vue3-otp-input";
-const emit = defineEmits(["changeAndBlur"])
+const emit = defineEmits(["changeAndBlur", "isComplete"])
 
 const props = defineProps({
   name: {
@@ -46,6 +46,11 @@ const props = defineProps({
     type: String,
     default: "otp-input-reset-email w-12 h-12 rounded focus:outline-none mt-2.5 mb-1",
   },
+  // eslint-disable-next-line vue/require-prop-types
+  // isWithdraw: {
+  //   type: Boolean,
+  //   default: false,
+  // },
   maxlength: {
     type: String,
     default: "60",
@@ -60,8 +65,8 @@ const props = defineProps({
   },
 });
 
-const input = ref("");
-const togglePassword = ref(false);
+// const input = ref("");
+// const togglePassword = ref(false);
 const pinRef = toRef(props, "name");
 const { value: pin } = useField(pinRef);
 
@@ -69,11 +74,13 @@ const uuid = UniqueID().getID();
 
 
 const handleOnChange = (value) => {
+  // eslint-disable-next-line no-console
   console.log("OTP changed: ", value);
 };
 
 const handleOnComplete = (value) => {
   pin.value = value;
+  emit("isComplete")
   // console.log("complete: ", value);
 };
 

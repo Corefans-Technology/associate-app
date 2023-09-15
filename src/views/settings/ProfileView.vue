@@ -1,21 +1,19 @@
 <template>
-  <TabPanel>
+  <TabPanel class="">
     <form @submit="submit">
-      <div class="space-y-20 border-b pb-8">
-        <div class="flex space-x-20">
-          <div class="max-w-md w-full space-y-3">
-            <h3 class="text-xl font-medium">
+      <div class="space-y-12 border-b pb-14">
+        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
+          <div class="max-w-[20.25rem] w-full space-y-3">
+            <h3 class="text-xl font-bold font-power">
               Profile
             </h3>
-            <p class="text-sm text-[#98A2B3]">
-              Make a good first impression: introduce your campaign
-              objectives and entice people to learn more. This basic
-              information will represent your campaign on your campaign
-              page, on your campaign card, and in searches.
+            <p class="text-sm text-[#7D7C80]">
+              Customize your preferences, Personalize your experience and Manage your account settings
             </p>
           </div>
 
-          <div class="max-w-md w-full space-y-[1.2rem]">
+          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+
             <div class="flex space-x-5">
               <!-- First name -->
               <BaseInput
@@ -23,7 +21,7 @@
                 name="first_name"
                 type="text"
                 autofocus
-                class="rounded border-light-grey focus:border-light-grey"
+                class="rounded-lg border-light-grey focus:border-light-grey"
                 :error="errors.first_name"
               />
               <!-- Last name -->
@@ -32,7 +30,7 @@
                 name="last_name"
                 type="text"
                 autofocus
-                class="rounded border-light-grey focus:border-light-grey"
+                class="rounded-lg border-light-grey focus:border-light-grey"
                 :error="errors.last_name"
               />
             </div>
@@ -44,7 +42,7 @@
               type="email"
               autofocus
               readonly
-              class="rounded border-light-grey focus:border-light-grey"
+              class="rounded-lg border-light-grey focus:border-light-grey"
               :error="errors.email"
             />
 
@@ -54,38 +52,42 @@
               name="phone_number"
               type="phone"
               autofocus
-              class="rounded border border-light-grey focus:border-light-grey"
+              class="rounded-lg border border-light-grey focus:border-light-grey"
               :error="errors.phone_number"
             />
           </div>
         </div>
 
-        <div class="flex space-x-20">
-          <div class="max-w-md w-full space-y-3">
-            <h3 class="text-xl font-medium">
+        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
+          <div class="max-w-[20.25rem] w-full space-y-3">
+            <h3 class="text-xl font-bold font-power">
               Profile Photo
             </h3>
+            <p class="text-sm text-[#7D7C80]">
+              Make your mark with a picture that reflects your identity. Upload, change, or update your profile photo here.
+            </p>
           </div>
 
-          <div class="max-w-fit w-full space-y-[1rem]">
+          <div class="max-w-[31.9375rem] w-full space-y-[1rem]">
             <!-- photo -->
             <BaseFile
-              label="Your photo"
+              label="Profile Photo"
               name="photo"
-              width="w-[15.625rem]"
+              width="w-full md:w-[15.625rem]"
               height="h-[15.625rem]"
               :error="errors.photo"
+              desc="Upload a square Profile Image"
             />
           </div>
         </div>
       </div>
 
-      <div class="flex items-center justify-end pt-8">
+      <div class="flex items-center justify-end py-10">
         <BaseButton
-          :is-loading="isSubmitting"
-          class="rounded bg-1E1D24 text-white text-sm w-32"
+          :is-loading="loading"
+          class="px-4 py-3 rounded-lg bg-gradient-to-br from-orange to-red text-white text-[0.8125rem] w-fit h-11"
         >
-          Save
+          Save Changes
         </BaseButton>
       </div>
     </form>
@@ -101,7 +103,8 @@ import { useForm } from "vee-validate";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseFile from "@/components/base/BaseFile.vue";
-
+// import BaseTextArea from "@/components/base/BaseTextArea.vue";
+// import BaseSelect from "@/components/base/BaseSelect.vue";
 const managerStore = useManagerStore();
 managerStore.profile();
 
@@ -114,6 +117,8 @@ const schema = computed(() => {
     last_name: string().required().label("Last Name"),
     email: string().email().label("Email Address"),
     phone_number: string().required().label("Phone Number"),
+    // bio: string().required().label("Bio").typeError("Please say something about yourself"),
+    // genres: string().required().label("Genres"),
     photo: mixed().label("Photo"),
   })
 });

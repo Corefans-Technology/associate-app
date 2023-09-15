@@ -1,104 +1,136 @@
 <template>
-  <div class="flex items-center space-x-4">
-    <h2 class="text-2xl font-medium text-black flex-none pr-[2rem]">
+  <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+    <h2 class="text-xl font-bold font-power text-1E1D24 flex-none pr-[2rem]">
       Transactions
     </h2>
 
     <label class="relative block max-w-[20.5rem] w-full flex-none">
       <span class="sr-only">Search</span>
       <span
-          class="absolute inset-y-0 left-0 flex items-center px-[0.8125rem]"
+        class="absolute inset-y-0 left-0 flex items-center px-[0.8125rem]"
       >
-            <Icon name="search" />
-          </span>
+        <Icon name="search" />
+      </span>
       <input
-          class="placeholder:text-[#98A2B3] placeholder:text-[13px] placeholder:text-left block bg-white w-full border border-[#EDEDED] rounded py-2 pl-10 pr-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm placeholder:font-normal"
-          placeholder="Find Transactions"
-          type="text"
-          name="search"
+        class="placeholder:text-[#98A2B3] placeholder:text-[13px] placeholder:text-left block bg-white w-full border border-[#EDEDED] rounded py-2 pl-10 pr-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm placeholder:font-normal"
+        placeholder="Find Transactions"
+        type="text"
+        name="search"
       />
     </label>
 
-    <div class="flex-grow flex items-center justify-end">
-      <Popover class="relative">
-        <PopoverButton
-            class="focus:outline-none relative text-[0.8125rem] h-[44px] px-4 rounded flex items-center justify-center space-x-2 border border-[#F2F4F7]"
-        >
-          <Icon name="filter" />
-          <span>Filter</span>
-        </PopoverButton>
+    <!-- <div class="flex-grow flex items-center justify-end">
+      <Popover class="relative hidden md:block">
+        <div class="bg-gradient-to-tr from-orange to-red p-px rounded-lg h-[37px]">
+          <div class="bg-white rounded-lg h-full">
+            <PopoverButton
+              class="focus:outline-none relative text-[0.8125rem] px-4 rounded-lg flex items-center justify-center space-x-2 border border-[#F2F4F7] text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium h-full"
+            >
+              <Icon name="filter" />
+              <span>Filter</span>
+            </PopoverButton>
+          </div>
+        </div>
 
         <PopoverPanel class="absolute z-50 bg-white" />
       </Popover>
-    </div>
+    </div> -->
 
-    <Popover class="relative">
-      <PopoverButton
-          class="focus:outline-none relative text-[0.8125rem] h-[44px] px-4 rounded flex items-center justify-center space-x-2 border border-[#F2F4F7]"
-      >
-        <Icon name="export" />
-        <span>Export</span>
-      </PopoverButton>
+    <!-- <Popover class="relative hidden md:block">
+      <div class="bg-gradient-to-tr from-orange to-red p-px rounded-lg h-[37px]">
+        <div class="bg-white rounded-lg h-full">
+          <PopoverButton
+            class="focus:outline-none relative text-[0.8125rem] px-4 rounded-lg flex items-center justify-center space-x-2 border border-[#F2F4F7] text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium h-full"
+          >
+            <Icon name="export" />
+            <span>Export</span>
+          </PopoverButton>
+        </div>
+      </div>
 
       <PopoverPanel class="absolute z-50 bg-white" />
-    </Popover>
+    </Popover> -->
   </div>
-  <TabGroup>
-    <TabList class="flex space-x-5 900/20 p-1">
-      <Tab
-          v-for="(tab, index) in tabs"
-          :key="index"
-          v-slot="{ selected }"
-          as="template"
-      >
-        <button
-            type="button"
-            :class="[
-                'text-[15px]',
-                'focus:outline-none focus:ring-2 relative',
-                selected ? 'text-[#FF9E0B]' : 'text-[#878787]',
-              ]"
+  <div class="mt-8">
+    <TabGroup>
+      <TabList class="flex space-x-5 900/20 p-1">
+        <Tab
+            v-for="(tab, index) in tabs"
+            :key="index"
+            v-slot="{ selected }"
+            as="div"
+            class="focus:outline-none focus:border-0 focus:ring-0"
         >
-          {{ tab }}
-          <div
-              :class="[selected ? 'opacity-100' : 'opacity-0']"
-              class="absolute -bottom-3 inset-x-0 flex justify-center"
+          <!-- <button
+              type="button"
+              :class="[
+                  'text-[15px]',
+                  'focus:outline-none focus:ring-2 relative',
+                  selected ? 'text-[#FF9E0B]' : 'text-[#878787]',
+                ]"
           >
-            <span class="w-[6px] h-[6px] rounded-full bg-[#FF9E0B]" />
+            {{ tab }}
+            <div
+                :class="[selected ? 'opacity-100' : 'opacity-0']"
+                class="absolute -bottom-3 inset-x-0 flex justify-center"
+            >
+              <span class="w-[6px] h-[6px] rounded-full bg-[#FF9E0B]" />
+            </div>
+          </button> -->
+          <div
+            :class="[selected
+              ? 'pb-[2px] bg-gradient-to-r from-orange to-red'
+              : 'bg-transparent']"
+          >
+            <button
+              type="button"
+              :class="[
+                'text-base',
+                'focus:outline-none focus:ring-0 focus:border-0 relative pb-3 -mb-[0px] bg-white border-0',
+              ]"
+            >
+              <span
+                :class="['text-xs md:text-base', selected
+                  ? ' text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium'
+                  : 'text-[#878787]']"
+              >
+              {{ tab }}
+              </span>
+            </button>
           </div>
-        </button>
-      </Tab>
-    </TabList>
+        </Tab>
+      </TabList>
 
-    <TabPanels class="mt-8">
-      <TabPanel>
-        <!-- :is-loading="table.isLoading" -->
-        <TableLite
-            :has-checkbox="true"
-            :columns="table.columns"
-            :rows="table.rows"
-            :total="table.totalRecordCount"
-            :sortable="table.sortable"
-            :messages="table.messages"
-            @do-search="doSearch"
-            @is-finished="table.isLoading = false"
-        />
-      </TabPanel>
-      <TabPanel>
-        <!-- :is-loading="table.isLoading" -->
-        <TableLite
-            :has-checkbox="true"
-            :columns="table.columns"
-            :rows="table.rows"
-            :total="table.totalRecordCount"
-            :sortable="table.sortable"
-            :messages="table.messages"
-            @do-search="doSearch"
-            @is-finished="table.isLoading = false"
-        />
-      </TabPanel>
-    </TabPanels>
-  </TabGroup>
+      <TabPanels class="mt-8">
+        <TabPanel>
+          <!-- :is-loading="table.isLoading" -->
+          <TableLite
+              :has-checkbox="true"
+              :columns="table.columns"
+              :rows="table.rows"
+              :total="table.totalRecordCount"
+              :sortable="table.sortable"
+              :messages="table.messages"
+              @do-search="doSearch"
+              @is-finished="table.isLoading = false"
+          />
+        </TabPanel>
+        <TabPanel>
+          <!-- :is-loading="table.isLoading" -->
+          <TableLite
+              :has-checkbox="true"
+              :columns="table.columns"
+              :rows="table.rows"
+              :total="table.totalRecordCount"
+              :sortable="table.sortable"
+              :messages="table.messages"
+              @do-search="doSearch"
+              @is-finished="table.isLoading = false"
+          />
+        </TabPanel>
+      </TabPanels>
+    </TabGroup>
+  </div>
 </template>
 
 <script setup>
@@ -139,22 +171,32 @@ const table = reactive({
   isLoading: false,
   columns: [
     {
-      label: "Reference",
-      field: "reference_number",
+      label: "Name",
+      field: "name",
       // width: "3%",
       sortable: true,
       isKey: true,
     },
     {
-      label: "Transact Type",
-      field: "transact_type",
+      label: "Talent",
+      field: "talent",
       // width: "10%",
       sortable: true,
     },
     {
-      label: "Amount",
-      field: "amount",
+      label: "Category",
+      field: "category",
       // width: "15%",
+      sortable: true,
+    },
+    {
+      label: "Goal Amount",
+      field: "goal_amount",
+      sortable: true,
+    },
+    {
+      label: "Amount Raised",
+      field: "goal_amount",
       sortable: true,
     },
     {
@@ -175,7 +217,7 @@ const table = reactive({
       },
     },
     {
-      label: "Date",
+      label: "Created",
       field: "created_at",
       // width: "15%",
       sortable: true,

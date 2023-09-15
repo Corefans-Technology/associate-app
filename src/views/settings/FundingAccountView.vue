@@ -1,29 +1,83 @@
 <template>
   <TabPanel>
-    <Suspense>
-      <template #default>
-        <BankCreativeTable />
-      </template>
-      <template #fallback>
-        <div class="flex flex-col items-center justify-center py-10 pt-40">
-          <LoaderComponent />
-        </div>
-      </template>
-    </Suspense>
+    <form @submit="submit">
+      <div class="space-y-20 border-b pb-14">
+        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
+          <div class="max-w-[20.25rem] w-full space-y-3">
+            <h3 class="text-xl font-bold font-power">
+              Funding Account
+            </h3>
+            <p class="text-sm text-[#7D7C80]">
+              Set up and monitor your funding account for seamless transactions.
+            </p>
+          </div>
+          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+            <!-- Bank -->
 
-    <div class="flex items-center justify-end py-10 pt-40">
-      <div>
+            <small>For testing: select <b>Access bank</b> and use a/c: <b>0690000010</b></small>
+
+            <BaseSelect
+              label="Bank Name"
+              label-prop="name"
+              :options="banks"
+              value-prop="code"
+              track-by="name"
+              placeholder="Select Bank"
+              name="code"
+              :searchable="true"
+              class="rounded border border-light-grey focus:border-light-grey"
+              :error="errors.code"
+            />
+            <div>
+              <!-- Account number -->
+              <BaseInput
+                label="Account number"
+                name="number"
+                type="text"
+                inputmode="numeric"
+                :disabled="!values.code"
+                autofocus
+                class="rounded border-light-grey focus:border-light-grey"
+                :error="errors.number"
+              />
+              <!--                  <LoaderComponent :isLoading="verifying" />-->
+              <p class="font-semibold text-transparent bg-clip-text bg-gradient-to-br from-orange to-red">
+                {{ values.name }}
+              </p>
+            </div>
+
+            <div
+              class="flex items-center space-x-3 justify-end"
+            >
+              <BaseButton
+                v-if="!values.name"
+                :is-loading="isSubmitting"
+                class="rounded-lg bg-gradient-to-br from-orange to-red text-white h-11 "
+              >
+                Validate
+              </BaseButton>
+            <!-- <BaseButton
+              v-if="!!values.name"
+              :is-loading="isSubmitting"
+              class="rounded-lg bg-gradient-to-br from-orange to-red text-white h-11 "
+            >
+              Add Account
+            </BaseButton> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end py-10">
         <BaseButton
-          type="button"
-          class="rounded bg-1E1D24 text-white text-sm w-32"
-          @click="openModal"
+          v-if="!!values.name"
+          :is-loading="isSubmitting"
+          class="px-4 py-3 rounded-lg bg-gradient-to-br from-orange to-red text-white text-[0.8125rem] w-fit h-11"
         >
-          <span>
-            Add account
-          </span>
+          Save Changes
         </BaseButton>
       </div>
-    </div>
+    </form>
   </TabPanel>
 
   <TransitionRoot
@@ -149,21 +203,25 @@ import {
   DialogOverlay,
 } from "@headlessui/vue";
 import { TabPanel } from "@headlessui/vue";
-import {ref, watch, computed} from "vue";
+import {ref, computed} from "vue";
 import BaseSelect from "@/components/base/BaseSelect.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import { useSettingsStore } from "@/stores/settings";
 import {useGenericStore} from "@/stores/generic";
 import {number, object, string} from "yup";
-import {useForm} from "vee-validate";
-import BankCreativeTable from "@/components/tables/BankCreativeTable.vue";
-import LoaderComponent from "@/components/LoaderComponent.vue";
+import {useForm, useResetForm} from "vee-validate";
+import { useRouter } from "vue-router";
+// import BankCreativeTable from "@/components/tables/BankCreativeTable.vue";
+// import LoaderComponent from "@/components/LoaderComponent.vue";
 const settingsStore = useSettingsStore();
+import {storeToRefs} from "pinia";
+const resetForm = useResetForm();
 //settingsStore.getBanks();
 
 const genericStore = useGenericStore();
 genericStore.getBanks()
+const { banks } = storeToRefs(genericStore);
 
 const verifying = ref(false);
 
@@ -172,44 +230,97 @@ const isOpen = ref(false);
 function closeModal() {
   isOpen.value = false;
 }
-function openModal() {
-  isOpen.value = true;
-}
+// function openModal() {
+//   isOpen.value = true;
+// }
 
 
 const bankCode = ref("");
 const accountNumber = ref("");
 const accountName = ref("");
+let currentStep = ref(0);
+const router = useRouter();
+// watch( accountNumber, (value) => {
+//   if (value.length === 10) {
+//     resolveAccountNumber();
+//   }
+// });
 
-watch( accountNumber, (value) => {
-  if (value.length === 10) {
-    resolveAccountNumber();
-  }
-});
-
-const schema = computed(() => {
-  return object({
+const schemas = [
+  object({
     code: string().required().label("Bank Name"),
-    number: number("Not a Valid Account Number").required().label("Account Number"),
-  })
+    number: number().required("Not a Valid Account Number").min(10, "Not a Valid Account Number").label("Account Number"),
+  }),
+  object({
+    name: string().required("Account Name cannot be empty").trim().min(1, "Account Name cannot be empty").label("Account Name"),
+  }),
+];
+
+const currentSchema = computed(() => {
+  return schemas[currentStep.value];
 });
 
-const { handleSubmit, errors, isSubmitting } = useForm({
-  validationSchema: schema,
+const { handleSubmit, errors, isSubmitting, values, setFieldValue } = useForm({
+  validationSchema: currentSchema,
+  keepValuesOnUnmount: true,
 })
 
 
 const submit = handleSubmit( async ( values, actions ) => {
+
+  if (currentStep.value === 0) {
+    await genericStore
+      .resolveAccountNumber({
+        account_number: values.number,
+        bank_code: values.code,
+      })
+      .then(({ data }) => {
+        // currentStep.value = 1
+        setFieldValue("name",  data.account_name)
+        // Toast.fire({
+        //   icon: "error",
+        //   title: 'here',
+        // });
+      })
+      .catch((error) => {
+        Toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      });
+    return currentStep.value = 1
+  }
+
+  if (currentStep.value === 1) {
+    await settingsStore.addBank(values).then(() => {
+      resetForm();
+      Toast.fire({
+        icon: "success",
+        title: "Account Added!",
+      });
+
+      router.push({ name: "settings.funding.account" })
+    }).catch((error) => {
+      Toast.fire({
+        icon: "error",
+        title: error.data.message,
+      });
+      actions.setErrors(error.data.errors);
+    });
+  }
+
   await settingsStore.addBank({
     ...values,
     name: accountName.value,
   }).then(() => {
+    // eslint-disable-next-line no-undef
     Toast.fire({
       icon: "success",
       title: "Account Added!",
     });
     closeModal()
   }).catch((error) => {
+    // eslint-disable-next-line no-undef
     Toast.fire({
       icon: "error",
       title: error.response.data.message,
@@ -217,28 +328,6 @@ const submit = handleSubmit( async ( values, actions ) => {
     actions.setErrors(error.response.data.errors);
   });
 });
-
-const resolveAccountNumber = async () => {
-  verifying.value = true;
-  await genericStore
-    .resolveAccountNumber({
-      account_number: accountNumber.value,
-      bank_code: bankCode.value,
-    })
-    .then((response) => {
-      accountName.value = response.data.account_name;
-      verifying.value = false;
-    })
-    .catch((error) => {
-      // console.log(error?.response)
-      Toast.fire({
-        icon: "error",
-        title: error.response.data.massage,
-      });
-      verifying.value = false;
-    });
-  verifying.value = false;
-};
 
 </script>
 

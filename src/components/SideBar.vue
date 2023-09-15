@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex-none md:w-60 w-full bg-#121216 md:bg-#2D1713 py-4 px-3.5 left-0 h-fit md:h-full rounded-t-none rounded-b-none md:rounded-t-2xl md:rounded-b-2xl flex flex-col divide-y divide-#3A2622"
+    class="flex-none md:pb-4 hidden md:flex md:w-60 w-full bg-#121216 md:bg-#2D1713 py-4 px-3.5 left-0 h-fit md:h-full rounded-t-none rounded-b-none md:rounded-t-2xl md:rounded-b-2xl  flex-col divide-y divide-#3A2622"
   >
     <button
-      class="flex-none relative md:pb-4"
+      class="flex-none relative"
       @click="router.push('/')"
     >
       <img
@@ -43,7 +43,7 @@
       <li class="flex-none links">
         <router-link
           class="flex items-center space-x-3 text-white py-2 px-4"
-          :to="{ name: 'talents.index' }"
+          :to="{ name: 'talents.index', query: { tab: 'All' } }"
         >
           <Icon name="users" />
           <span>Talents</span>

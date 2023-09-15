@@ -1,7 +1,7 @@
 <template>
   <div class="max-h-screen h-screen flex flex-col md:flex-row bg-white md:p-4">
     <SideBar />
-    <main class="flex-grow  overflow-y-scroll">
+    <main class="flex-grow  overflow-y-auto">
       <NavigationBar :is-authenticated="managerStore.isAuthenticated" />
       <div class="">
         <slot />

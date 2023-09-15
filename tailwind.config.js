@@ -6,7 +6,12 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
-      sans: ["Euclid Circular B", "sans-serif"],
+      // sans: ["\"Euclid Circular B\"", "sans-serif"],
+      sans: ["\"Gilroy\"", "sans-serif"],
+      gilroy: ["\"Gilroy\"", "sans-serif"],
+      // power: ["\"Power Grotesk\"", "sans-serif"],
+      power: ["\"Power Grotesk\"", "sans-serif"],
+      // power: ["\"PowerGroteskTrialUltBd\""],
     },
     extend: {
       backgroundImage: (theme) => ({
@@ -72,7 +77,9 @@ module.exports = {
         "#FEF3E8": "#FEF3E8",
         "#151419": "#151419",
         "#444349": "#444349",
-        "#121216": "#121216"
+        "#121216": "#121216",
+        "#E9E8E9": "#E9E8E9",
+        "#101828": "#101828"
       },
       aria: {
         invalid: "true",

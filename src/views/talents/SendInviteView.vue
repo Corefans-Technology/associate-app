@@ -8,12 +8,12 @@
       @submit.prevent="onSubmit"
     >
       <DialogPanel
-        class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white py-4 px-6 text-left shadow-xl transition-all space-y-4"
+        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white py-4 px-6 text-left shadow-xl transition-all space-y-4"
       >
         <div class="flex items-center justify-between">
           <DialogTitle
             as="h2"
-            class="text-xl font-bold text-black leading-loose"
+            class="text-2xl font-bold text-black leading-loose font-power"
           >
             Send Invite
           </DialogTitle>
@@ -22,24 +22,36 @@
             @click="$router.push({ name: 'talents.index' })"
           />
         </div>
-        <div class="space-y-4">
+        <div class="bg-#E9E8E9 p-2 px-3 rounded-lg flex items-center justify-between text-sm font-medium text-#444349">
+          <p class="flex items-center space-x-1">
+            <Icon
+              class="stroke-current"
+              name="send"
+            /> 
+            <span>Talent Invites Left</span>
+          </p>
+          <p>0/20</p>
+        </div>
+        <div class="space-y-4 pt-4">
           <div class="flex items-start space-x-6">
             <!-- First name -->
             <BaseInput
               readonly
               name="first_name"
               placeholder="First Name"
+              label="First Name"
               type="text"
-              class="rounded-2xl border-beerus focus:border-beerus cursor-not-allowed"
+              class="rounded-lg border-beerus focus:border-beerus cursor-not-allowed"
               :error="errors.first_name"
             />
             <!-- Last name -->
             <BaseInput
               readonly
               name="last_name"
+              label="Last Name"
               placeholder="Last Name"
               type="text"
-              class="rounded-2xl border border-beerus focus:border-beerus cursor-not-allowed"
+              class="rounded-lg border border-beerus focus:border-beerus cursor-not-allowed"
               :error="errors.last_name"
             />
           </div>
@@ -48,7 +60,8 @@
             name="email"
             type="email"
             placeholder="Email Address"
-            class="rounded-2xl border-beerus focus:border-beerus w-full"
+            label="Email Address"
+            class="rounded-lg border-beerus focus:border-beerus w-full"
             aria-autocomplete="inline"
             autofocus
             :error="errors.email"
@@ -58,28 +71,83 @@
             placeholder="70 397 6220"
             code="country_code"
             number="phone_number"
+            label="Phone Number"
             :options="genericStore.countries"
-            class="bg-white rounded-2xl border border-beerus focus:border-beerus focus:border-beerus"
+            class="bg-white rounded-lg border-beerus focus:border-beerus focus:border-beerus"
             :error="errors.phone_number"
           />
 
 
 
           <div class="flex items-center justify-end space-x-4 pt-4">
+            <div class=" bg-gradient-to-br from-orange to-red p-px rounded-lg">
+              <BaseButton
+                type="button"
+                class="rounded-lg text-center font-light text-sm bg-white h-9"
+                @click="$router.push({ name: 'talents.index' })"
+              >
+                <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red flex items-center justify-center space-x-1 font-medium">
+                  <svg
+                    width="16"
+                    height="17"
+                    viewBox="0 0 16 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.4749 11.6819L4.81808 6.02502C4.6248 5.83174 4.6248 5.51118 4.81808 5.31791C5.01135 5.12463 5.33191 5.12463 5.52518 5.31791L11.182 10.9748C11.3753 11.168 11.3753 11.4886 11.182 11.6819C10.9888 11.8751 10.6682 11.8751 10.4749 11.6819Z"
+                      fill="url(#paint0_linear_3424_24180)"
+                    />
+                    <path
+                      d="M4.81796 11.6819C4.62469 11.4886 4.62469 11.168 4.81796 10.9748L10.4748 5.31791C10.6681 5.12463 10.9886 5.12463 11.1819 5.31791C11.3752 5.51118 11.3752 5.83174 11.1819 6.02502L5.52507 11.6819C5.33179 11.8751 5.01124 11.8751 4.81796 11.6819Z"
+                      fill="url(#paint1_linear_3424_24180)"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="paint0_linear_3424_24180"
+                        x1="5.17163"
+                        y1="4.96436"
+                        x2="3.92988"
+                        y2="6.51654"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#F18B1B" />
+                        <stop
+                          offset="1"
+                          stop-color="#E52053"
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="paint1_linear_3424_24180"
+                        x1="10.8284"
+                        y1="4.96436"
+                        x2="12.0701"
+                        y2="6.51654"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#F18B1B" />
+                        <stop
+                          offset="1"
+                          stop-color="#E52053"
+                        />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  Cancel
+                </span>
+              </BaseButton>
+            </div>
             <BaseButton
-              type="button"
-              class="bg-light-grey-3 text-gray-1 rounded text-center font-light text-sm"
-              @click="$router.push({ name: 'talents.index' })"
-            >
-              <XMarkIcon class="h-4" />
-              Cancel
-            </BaseButton>
-            <BaseButton
-              class="bg-1E1D24 text-white rounded text-center font-light"
+              class=" bg-gradient-to-br from-orange to-red h-9 text-white rounded-lg text-center font-light"
               :is-loading="isSubmitting"
             >
-              <PaperAirplaneIcon class="h-4 -rotate-45 pb-x" />
-              Send Invite
+              <span class="flex items-center space-x-2">
+                <Icon
+                  class="stroke-current"
+                  name="send"
+                /> 
+                <span>Send Invite</span>
+              </span>
             </BaseButton>
           </div>
         </div>
@@ -95,36 +163,42 @@
       @submit.prevent="onSubmit"
     >
       <DialogPanel
-        class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white py-10 px-6 text-left shadow-xl transition-all space-y-4"
+        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-10 text-left shadow-xl transition-all space-y-4"
       >
         <div class="mx-auto flex justify-center">
-          <Icon name="success" />
+          <!-- <Icon name="success" /> -->
+          <img
+            src="@/assets/images/success.png"
+            alt=""
+            srcset=""
+          />
         </div>
 
-        <div>
-          <h1 class="text-lg font-semibold text-black text-center">
+        <div class="space-y-1">
+          <h1 class="text-2xl font-bold text-black text-center font-power">
             Success
           </h1>
           <p class="text-434345 text-lg font-light text-center">
-            Invitation sent
+            Invitation sent. You can monitor the status of the invite 
+            in the Talent > Pending section
           </p>
         </div>
 
         <div class="flex items-center justify-center space-x-4 pt-4">
           <BaseButton
             type="button"
-            class="bg-1E1D24 text-white rounded text-center text-sm w-1/2"
+            class=" bg-gradient-to-br from-orange to-red text-white rounded-lg text-center text-sm w-full"
             @click="$router.push({ name: 'talents.index' })"
           >
-            Continue
+          Close
           </BaseButton>
-          <BaseButton
+          <!-- <BaseButton
             class="bg-1E1D24 text-white rounded text-center font-light hidden"
             :is-loading="isSubmitting"
           >
             <PaperAirplaneIcon class="h-4 -rotate-45 pb-x" />
             Send Invite
-          </BaseButton>
+          </BaseButton> -->
         </div>
       </DialogPanel>
     </form>

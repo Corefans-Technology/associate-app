@@ -4,7 +4,9 @@
       <div class="space-y-20 border-b pb-14">
         <div class="flex space-x-20">
           <div class="max-w-[20.25rem] w-full space-y-3">
-            <h3 class="text-xl font-medium">Social Links</h3>
+            <h3 class="text-xl font-medium">
+              Social Links
+            </h3>
             <p class="text-sm text-[#98A2B3]">
               Make a good first impression: introduce your campaign
               objectives and entice people to learn more. This basic
@@ -16,62 +18,62 @@
           <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
             <!-- Apple Music Link -->
             <BaseInput
-                label="Apple Music Link"
-                name="apple_music"
-                type="text"
-                autofocus
-                class="rounded border-light-grey focus:border-light-grey"
-                :error="errors.apple_music"
+              label="Apple Music Link"
+              name="apple_music"
+              type="text"
+              autofocus
+              class="rounded border-light-grey focus:border-light-grey"
+              :error="errors.apple_music"
             />
 
             <!-- Twitter Link -->
             <BaseInput
-                label="Twitter Link"
-                name="twitter"
-                type="text"
-                autofocus
-                class="rounded border-light-grey focus:border-light-grey"
-                :error="errors.twitter"
+              label="Twitter Link"
+              name="twitter"
+              type="text"
+              autofocus
+              class="rounded border-light-grey focus:border-light-grey"
+              :error="errors.twitter"
             />
 
             <!-- Audio Mack Link -->
             <BaseInput
-                label="Audio Mack Link"
-                name="audio_mack"
-                type="text"
-                autofocus
-                class="rounded border-light-grey focus:border-light-grey"
-                :error="errors.audio_mack"
+              label="Audio Mack Link"
+              name="audio_mack"
+              type="text"
+              autofocus
+              class="rounded border-light-grey focus:border-light-grey"
+              :error="errors.audio_mack"
             />
 
             <!-- Instagram Link -->
             <BaseInput
-                label="Instagram Link"
-                name="instagram"
-                type="text"
-                autofocus
-                class="rounded border-light-grey focus:border-light-grey"
-                :error="errors.instagram"
+              label="Instagram Link"
+              name="instagram"
+              type="text"
+              autofocus
+              class="rounded border-light-grey focus:border-light-grey"
+              :error="errors.instagram"
             />
 
             <!-- Spotify Link -->
             <BaseInput
-                label="Spotify Link"
-                name="spotify"
-                type="text"
-                autofocus
-                class="rounded border-light-grey focus:border-light-grey"
-                :error="errors.spotify"
+              label="Spotify Link"
+              name="spotify"
+              type="text"
+              autofocus
+              class="rounded border-light-grey focus:border-light-grey"
+              :error="errors.spotify"
             />
 
             <!-- Boom Play Link -->
             <BaseInput
-                label="Boomplay Link"
-                name="boom_play"
-                type="text"
-                autofocus
-                class="rounded border-light-grey focus:border-light-grey"
-                :error="errors.boom_play"
+              label="Boomplay Link"
+              name="boom_play"
+              type="text"
+              autofocus
+              class="rounded border-light-grey focus:border-light-grey"
+              :error="errors.boom_play"
             />
           </div>
         </div>
@@ -79,8 +81,8 @@
 
       <div class="flex items-center justify-end py-10">
         <BaseButton
-            :is-loading="loading"
-            class="rounded bg-gradient-to-r from-orange to-red text-white text-sm w-32"
+          :is-loading="loading"
+          class="rounded bg-gradient-to-r from-orange to-red text-white text-sm w-32"
         >
           Save
         </BaseButton>
@@ -107,12 +109,12 @@ const loading = ref(false);
 
 const schema = computed(() => {
   return object({
-    twitter: string().label('Facebook'),
-    apple_music: string().label('Apple Music'),
-    instagram: string().label('Instagram'),
-    audio_mack: string().label('Audio Mack'),
-    spotify: string().label('Spotify'),
-    boom_play: string().label('Boom Play'),
+    twitter: string().label("Facebook"),
+    apple_music: string().label("Apple Music"),
+    instagram: string().label("Instagram"),
+    audio_mack: string().label("Audio Mack"),
+    spotify: string().label("Spotify"),
+    boom_play: string().label("Boom Play"),
   })
 });
 
@@ -125,7 +127,7 @@ const { handleSubmit, errors } = useForm({
     audio_mack: settingsStore.links.audio_mack,
     spotify: settingsStore.links.spotify,
     boom_play: settingsStore.links.boom_play,
-  }
+  },
 })
 
 

@@ -1,7 +1,7 @@
 <template>
   <VueApexCharts
-      height="350"
-      type="bar"
+      height="200"
+      type="area"
       :options="options"
       :series="series"
   />
@@ -48,38 +48,168 @@ let options = ref({
     id: "vuechart",
   },
   plotOptions: {
-    bar: {
-      horizontal: false,
-      borderRadius: 10,
-      borderRadiusApplication: "end",
-      borderRadiusWhenStacked: "all",
-      columnWidth: "50%",
-      barHeight: "70%",
-      distributed: false,
-      rangeBarOverlap: false,
-      rangeBarGroupRows: false,
-      colors: {
-        // ranges: [
-        //   {
-        //     from: 0,
-        //     to: 0,
-        //     color: "#1E1D24",
-        //   },
-        // ],
-        backgroundBarColors: ["#EDF2EF"],
-        backgroundBarOpacity: 1,
-        backgroundBarRadius: 10,
-      },
-    },
+    area: {
+      fillTo: 'origin',
+    }
   },
-  colors: ["#1E1D24"],
+  dataLabels: {
+    enabled: false
+  },
+  colors: ["#F18B1B", "#E52053", ],
   title: {
     enabled: false,
   },
-  xaxis: {
-    type: "category",
+  stroke: {
+    curve: 'smooth',
+    colors: ["#F18B1B", "#E52053", ],
+    width: 3
   },
-  dataLabels: {
+  xaxis: {
+      type: 'category',
+      categories: [],
+      tickAmount: undefined,
+      tickPlacement: 'between',
+      min: undefined,
+      max: undefined,
+      range: undefined,
+      floating: false,
+      decimalsInFloat: undefined,
+      overwriteCategories: undefined,
+      position: 'bottom',
+      labels: {
+          show: false,
+          rotate: -45,
+          rotateAlways: false,
+          hideOverlappingLabels: true,
+          showDuplicates: false,
+          trim: false,
+          minHeight: undefined,
+          maxHeight: 120,
+          style: {
+              colors: [],
+              fontSize: '12px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 400,
+              cssClass: 'apexcharts-xaxis-label',
+          },
+          offsetX: 0,
+          offsetY: 0,
+          format: undefined,
+          formatter: undefined,
+          datetimeUTC: true,
+          datetimeFormatter: {
+              year: 'yyyy',
+              month: "MMM 'yy",
+              day: 'dd MMM',
+              hour: 'HH:mm',
+          },
+      },
+      axisBorder: {
+          show: false,
+          color: '#E9E8E9',
+          height: 1,
+          width: '100%',
+          offsetX: 0,
+          offsetY: 0
+      },
+      axisTicks: {
+          show: false,
+          borderType: 'solid',
+          color: '#E9E8E9',
+          height: 6,
+          offsetX: 0,
+          offsetY: 0
+      },
+      title: {
+          text: undefined,
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+              color: undefined,
+              fontSize: '12px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 600,
+              cssClass: 'apexcharts-xaxis-title',
+          },
+      },
+      crosshairs: {
+          show: true,
+          width: 1,
+          position: 'back',
+          opacity: 0.9,        
+          stroke: {
+              color: '#b6b6b6',
+              width: 0,
+              dashArray: 0,
+          },
+          fill: {
+              type: 'solid',
+              color: '#B1B9C4',
+              gradient: {
+                  colorFrom: '#D8E3F0',
+                  colorTo: '#BED1E6',
+                  stops: [0, 100],
+                  opacityFrom: 0.4,
+                  opacityTo: 0.5,
+              },
+          },
+          dropShadow: {
+              enabled: false,
+              top: 0,
+              left: 0,
+              blur: 1,
+              opacity: 0.4,
+          },
+      },
+      tooltip: {
+          enabled: true,
+          formatter: undefined,
+          offsetY: 0,
+          style: {
+            fontSize: 0,
+            fontFamily: 0,
+          },
+      },
+  },
+  yaxis: {
+      show: false,
+      showAlways: false,
+      labels: {
+          show: false,
+      },
+      axisBorder: {
+          show: false,
+      },
+      axisTicks: {
+          show: false,
+      },
+      
+  },
+  grid: {
+    show: true,
+    borderColor: '#E9E8E9',
+    strokeDashArray: 0,
+    sition: 'back',
+    xaxis: {
+        lines: {
+            show: true
+        }
+    },   
+    yaxis: {
+        lines: {
+            show: false
+        }
+    },  
+    row: {
+        colors: undefined,
+        opacity: 0
+    },  
+    column: {
+        colors: undefined,
+        opacity: 1
+    }, 
+  },
+  labels: {
     enabled: false,
   },
   legend: {
@@ -94,6 +224,15 @@ let options = ref({
     verticalAlign: "middle",
     offsetX: 0,
     offsetY: 0,
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shadeIntensity: 1,
+      opacityFrom: 0.4,
+      opacityTo: 0.1,
+      stops: [0, 90, 100]
+    }
   },
 });
 
