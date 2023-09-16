@@ -298,7 +298,6 @@ import {
   ChevronDownIcon,
   Bars3Icon,
   XMarkIcon,
-  ChevronLeftIcon,
 } from "@heroicons/vue/24/outline";
 import Icon from "@/components/Icon.vue";
 // import AppLink from "@/components/AppLink.vue";

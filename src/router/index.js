@@ -18,6 +18,7 @@ import PasswordResetView from "../views/auth/PasswordResetView.vue";
 import WaitListView from "../views/auth/WaitListView.vue";
 import TalentIndexView from "../views/talents/IndexView.vue";
 import TalentInvitedView from "../views/talents/InvitedView.vue";
+import ArtistDiscoveryView from "../views/talents/ArtistDiscoveryView.vue";
 import TalentInviteeView from "../views/talents/InviteeView.vue";
 import TalentSendInviteView from "../views/talents/SendInviteView.vue";
 import TalentShowView from "../views/talents/ShowView.vue";
@@ -52,6 +53,11 @@ const router = createRouter({
           component: TalentInvitedView,
         },
         {
+          path: "artist",
+          name: "talents.artist",
+          component: ArtistDiscoveryView,
+        },
+        {
           path: "invitee",
           name: "talents.invitee",
           component: TalentInviteeView,
@@ -77,7 +83,7 @@ const router = createRouter({
       component: WalletIndexView,
       meta: {
         middleware: "auth",
-        name: "Home"
+        name: "Home",
       },
       children: [
         {
@@ -85,7 +91,7 @@ const router = createRouter({
           name: "wallet.withdraw",
           component: WalletWithdrawView,
           meta: {
-            name: "Withdraw"
+            name: "Withdraw",
           },
         },
         {
@@ -93,7 +99,7 @@ const router = createRouter({
           name: "wallet.withdraw.acknowledge",
           component: WalletWithdrawSuccessView,
           meta: {
-            name: "Withdraw"
+            name: "Withdraw",
           },
         },
       ],
@@ -104,6 +110,7 @@ const router = createRouter({
       component: SettingIndexView,
       meta: {
         middleware: "auth",
+        name: "Settings",
       },
       children: [
         {

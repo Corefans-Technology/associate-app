@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-12">
-    <div class="flex flex-col md:flex-row gap-y-5 gap-20 max-w-8xl">
-      <div class="w-full lg:w-1/3 flex-grow-0 space-y-3">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-5 max-w-[1120px]">
+      <div class="w-full max-w-[25rem] space-y-3">
         <h3 class="text-xl font-bold font-power">
           Preferences
         </h3>
@@ -11,7 +11,7 @@
       </div>
 
       <form
-          class="w-full flex-grow space-y-5"
+          class="w-full space-y-5"
           @submit="submit"
       >
 
@@ -54,8 +54,8 @@
       </form>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-y-5 gap-20 max-w-8xl">
-      <div class="w-full lg:w-1/3 flex-grow-0 space-y-3">
+    <div v-if="false" class="grid grid-cols-1 lg:grid-cols-2 gap-y-5 max-w-[1120px] ">
+      <div class="w-full max-w-[25rem] flex-grow-0 space-y-3">
         <h3 class="text-xl font-bold font-power">
           Campaign Earned Amount
         </h3>
@@ -65,7 +65,7 @@
       </div>
 
       <form
-          class="w-full flex-grow space-y-5"
+          class="w-full space-y-5"
           @submit="submit"
       >
         <!-- Email Notification -->

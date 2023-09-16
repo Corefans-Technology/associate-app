@@ -2,8 +2,8 @@
   <TabPanel>
     <form @submit="submit">
       <div class="space-y-20 border-b pb-14">
-        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
-          <div class="max-w-[20.25rem] w-full space-y-3">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-5 max-w-[1120px]">
+          <div class="max-w-[25.25rem] w-full space-y-3">
             <h3 class="text-xl font-bold font-power">
               Funding Account
             </h3>
@@ -11,7 +11,7 @@
               Set up and monitor your funding account for seamless transactions.
             </p>
           </div>
-          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+          <div class=" w-full space-y-[1.2rem]">
             <!-- Bank -->
 
             <small>For testing: select <b>Access bank</b> and use a/c: <b>0690000010</b></small>

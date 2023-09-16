@@ -1,17 +1,60 @@
 <template>
   <div v-if="talentStore.inviteeList?.data?.length">
-    <table-lite
-        :is-slot-mode="true"
-        :has-checkbox="true"
-        :columns="table.columns"
-        :rows="table.rows"
-        :total="table.totalRecordCount"
-        :sortable="table.sortable"
-        @is-finished="tableLoadingFinish"
-    >
-      <template v-slot:status="data">
-        <p class="bg-gradient-to-br from-orange to-red p-px rounded-lg w-fit ">
-          <BaseButton type='button' @click="open(data.value.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8'>
+    <div class="hidden md:block">
+      <table-lite
+          :is-slot-mode="true"
+          :has-checkbox="true"
+          :columns="table.columns"
+          :rows="table.rows"
+          :total="table.totalRecordCount"
+          :sortable="table.sortable"
+          @is-finished="tableLoadingFinish"
+      >
+        <template v-slot:status="data">
+          <p class="bg-gradient-to-br from-orange to-red p-px rounded-lg w-fit ">
+            <BaseButton type='button' @click="open(data.value.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8'>
+            <span class="flex items-center space-x-1">
+              <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4749 11.6819L4.81808 6.02502C4.6248 5.83174 4.6248 5.51118 4.81808 5.31791C5.01135 5.12463 5.33191 5.12463 5.52518 5.31791L11.182 10.9748C11.3753 11.168 11.3753 11.4886 11.182 11.6819C10.9888 11.8751 10.6682 11.8751 10.4749 11.6819Z" fill="url(#paint0_linear_3424_6552)"/>
+                <path d="M4.81796 11.6819C4.62469 11.4886 4.62469 11.168 4.81796 10.9748L10.4748 5.31791C10.6681 5.12463 10.9886 5.12463 11.1819 5.31791C11.3752 5.51118 11.3752 5.83174 11.1819 6.02502L5.52507 11.6819C5.33179 11.8751 5.01124 11.8751 4.81796 11.6819Z" fill="url(#paint1_linear_3424_6552)"/>
+                <defs>
+                <linearGradient id="paint0_linear_3424_6552" x1="5.17163" y1="4.96436" x2="3.92988" y2="6.51654" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#F18B1B"/>
+                <stop offset="1" stop-color="#E52053"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_3424_6552" x1="10.8284" y1="4.96436" x2="12.0701" y2="6.51654" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#F18B1B"/>
+                <stop offset="1" stop-color="#E52053"/>
+                </linearGradient>
+                </defs>
+              </svg>
+              <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">Revoke invite</span>
+            </span>
+          </BaseButton>
+          </p>
+        </template>
+      </table-lite>
+    </div>
+
+    <div class="divide-y md:hidden">
+      <div v-for="(item, index) in inviteeList?.data.map( (item) => {
+        return {
+          accept_invite: item?.accept_invite,
+          email: item?.email,
+          name: `${item?.first_name} ${item?.last_name}`,
+          id: item?.id,
+          invite_date: item.invite_date,
+          phone_number: item.phone_number
+        }
+      })" :key="index" class="py-2 flex space-x-4 items-center">
+        <div class="p-[10px] flex-none">
+          <input class="rounded border-[#CBCCCE]" type="checkbox" name="" value="">
+        </div>
+        <div class="space-y-2 py-3 flex-grow">
+            <h4 class="text-sm text-1E1D24 font-medium">{{item.name}}</h4>
+            <p class="text-xs text-#7D7C80 font-normal">Musician</p>
+        </div>
+        <BaseButton type='button' @click="open(item.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8 flex-none px-0'>
           <span class="flex items-center space-x-1">
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.4749 11.6819L4.81808 6.02502C4.6248 5.83174 4.6248 5.51118 4.81808 5.31791C5.01135 5.12463 5.33191 5.12463 5.52518 5.31791L11.182 10.9748C11.3753 11.168 11.3753 11.4886 11.182 11.6819C10.9888 11.8751 10.6682 11.8751 10.4749 11.6819Z" fill="url(#paint0_linear_3424_6552)"/>
@@ -30,9 +73,8 @@
             <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">Revoke invite</span>
           </span>
         </BaseButton>
-        </p>
-      </template>
-    </table-lite>
+      </div>
+    </div>
   </div>
   <div
       v-else
@@ -95,10 +137,10 @@
         </div>
 
         <div class="space-y-1">
-          <h1 class="text-2xl font-bold text-black text-center font-power">
+          <h1 class="text-lg md:text-2xl font-bold text-black text-center font-power">
             Revoke Invite ?
           </h1>
-          <p class="text-434345 text-lg font-light text-center">
+          <p class="text-434345 text-sm md:text-lg font-light text-center">
             Are you sure you want to revoke this talent invite? This action cannot be undone.
           </p>
         </div>
@@ -107,7 +149,7 @@
           <BaseButton
             type="button"
             @click.prevent="revokeModal = !revokeModal"
-            class="tex-#7D7C80 border-#7D7C80 border rounded-lg flex-1"
+            class="tex-#7D7C80 border-#7D7C80 border rounded-lg flex-1 text-sm md:text-base"
           >
             Cancel
           </BaseButton>
@@ -115,7 +157,7 @@
             :is-loading="loading"
             type="button"
             @click.prevent="revokeInvite"
-            class="bg-error text-white rounded text-center font-light flex-1"
+            class="bg-error text-white rounded text-center font-light flex-1 text-sm md:text-base"
           >
             <!-- <PaperAirplaneIcon class="h-4 -rotate-45 pb-x" /> -->
             Yes, Revoke

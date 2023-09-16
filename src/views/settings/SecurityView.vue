@@ -2,8 +2,8 @@
   <TabPanel>
     <form @submit="submit">
       <div class="space-y-20 border-b pb-14">
-        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
-          <div class="max-w-[20.25rem] w-full space-y-3">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-5 max-w-[1120px]">
+          <div class="w-full max-w-[400px] space-y-3">
             <h3 class="text-xl font-bold font-power">
               Security
             </h3>
@@ -12,16 +12,16 @@
             </p>
           </div>
 
-          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+          <div class="w-full space-y-[1.2rem]">
             <!-- Old Password -->
             <BaseInput
-              label="Current Password"
+              label="Old Password"
               name="current_password"
               type="password"
               autofocus
               :obscure="true"
-              class="rounded border-light-grey focus:border-light-grey"
-              placeholder="Enter Current password"
+              class="rounded-lg border-light-grey focus:border-light-grey"
+              placeholder="Enter Old Password"
               :error="errors.current_password"
             />
 
@@ -32,7 +32,7 @@
               type="password"
               autofocus
               :obscure="true"
-              class="rounded border-light-grey focus:border-light-grey"
+              class="rounded-lg border-light-grey focus:border-light-grey"
               placeholder="Enter new password"
               :error="errors.password"
             />
@@ -44,7 +44,7 @@
               type="password"
               autofocus
               :obscure="true"
-              class="rounded border-light-grey focus:border-light-grey"
+              class="rounded-lg border-light-grey focus:border-light-grey"
               :error="errors.password_confirmation"
               placeholder="Confirm new password"
             />
@@ -99,6 +99,7 @@ const submit = handleSubmit( async (values, actions) => {
   await managerStore.passwordUpdate({
     ...values,
   }).then(() => {
+    // eslint-disable-next-line no-undef
     Toast.fire({
       icon: "success",
       title:  "Password Updated",
@@ -106,6 +107,7 @@ const submit = handleSubmit( async (values, actions) => {
     actions.resetForm();
   }).catch((error) => {
     actions.setErrors(error.response.data.errors);
+    // eslint-disable-next-line no-undef
     Toast.fire({
       icon: "error",
       title: error.response.data.message,

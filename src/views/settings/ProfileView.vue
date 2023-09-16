@@ -2,8 +2,8 @@
   <TabPanel class="">
     <form @submit="submit">
       <div class="space-y-12 border-b pb-14">
-        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
-          <div class="max-w-[20.25rem] w-full space-y-3">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-5 max-w-[1120px]">
+          <div class="w-full max-w-[400px] space-y-3">
             <h3 class="text-xl font-bold font-power">
               Profile
             </h3>
@@ -12,7 +12,7 @@
             </p>
           </div>
 
-          <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+          <div class="w-full space-y-[1.2rem]">
 
             <div class="flex space-x-5">
               <!-- First name -->
@@ -58,8 +58,8 @@
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-y-5 gap-20">
-          <div class="max-w-[20.25rem] w-full space-y-3">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-5 max-w-[1120px]">
+          <div class="w-full max-w-[400px] space-y-3">
             <h3 class="text-xl font-bold font-power">
               Profile Photo
             </h3>
@@ -68,7 +68,7 @@
             </p>
           </div>
 
-          <div class="max-w-[31.9375rem] w-full space-y-[1rem]">
+          <div class="w-full space-y-[1rem]">
             <!-- photo -->
             <BaseFile
               label="Profile Photo"

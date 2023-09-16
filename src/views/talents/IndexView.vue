@@ -267,7 +267,7 @@ genericStore.getCountries();
 const tabs = ref({
   "All" : "talents.invited",
   "Invites": "talents.invitee",
-  "Artist Discovery": "talents.invited",
+  "Artist Discovery": "talents.artist",
 });
 const query = useRoute().query
 // const errors = ref([]);
