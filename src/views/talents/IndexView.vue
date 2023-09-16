@@ -27,16 +27,66 @@
         </div>
 
         <div class="flex-grow flex items-center justify-end">
-          <BaseButton
-            type="button"
-            class=" bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg h-9"
-            @click="$router.push({ name: 'talents.send.invite' })"
-          >
-            <div class="flex items-center space-x-1 md:space-x-2">
-              <PlusIcon class="h-5" />
-              <span>Invite Talent</span>
-            </div>
-          </BaseButton>
+          <div class="p-px bg-gradient-to-br from-orange to-red md:bg-transparent rounded-lg">
+            <BaseButton
+              type="button"
+              class="bg-white md:bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg h-9 px-2"
+              @click="$router.push({ name: 'talents.send.invite' })"
+            >
+              <div class="flex items-center space-x-1 md:space-x-2">
+                <svg
+                  width="16"
+                  class="md:hidden"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z"
+                    fill="url(#paint0_linear_3474_42901)"
+                  />
+                  <path
+                    d="M8 12.5C7.72667 12.5 7.5 12.2733 7.5 12V4C7.5 3.72667 7.72667 3.5 8 3.5C8.27333 3.5 8.5 3.72667 8.5 4V12C8.5 12.2733 8.27333 12.5 8 12.5Z"
+                    fill="url(#paint1_linear_3474_42901)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_3474_42901"
+                      x1="3.5"
+                      y1="7.5"
+                      x2="3.71951"
+                      y2="9.47561"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#F18B1B" />
+                      <stop
+                        offset="1"
+                        stop-color="#E52053"
+                      />
+                    </linearGradient>
+                    <linearGradient
+                      id="paint1_linear_3474_42901"
+                      x1="7.5"
+                      y1="3.5"
+                      x2="9.47561"
+                      y2="3.71951"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#F18B1B" />
+                      <stop
+                        offset="1"
+                        stop-color="#E52053"
+                      />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                <PlusIcon class="h-5 hidden md:block" />
+                <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red md:text-white">Invite Talent</span>
+              </div>
+            </BaseButton>
+          </div>
         </div>
 
         <Popover class="relative flex-none hidden md:block">
