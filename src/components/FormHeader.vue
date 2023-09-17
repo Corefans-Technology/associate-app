@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-3">
+  <div class="space-y-1 md:space-y-3">
     <h1 :class="nameStyle">
       {{ name }}
     </h1>
@@ -13,13 +13,13 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   "name" : {
     type: String,
   },
   "nameStyle": {
     type: String,
-    default: "text-xl lg:text-4xl font-semibold text-black",
+    default: "text-2xl lg:text-4xl font-bold text-black font-power",
   },
   "desc": {
     type: String,

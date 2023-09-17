@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import { upperFirst, camelCase } from "lodash";
+// import { upperFirst, camelCase } from "lodash";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 const pinia = createPinia();

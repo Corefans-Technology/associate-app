@@ -1,363 +1,262 @@
+<!-- eslint-disable no-console -->
+<!-- eslint-disable no-undef -->
 <script setup>
-import useVuelidate from "@vuelidate/core";
 import AuthLayout from "@/layouts/AuthLayout.vue";
-import { reactive, ref } from "vue";
-import { required, email } from "@vuelidate/validators";
+import { ref, watch } from "vue";
+import { useManagerStore } from "@/stores/manager";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import BaseButton from "@/components/base/BaseButton.vue";
+import BaseInput from "@/components/base/BaseInput.vue";
+import Spacer from "@/components/Spacer.vue";
+import Icon from "@/components/Icon.vue";
+import FormHeader from "@/components/FormHeader.vue";
+import {RouterLink, useRouter} from "vue-router";
+import {object, string, array} from "yup";
+import {useForm} from "vee-validate";
+import AuthSideLayout from "@/components/AuthSideLayout.vue";
+import {useGenericStore} from "@/stores/generic";
 import {
   Listbox,
   ListboxButton,
   ListboxOptions,
   ListboxOption,
-} from "@headlessui/vue";
-// import GradientTitle from "@/components/GradientTitle.vue";
-// import SignUpStep from "@/components/SignUpStep.vue";
-import Icon from "@/components/Icon.vue";
-import FormGroup from "@/components/FormGroup.vue";
-import TextInput from "@/components/TextInput.vue";
-import InputError from "@/components/InputError.vue";
-import { useManagerStore } from "@/stores/manager";
-import { ChevronDownIcon } from "@heroicons/vue/24/outline";
-import { useLoading } from "vue-loading-overlay";
-import BaseButton from "@/components/base/BaseButton.vue";
-import AuthSideLayout from "@/components/AuthSideLayout.vue";
-
-const managerStore = useManagerStore();
-
-const $loading = useLoading({});
-const selectedSocial = ref({});
+} from "@headlessui/vue"
+// import spotify from '../my-icon.svg?url'
+import spotify from "../../assets/icons/socials/spotify.svg?raw"
+import apple from "../../assets/icons/socials/apple.svg?raw"
+import deezer from "../../assets/icons/socials/deezer.svg?raw"
+import facebook from "../../assets/icons/socials/facebook.svg?raw"
+import instagram from "../../assets/icons/socials/instagram.svg?raw"
+import sound from "../../assets/icons/socials/sound.svg?raw"
+import tiktok from "../../assets/icons/socials/tiktok.svg?raw"
+import twitter from "../../assets/icons/socials/twitter.svg?raw"
 const socials = ref([
-  {
-    name: "Preferences",
-    icon: "Preferences",
-  },
-  {
-    name: "Preferences",
-    icon: "Preferences",
-  },
-]);
+  { id: 1, name: "Spotify", placeholder: "https://spotify.com/yourpage", icon: spotify, unavailable: false },
+  { id: 2, name: "Deezer", placeholder: "https://deezer.com/yourpage", icon: deezer, unavailable: false },
+  { id: 3, name: "Apple Music", placeholder: "https://apple.com/yourpage", icon: apple, unavailable: false },
+  { id: 4, name: "Soundcloud", placeholder: "https:/soundcloud/.com/yourpage", icon: sound, unavailable: false },
+  { id: 5, name: "Facebook", placeholder: "https://facebook.com/yourpage", icon: facebook, unavailable: false },
+  { id: 6, name: "Twitter", placeholder: "https://twitter.com/yourpage", icon: twitter, unavailable: false },
+  { id: 7, name: "Instagram", placeholder: "https://instagram.com/yourpage", icon: instagram, unavailable: false },
+  { id: 8, name: "Tik Tok", placeholder: "https://tiktok.com/yourpage", icon: tiktok, unavailable: false },
+])
 
-const form = reactive(managerStore.form);
+const linkForms = ref([{ icon: socials.value[0], value: "" }])
+const managerStore = useManagerStore();
+const genericStore = useGenericStore();
+genericStore.getCountries();
+genericStore.getBanks()
+const router = useRouter()
 
-const submit = (value) => {
-  managerStore
-    .signUp(form)
-    .then(async (response) => {
+let currentStep = ref(0);
+
+const accountName = ref("");
+
+const schemas = object({
+  email: string().required().email().label("Email Address"),
+  first_name: string().required().label("First Name"),
+  last_name: string().required().label("Last Name"),
+  socials: array().min(1).required().label("Social Proof"),
+})
+
+watch(
+  () => linkForms,
+  (count) => {
+    console.log(`count is: ${count}`)
+  },
+)
+
+const { handleSubmit, errors, isSubmitting, values } = useForm({
+  validationSchema: schemas,
+  keepValuesOnUnmount: true,
+  initialValues: {
+    socials: [{ icon: socials.value[0], value: "" }],
+  },
+})
+
+const onSubmit = handleSubmit( async (values, actions) => {
+  console.log(values)
+  return
+  await managerStore
+    .signUp({ name: accountName.value, ...values })
+    .then(() => {
       Toast.fire({
         icon: "success",
-        title: response.data?.massage,
+        title: "You are in!",
       });
-      signUp.value.classList.add("invisible");
-      managerStore.$reset();
-      await managerStore.profile();
-      window.location.pathname = "/";
-    })
-    .catch((error) => {
-      console.log(error.data);
+      return router.push({name: "sign.up.success"});
+    }).catch((error) => {
       Toast.fire({
         icon: "error",
-        title: `${error.data.message}!`,
+        title: error.response.data.message,
       });
+      actions.setErrors(error.response.data.errors);
     });
-};
 
-const rules = {
-  first_name: {
-    required,
-  },
-  last_name: {
-    required,
-  },
-  email: {
-    required,
-    email,
-  },
-  social_proof: {
-    required,
-  },
-};
-
-const $v = useVuelidate(rules, form);
+});
 </script>
 <template>
   <auth-layout>
-    <div class="grid grid-cols-2 h-screen">
-      <AuthSideLayout />
-      <div class="flex items-center justify-center w-full mx-auto">
-        <div
-          class="w-[31.75rem] 2xl:w-[40rem] bg-white rounded-[1rem] p-[3rem] space-y-[1.8rem]"
-          ref="signUp"
-        >
-          <div>
-            <div class="space-y-3">
-              <h1 class="text-4xl font-semibold text-black">
-                Join the waiting list
-              </h1>
-              <p class="text-black text-xl font-light">
-                Tell us a bit about yourself
+    <div class="flex items-center justify-center w-full mx-auto md:relative order-2 md:order-1 pt-2 md:pt-28">
+      <div class="w-full max-w-md rounded-[1rem] p-4">
+        <form @submit.prevent="onSubmit">
+          <FormHeader
+            name="Join the waiting list"
+            desc="Provide social proof and tell us a bit about yourself"
+          />
+          <Spacer size="8" />
+          <div class="space-y-4">
+            <div class="flex items-start space-x-6">
+              <!-- First name -->
+              <BaseInput
+                readonly
+                name="first_name"
+                label="First Name"
+                type="text"
+                class="rounded-lg border-#DCDCE4 focus:border-#DCDCE4 cursor-not-allowed"
+                :error="errors.first_name"
+              />
+              <!-- Last name -->
+              <BaseInput
+                readonly
+                name="last_name"
+                label="Last Name"
+                type="text"
+                class="rounded-lg border border-#DCDCE4 focus:border-#DCDCE4 cursor-not-allowed"
+                :error="errors.last_name"
+              />
+            </div>
+
+            <BaseInput
+              name="email"
+              type="email"
+              label="Email Address"
+              class="rounded-lg border-#DCDCE4 focus:border-#DCDCE4 w-full"
+              aria-autocomplete="inline"
+              autofocus
+              :error="errors.email"
+            />
+
+            <div class="max-w-[31.9375rem] w-full space-y-[1.2rem]">
+              <p class="font-medium text-sm text-1E1D24 mb-2">
+                Social Proof
               </p>
+              <!-- {{ values.socials }} -->
+              <div
+                v-for="(item, index) in values.socials"
+                :key="index"
+                class="pr-5"
+              >
+                <Listbox v-model="item.icon">
+                  <div class="relative mt-1">
+                    <div class="flex gap-3">
+                      <ListboxButton
+                        class="relative cursor-default inline-flex gap-3 justify-center rounded-lg px-4 py-3 focus:outline-none border border-#DCDCE4"
+                      >
+                        <Icon
+                          class="fill-black text-lg"
+                          :name="item.icon.icon"
+                        />
+                        <!-- <img :src="spotify" alt="" srcset=""> -->
+                        <span v-html="item.icon.icon" />
+                        
+                        <ChevronDownIcon
+                          class="h-6 w-6 text-1E1D24"
+                          aria-hidden="true"
+                        />
+                      </ListboxButton>
+                      <input
+                        v-model="item.value"
+                        :placeholder="item?.icon?.placeholder"
+                        name="social"
+                        type="text"
+                        autofocus
+                        class="rounded border-light-grey focus:border-light-grey w-full placeholder:text-#A3A2A5 placeholder:text-left"
+                        :error="errors.social"
+                      />
+                    </div>
+
+                    <transition
+                      leave-active-class="transition duration-100 ease-in"
+                      leave-from-class="opacity-100"
+                      leave-to-class="opacity-0"
+                    >
+                      <ListboxOptions
+                        class="absolute left-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white z-20 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      >
+                        <ListboxOption
+                          v-for="social in socials"
+                          :key="social.id"
+                          :value="social"
+                          class="hover:bg-black/5 group flex w-full items-center gap-3 rounded-md px-4 py-2 text-xs font-medium text-1E1D24 cursor-pointer"
+                          :disabled="social.unavailable"
+                        >
+                          <!-- <Icon
+                            class="fill-black text-lg"
+                            :name="social.icon"
+                          /> -->
+                          <span v-html="social.icon" />
+                          {{ social.name }}
+                        </ListboxOption>
+                      </ListboxOptions>
+                    </transition>
+
+                    <button
+                      class="absolute -right-5 top-4"
+                      @click.prevent="values.socials = values.socials.filter( icon => icon?.icon?.id !== item?.icon?.id )"
+                    >
+                      <!-- {{ item?.icon?.id }} -->
+                      <XMarkIcon class="w-5 h-5 text-error" />
+                    </button>
+                  </div>
+                </Listbox>
+              </div>
+              <p class="text-sm text-error">
+                {{ errors.socials }}
+              </p>
+
+              <button
+                class="font-medium text-sm flex items-center gap-1 text-transparent bg-clip-text bg-gradient-to-br from-orange to-red"
+                @click.prevent="values.socials.push({ icon: {}, value: '' })"
+              >
+                <span class="text-lg">+</span>
+                <span>New Link</span>
+              </button>
+            </div>
+        
+            <div class="pt-5">
+              <BaseButton
+                class="bg-gradient-to-br from-orange to-red text-white rounded-lg py-3 w-full"
+                :is-loading="isSubmitting"
+              >
+                Join the waitlist
+              </BaseButton>
             </div>
           </div>
+          <Spacer size="8" />
+          <p class="text-center">
+            Already have an account?
+            <RouterLink
+              :to="{ name: 'login' }"
+              class="text-transparent bg-clip-text bg-gradient-to-b from-orange to-red underline font-medium"
+            >
+              Login
+            </RouterLink>
+          </p>
+        </form>
 
-          <form @submit.prevent="submit">
-            <fieldset class="space-y-5">
-              <div class="space-y-5">
-                <!-- Names -->
-                <div class="flex items-start space-x-6">
-                  <FormGroup>
-                    <label for="First_name">First Name</label>
-                    <TextInput
-                      type="text"
-                      class="rounded px-[1rem] py-[0.813rem] w-full"
-                      id="First_name"
-                      v-model="form.first_name"
-                      @input="$v.first_name.$touch()"
-                      :class="[
-                        $v.first_name.$error
-                          ? 'border-red focus:border-red'
-                          : 'border-#EBEBEB focus:border-#EBEBEB',
-                      ]"
-                      :has-error="$v.first_name.$error"
-                      placeholder="First name"
-                      aria-label="First_name"
-                    />
-                    <InputError
-                      class="text-sm"
-                      :message="
-                        $v.first_name.required.$invalid
-                          ? 'First name is Required'
-                          : ''
-                      "
-                      v-show="$v.first_name.$error"
-                    />
-                  </FormGroup>
-                  <!-- Last name -->
-                  <FormGroup>
-                    <label for="Last_name">Last Name</label>
-                    <TextInput
-                      type="text"
-                      id="Last_name"
-                      v-model="form.last_name"
-                      class="rounded px-[1rem] py-[0.813rem] w-full"
-                      @input="$v.last_name.$touch()"
-                      :class="[
-                        $v.last_name.$error
-                          ? 'border-red focus:border-red'
-                          : 'border-#EBEBEB focus:border-#EBEBEB',
-                      ]"
-                      placeholder="Last name"
-                      aria-label="Last_name"
-                    />
-                    <InputError
-                      class="left-0 -bottom-5 text-sm"
-                      :message="
-                        $v.last_name.required.$invalid
-                          ? 'Last name is Required'
-                          : ''
-                      "
-                      v-show="$v.last_name.$error"
-                    />
-                  </FormGroup>
-                </div>
-
-                <!-- Email Address -->
-                <FormGroup>
-                  <label for="email">Email Address</label>
-                  <TextInput
-                    type="email"
-                    id="email"
-                    v-model="form.email"
-                    @input="$v.email.$touch()"
-                    :class="[
-                      $v.email.$error
-                        ? 'border-red focus:border-red'
-                        : 'border-#EBEBEB focus:border-#EBEBEB',
-                    ]"
-                    placeholder="Email Address"
-                    class="rounded px-[1rem] py-[0.813rem] w-full"
-                    aria-label="email"
-                  />
-                  <InputError
-                    class="left-0 -bottom-5 text-sm"
-                    :message="
-                      $v.email.required.$invalid
-                        ? 'Email Address is Required'
-                        : 'Email not Valid'
-                    "
-                    v-show="$v.email.$error"
-                  />
-                </FormGroup>
-
-                <!-- Social Proof -->
-                <FormGroup>
-                  <label for="social_proof">Social Proof</label>
-                  <div class="space-y-4">
-                    <div class="flex items-center space-x-4">
-                      <Listbox
-                        v-slot="{ open }"
-                        as="div"
-                        v-model="selectedSocial"
-                      >
-                        <ListboxButton
-                          class="relative cursor-default w-[6.563rem] border rounded py-[14px] h-full flex items-center space-x-2 justify-between px-4"
-                        >
-                          <Icon
-                            class="fill-current text-black"
-                            name="instagram"
-                          />
-                          <span
-                            class="pointer-events-none flex items-center text-grayscale-300"
-                          >
-                            <ChevronDownIcon :class="[open ? ' rotate-180' : '']" class="h-4 w-4" />
-                          </span>
-                        </ListboxButton>
-                        <transition
-                          leave-active-class="transition duration-100 ease-in"
-                          leave-from-class="opacity-100"
-                          leave-to-class="opacity-0"
-                        >
-                          <ListboxOptions
-                            class="mt-1 max-h-60 w-[10rem] overflow-auto rounded bg-white py-1 text-base focus:outline-none sm:text-sm absolute z-50 shadow"
-                          >
-                            <ListboxOption
-                              v-for="(social, index) in socials"
-                              :key="index"
-                              :value="social"
-                              as="template"
-                            >
-                              <div class="flex items-center space-x-2 py-3 px-3">
-                                <Icon
-                                  class="fill-current text-black"
-                                  name="instagram"
-                                />
-                                <p>{{ social.name }}</p>
-                              </div>
-                            </ListboxOption>
-                          </ListboxOptions>
-                        </transition>
-                      </Listbox>
-                      <TextInput
-                        type="text"
-                        id="social_proof"
-                        v-model="form.social_proof"
-                        class="border-#EBEBEB focus:border-#EBEBEB flex-grow rounded px-[1rem] py-[0.813rem] w-full"
-                        placeholder=""
-                        aria-label="social_proof"
-                      />
-                    </div>
-                    <div class="flex items-center space-x-4">
-                      <Listbox
-                        v-slot="{ open }"
-                        as="div"
-                        v-model="selectedSocial"
-                      >
-                        <ListboxButton
-                          class="relative cursor-default w-[6.563rem] border rounded py-[14px] h-full flex items-center space-x-2 justify-between px-4"
-                        >
-                          <Icon
-                            class="fill-current text-black"
-                            name="instagram"
-                          />
-                          <span
-                            class="pointer-events-none flex items-center text-grayscale-300"
-                          >
-                            <ChevronDownIcon :class="[open ? ' rotate-180' : '']" class="h-4 w-4" />
-                          </span>
-                        </ListboxButton>
-                        <transition
-                          leave-active-class="transition duration-100 ease-in"
-                          leave-from-class="opacity-100"
-                          leave-to-class="opacity-0"
-                        >
-                          <ListboxOptions
-                            class="mt-1 max-h-60 w-[10rem] overflow-auto rounded bg-white py-1 text-base focus:outline-none sm:text-sm absolute z-50 shadow"
-                          >
-                            <ListboxOption
-                              v-for="(social, index) in socials"
-                              :key="index"
-                              :value="social"
-                              as="template"
-                            >
-                              <div class="flex items-center space-x-2 py-3 px-3">
-                                <Icon
-                                  class="fill-current text-black"
-                                  name="instagram"
-                                />
-                                <p>{{ social.name }}</p>
-                              </div>
-                            </ListboxOption>
-                          </ListboxOptions>
-                        </transition>
-                      </Listbox>
-                      <TextInput
-                        type="text"
-                        id="social_proof"
-                        v-model="form.social_proof"
-                        class="border-#EBEBEB focus:border-#EBEBEB flex-grow rounded px-[1rem] py-[0.813rem] w-full"
-                        placeholder=""
-                        aria-label="social_proof"
-                      />
-                    </div>
-                  </div>
-                  <!-- <InputError
-                    class="left-0 -bottom-5 text-sm"
-                    :message="
-                      $v.phone_number.required.$invalid
-                        ? 'Phone number is Required'
-                        : ''
-                    "
-                    v-show="$v.phone_number.$error"
-                  /> -->
-                </FormGroup>
-
-                <div class="pt-8 pb-3">
-                  <base-button
-                    class="bg-gradient-to-r from-orange to-red text-white rounded py-3 w-full"
-                    :is-loading="loading"
-                    @click.prevent="next"
-                    type="button"
-                    >Join the waitlist
-                  </base-button>
-                </div>
-
-                <p class="text-center pt-5">
-                  Already have an account?
-                  <RouterLink :to="{ name: 'login' }" class="text-orange"
-                    >Login</RouterLink
-                  >
-                </p>
-              </div>
-            </fieldset>
-          </form>
-        </div>
+        <RouterLink
+          to="/"
+          class="text-orange flex-none"
+        >
+          <img
+            class="w-[6.813rem] bg-cover absolute left-20 top-11"
+            src="@/assets/images/logo_3.png"
+            alt="Corefans"
+          />
+        </RouterLink>
       </div>
     </div>
+    <AuthSideLayout class="order-1 md:order-2" />
   </auth-layout>
 </template>
-
-<style>
-.otp-input-invitation {
-  padding: 5px;
-  margin: 0 10px;
-  font-size: 20px;
-  text-align: center;
-}
-/* Background colour of an input field with value */
-.otp-input-invitation {
-  border-width: 1px;
-  border-color: #b9b9b9;
-}
-.otp-input-invitation.is-complete {
-  border-color: #ff6666;
-}
-
-.otp-input-invitation::-webkit-inner-spin-button,
-.otp-input-invitation::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input::placeholder {
-  font-size: 15px;
-  text-align: center;
-  font-weight: 600;
-}
-</style>
