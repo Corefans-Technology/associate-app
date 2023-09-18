@@ -5,7 +5,7 @@
         <!-- breabcrum -->
         <div class="md:hidden pb-3">
           <h2 class="text-lg md:text-2xl font-bold font-power text-black pr-[2rem]">
-            Settings
+            Settings 
           </h2>
         </div>
       </div>
@@ -23,23 +23,23 @@
               as="template"
             >
               <div
-                :class="[query.tab === name
+                :class="[$route.query.tab === name
                   ? 'pb-[2px] bg-gradient-to-r from-orange to-red'
                   : 'bg-transparent']"
               >
                 <router-link
-                  :to="{ name: link, query: { tab: name} }"
+                  :to="{ name: link, query: { tab: name}, replace}"
                   :class="[
                     'text-base',
                     'focus:outline-none focus:ring-0 focus:border-0 relative pb-3 -mb-[0px] bg-white border-0 block',
                   ]"
                 >
                   <span
-                    :class="['text-xs md:text-base whitespace-nowrap', query.tab === name
+                    :class="['text-xs md:text-base whitespace-nowrap', $route.query.tab === name
                       ? ' text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium'
                       : 'text-[#878787]']"
                   >
-                    {{ name }}
+                    {{ name }} 
                   </span>
                 </router-link>
               </div>
@@ -58,9 +58,9 @@
 import { TabGroup, TabList, Tab, TabPanels } from "@headlessui/vue";
 import Layout from "@/layouts/DashboardLayout.vue";
 import { ref } from "vue";
-import { useRoute } from "vue-router"
+// import { useRoute } from "vue-router"
 
-const query = useRoute().query
+// const query = useRoute().query
 
 const selectedTab = ref(0)
 

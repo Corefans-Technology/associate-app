@@ -18,7 +18,7 @@
       </p> -->
       <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-white py-2 px-4"
+          class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
           :to="{ name: 'overview' }"
         >
           <Icon
@@ -30,7 +30,7 @@
       </li>
       <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-white py-2 px-4"
+          class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
           :to="{ name: 'wallet' }"
         >
           <Icon
@@ -42,7 +42,7 @@
       </li>
       <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-white py-2 px-4"
+          class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
           :to="{ name: 'talents.index', query: { tab: 'All' } }"
         >
           <Icon name="users" />
@@ -95,14 +95,14 @@ const router = useRouter()
 .links .router-link-active {
   color: white;
   /* background: rgba(255, 255, 255, 0.20); */
-  border-radius: 4px;
+  border-radius: 8px;
   @apply bg-gradient-to-br from-orange to-red
 }
 
 .links .router-link-exact-active {
   color: white;
   /* background: rgba(255, 255, 255, 0.20); */
-  border-radius: 4px;
+  border-radius: 8px;
   border: none;
   @apply bg-gradient-to-br from-orange to-red
 }

@@ -48,7 +48,7 @@ genericStore.getCountries();
 genericStore.getBanks()
 const router = useRouter()
 
-let currentStep = ref(0);
+// let currentStep = ref(0);
 
 const accountName = ref("");
 
@@ -188,7 +188,7 @@ const onSubmit = handleSubmit( async (values, actions) => {
                           v-for="social in socials"
                           :key="social.id"
                           :value="social"
-                          class="hover:bg-black/5 group flex w-full items-center gap-3 rounded-md px-4 py-2 text-xs font-medium text-1E1D24 cursor-pointer"
+                          class="hover:bg-black/5 group flex w-full items-center gap-3 rounded-md px-4 py-2 text-sm font-medium text-1E1D24 cursor-pointer"
                           :disabled="social.unavailable"
                         >
                           <!-- <Icon

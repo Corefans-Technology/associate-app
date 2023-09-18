@@ -30,7 +30,7 @@
           <div class="p-px bg-gradient-to-br from-orange to-red md:bg-transparent rounded-lg">
             <BaseButton
               type="button"
-              class="bg-white md:bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg h-9 px-2"
+              class="bg-white md:bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg h-[37px] px-2"
               @click="$router.push({ name: 'talents.send.invite' })"
             >
               <div class="flex items-center space-x-1 md:space-x-2">
@@ -239,7 +239,7 @@
               as="template"
             >
               <div
-                :class="[query.tab === name
+                :class="[$route.query.tab === name
                   ? 'pb-[2px] bg-gradient-to-r from-orange to-red'
                   : 'bg-transparent']"
               >
@@ -251,7 +251,7 @@
                   ]"
                 >
                   <span
-                    :class="['text-xs md:text-base whitespace-nowrap', query.tab === name
+                    :class="['text-xs md:text-base whitespace-nowrap', $route.query.tab === name
                       ? ' text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium'
                       : 'text-[#878787]']"
                   >
@@ -311,7 +311,7 @@ import {
 
 import {useGenericStore} from "@/stores/generic";
 import BaseButton from "@/components/base/BaseButton.vue";
-import { useRoute } from "vue-router"
+// import { useRoute } from "vue-router"
 const genericStore = useGenericStore();
 genericStore.getCountries();
 const tabs = ref({
@@ -319,7 +319,7 @@ const tabs = ref({
   "Invites": "talents.invitee",
   "Artist Discovery": "talents.artist",
 });
-const query = useRoute().query
+// const query = useRoute().query
 // const errors = ref([]);
 // const success = ref(false);
 // const loading = ref(false);
