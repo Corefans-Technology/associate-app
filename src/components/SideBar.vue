@@ -3,7 +3,7 @@
     class="flex-none md:pb-4 hidden md:flex md:w-60 w-full bg-#121216 md:bg-#2D1713 py-4 px-3.5 left-0 h-fit md:h-full rounded-t-none rounded-b-none md:rounded-t-2xl md:rounded-b-2xl  flex-col divide-y divide-#3A2622"
   >
     <button
-      class="flex-none relative"
+      class="flex-none relative pb-4"
       @click="router.push('/')"
     >
       <img
@@ -12,7 +12,7 @@
         class="mx-auto h-7"
       />
     </button>
-    <ul class="hidden md:flex flex-col h-full flex-grow pt-8">
+    <ul class="hidden md:flex flex-col h-full flex-grow pt-8 space-y-2">
       <!-- <p class="text-xs text-1E1D24 text-opacity-30 pb-2">
         ACTIVITY
       </p> -->

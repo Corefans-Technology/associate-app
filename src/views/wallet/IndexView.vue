@@ -5,19 +5,16 @@
         <div class="rounded-lg bg-gradient-to-b p-px from-orange to-red block">
           <BaseButton
             type="button"
-            class="text-light-grey-2 text-sm rounded-lg bg-white w-full py-2 px-2 h-9"
+            class="text-light-grey-2 text-sm rounded-lg bg-white w-full py-2 px-[10px] h-9"
           >
             <span class="text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium">
               Last 30Days
             </span>
           </BaseButton>
         </div>
-        <!-- <h3 class="text-lg font-power font-bold lg:hidden">
-          Wallet
-        </h3> -->
 
         <BaseButton
-          class="bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg font-medium py-2 px-2 h-9"
+          class="bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg font-medium py-2 px-[10px] h-9"
           @click="$router.push({ name: 'wallet.withdraw' })"
         >
           <div class="flex gap-2">
