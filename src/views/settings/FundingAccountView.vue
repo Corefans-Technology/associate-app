@@ -11,7 +11,48 @@
               Set up and monitor your funding account for seamless transactions.
             </p>
           </div>
-          <div class=" w-full space-y-[1.2rem]">
+          <!-- {{ settingsStore }} -->
+          <div
+            v-if="settingsStore.banks.length > 0 & preview"
+            class="w-full space-y-[1.2rem]"
+          >
+            <!-- Bank -->
+
+            <small>For testing: select <b>Access bank</b> and use a/c: <b>0690000010</b></small>
+            <input
+              v-model="settingsStore.banks[0].bank_name"
+              class="placeholder:text-98A2B3 placeholder:text-sm placeholder:text-left placeholder:font-normal focus:outline-none w-full text-sm text-1E1D24 focus:ring-0 h-12 px-4 aria-[invalid=true]:border-error mt-2.5 mb-1 border-d font-medium rounded border border-light-grey focus:border-light-grey"
+              type="text"
+            />
+            <div>
+              <!-- Account number -->
+              <input
+                v-model="settingsStore.banks[0].number"
+                class="placeholder:text-98A2B3 placeholder:text-sm placeholder:text-left placeholder:font-normal focus:outline-none w-full text-sm text-1E1D24 focus:ring-0 h-12 px-4 aria-[invalid=true]:border-error mt-2.5 mb-1 border-d font-medium rounded border border-light-grey focus:border-light-grey"
+                type="text"
+              />
+
+              <p class="font-semibold text-transparent bg-clip-text bg-gradient-to-br from-orange to-red">
+                {{ settingsStore.banks[0].name }}
+              </p>
+            </div>
+
+            <div
+              class="flex items-center space-x-3 justify-end"
+            >
+              <BaseButton
+                type="button"
+                class="rounded-lg bg-gradient-to-br from-orange to-red text-white h-11 "
+                @click.prevent="preview = !preview"
+              >
+                Update
+              </BaseButton>
+            </div>
+          </div>
+          <div
+            v-else
+            class="w-full space-y-[1.2rem]"
+          >
             <!-- Bank -->
 
             <small>For testing: select <b>Access bank</b> and use a/c: <b>0690000010</b></small>
@@ -223,8 +264,9 @@ const genericStore = useGenericStore();
 genericStore.getBanks()
 const { banks } = storeToRefs(genericStore);
 
-const verifying = ref(false);
-
+// const verifying = ref(false);
+let preview = ref(true);
+      
 const isOpen = ref(false);
 
 function closeModal() {
@@ -260,9 +302,12 @@ const currentSchema = computed(() => {
   return schemas[currentStep.value];
 });
 
-const { handleSubmit, errors, isSubmitting, values, setFieldValue } = useForm({
+const { handleSubmit, errors, isSubmitting, values, setFieldValue} = useForm({
   validationSchema: currentSchema,
   keepValuesOnUnmount: true,
+  // initialValues: {
+  //   name: ''
+  // }
 })
 
 
@@ -276,13 +321,15 @@ const submit = handleSubmit( async ( values, actions ) => {
       })
       .then(({ data }) => {
         // currentStep.value = 1
-        setFieldValue("name",  data.account_name)
+        // console.log(data)
+        setFieldValue("name",  data.data.account_name)
         // Toast.fire({
         //   icon: "error",
         //   title: 'here',
         // });
       })
       .catch((error) => {
+        // eslint-disable-next-line no-undef
         Toast.fire({
           icon: "error",
           title: error.response.data.message,
@@ -293,40 +340,48 @@ const submit = handleSubmit( async ( values, actions ) => {
 
   if (currentStep.value === 1) {
     await settingsStore.addBank(values).then(() => {
-      resetForm();
+      resetForm({
+        values: {
+          name: "",
+          code: "",
+          number: "",
+        },
+      });
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "success",
         title: "Account Added!",
       });
-
-      router.push({ name: "settings.funding.account" })
+      preview.value = true
+      // router.push({ name: "settings.funding.account" })
     }).catch((error) => {
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "error",
-        title: error.data.message,
+        title: error.response.data.message,
       });
-      actions.setErrors(error.data.errors);
+      actions.setErrors(error.response.data.errors);
     });
   }
 
-  await settingsStore.addBank({
-    ...values,
-    name: accountName.value,
-  }).then(() => {
-    // eslint-disable-next-line no-undef
-    Toast.fire({
-      icon: "success",
-      title: "Account Added!",
-    });
-    closeModal()
-  }).catch((error) => {
-    // eslint-disable-next-line no-undef
-    Toast.fire({
-      icon: "error",
-      title: error.response.data.message,
-    });
-    actions.setErrors(error.response.data.errors);
-  });
+  // await settingsStore.addBank({
+  //   ...values,
+  //   name: accountName.value,
+  // }).then(() => {
+  //   // eslint-disable-next-line no-undef
+  //   Toast.fire({
+  //     icon: "success",
+  //     title: "Account Added!",
+  //   });
+  //   closeModal()
+  // }).catch((error) => {
+  //   // eslint-disable-next-line no-undef
+  //   Toast.fire({
+  //     icon: "error",
+  //     title: error.response.data.message,
+  //   });
+  //   actions.setErrors(error.response.data.errors);
+  // });
 });
 
 </script>

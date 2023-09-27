@@ -6,6 +6,8 @@ export const useTalentStore = defineStore("talent", {
   state: () => ({
     invitedList: null,
     inviteeList: null,
+    waitlistsList: null,
+    waitlistsLists: null,
     step: 1,
     form: {
       first_name: null,
@@ -33,6 +35,15 @@ export const useTalentStore = defineStore("talent", {
     async fetchInvitee() {
       const { data } = await API.get(ROUTES().inviteeTalents);
       this.inviteeList = data;
+    },
+
+    async fetchWaitlists() {
+      const { data } = await API.get(ROUTES().waitlists);
+      this.waitlistsLists = data;
+    },
+    async fetchWaitlist(id) {
+      const { data } = await API.get(ROUTES(id).waitlist);
+      this.waitlistsList = data;
     },
 
     async sendInvite(form) {

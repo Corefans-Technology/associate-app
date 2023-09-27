@@ -1,5 +1,5 @@
 <template>
-  <div v-if="talentStore.inviteeList?.data?.length">
+  <div v-if="talentStore.waitlistsLists?.data?.length">
     <div class="hidden md:block">
       <table-lite
           :is-slot-mode="true"
@@ -30,7 +30,7 @@
     </div>
 
     <div class="divide-y md:hidden">
-      <div v-for="(item, index) in inviteeList?.data.map( (item) => {
+      <div v-for="(item, index) in waitlistsLists?.data.map( (item) => {
         return {
           accept_invite: item?.accept_invite,
           email: item?.email,
@@ -312,14 +312,14 @@ import { useTalentStore } from "@/stores/talent";
 import {storeToRefs} from "pinia";
 
 const talentStore = useTalentStore();
-await talentStore.fetchInvitee();
+await talentStore.fetchWaitlists();
 let loading = ref(false);
 let detailModal = ref(false);
 let acceptModal = ref(false);
 let rejectModal = ref(false);
 let selectedId = ref(null);
 
-const { inviteeList } = storeToRefs(talentStore)
+const { waitlistsLists } = storeToRefs(talentStore)
 
 
 
@@ -396,7 +396,7 @@ const table = reactive({
       },
     },
   ],
-  rows: inviteeList.value?.data.map( (item) => {
+  rows: waitlistsLists.value?.data.map( (item) => {
     return {
       accept_invite: item?.accept_invite,
       email: item?.email,
@@ -406,7 +406,7 @@ const table = reactive({
       phone_number: item.phone_number
     }
   }),
-  totalRecordCount: inviteeList.value?.data?.length,
+  totalRecordCount: waitlistsLists.value?.data?.length,
   sortable: {
     order: "created_at",
     sort: "asc",
