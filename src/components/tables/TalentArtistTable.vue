@@ -1,5 +1,8 @@
 <template>
   <div v-if="talentStore.waitlistsLists?.data?.length">
+    <!-- <pre>
+      {{ waitlistsLists }}
+    </pre> -->
     <div class="hidden md:block">
       <table-lite
           :is-slot-mode="true"
@@ -20,10 +23,10 @@
           </p>
         </template>
 
-        <template v-slot:links="data">
-          <p class="flex items-center space-x-2" v-for="(item, index) in data.value.links" :key="index">
+        <template v-slot:social="data">
+          <p class="flex items-center space-x-2">
             <!-- <Icon :name="item.name" /> -->
-            <Icon :name="item.name" />
+            <span v-for="(item, index) in data.value.social" :key="index" v-html="socials.find( i => i.name === index).icon" />
           </p>
         </template>
       </table-lite>
@@ -207,19 +210,23 @@
     :is-open="detailModal"
     @close="detailModal = !detailModal"
   >
-    <form
-      class="w-full flex justify-center"
-      @submit.prevent="onSubmit"
+    <div
+      class="w-full flex justify-center relative"
     >
+      <div v-if="getArtistloading" class="inset-0 bg-white flex items-center justify-center">
+        <LoaderComponent />
+      </div>
       <DialogPanel
         class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-6 text-left shadow-xl transition-all space-y-4"
       >
         <div class="mx-auto flex justify-between items-start">
           <div class="space-y-1">
             <h3 class="text-2xl font-medium font-power flex items-end gap-1">
-              <span>Deji Lawson</span> <Status :name="'In Review'" />
+              <span>{{ waitlistsList?.first_name }} {{ waitlistsList?.last_name }}</span> <Status :name="waitlistsList?.status" />
             </h3>
-            <span class=" text-sm text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">DejiLaw</span>
+            <span class=" text-sm text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">
+              {{ waitlistsList?.last_name }}
+            </span>
           </div>
 
           <button @click.prevent="detailModal = !detailModal" class=" w-6 h-6 rounded-full bg-#E9E8E9 flex items-center justify-center">
@@ -231,47 +238,55 @@
         </div>
 
         <div class="">
-          <div class="space-y-3 py-3 border-b">
+          <!-- <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Nationality</h4>
             <p class="text-base text-#7D7C80 font-medium">Nigerian</p>
-          </div>
+          </div> -->
           <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Email</h4>
-            <p class="text-base text-#7D7C80 font-medium">dejilawson@outlook.com</p>
+            <p class="text-base text-#7D7C80 font-medium">
+              {{ waitlistsList?.email }}
+            </p>
           </div>
 
-          <div class="space-y-3 py-3 border-b">
+          <!-- <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Phone Number</h4>
             <p class="text-base text-#7D7C80 font-medium">09172057365</p>
-          </div>
+          </div> -->
           <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Genre</h4>
-            <p class="text-base text-#7D7C80 font-medium">Afro-Beats, Rap</p>
+            <p class="text-base text-#7D7C80 font-medium">
+              {{ waitlistsList?.genre }}
+            </p>
           </div>
           <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Links</h4>
             <div class="space-y-2">
-              <p class="text-[#1DB953] text-base font-medium flex items-center space-x-1">
-                <Icon class="fill-current" name="spotify" />
-                <span>Spotify</span>
-              </p>
-              <p class="text-transparent bg-clip-text bg-gradient-to-br from-orange to-red text-base font-medium flex items-center space-x-1">
-                <Icon class="fill-current" name="sound" />
-                <span>Souncloud</span>
-              </p>
-              <p class="text-1E1D24 text-base font-medium flex items-center space-x-1">
-                <Icon class="fill-current" name="tiktok" /> 
-                <span>Spotify</span>
-              </p>
+              <a :href="item" target="_blank" v-for="(item, index) in waitlistsList?.social" class="text-base font-medium flex items-center space-x-1">
+                <span :key="index" v-html="socials.find( i => i.name === index).icon" />
+                <span :class="[socials.find( i => i.name === index).class]">{{ index }}</span>
+              </a>
             </div>
           </div>
           <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Request Date</h4>
-            <p class="text-base text-#7D7C80 font-medium">28, Jul 2021. 4:44 PM</p>
+            <p class="text-base text-#7D7C80 font-medium">
+              {{ waitlistsList?.last_name }}
+            </p>
           </div>
         </div>
 
-        <div class="space-y-4 pt-4">
+        <div v-if="waitlistsList?.status === 'Awaiting Review'" class="space-y-4 pt-4">
+          <BaseButton
+            type="button"
+            @click.prevent="acceptModal = !acceptModal; detailModal = !detailModal"
+            class="tex-#7D7C80 rounded-lg flex-1 bg-gradient-to-br from-orange to-red w-full text-white"
+          >
+            Set For Review
+          </BaseButton>
+        </div>
+
+        <div v-else class="space-y-4 pt-4">
           <BaseButton
             type="button"
             @click.prevent="acceptModal = !acceptModal; detailModal = !detailModal"
@@ -293,8 +308,11 @@
           </BaseButton>
           </div>
         </div>
+
+        
       </DialogPanel>
-    </form>
+
+    </div>
   </Modal>
 </template>
 
@@ -310,16 +328,36 @@ import BaseButton from "@/components/base/BaseButton.vue";
 import Icon from "@/components/Icon.vue";
 import { useTalentStore } from "@/stores/talent";
 import {storeToRefs} from "pinia";
+import spotify from "@/assets/icons/socials-colored/spotify.svg?raw"
+import apple from "@/assets/icons/socials-colored/apple.svg?raw"
+import deezer from "@/assets/icons/socials-colored/deezer.svg?raw"
+import facebook from "@/assets/icons/socials-colored/facebook.svg?raw"
+import instagram from "@/assets/icons/socials-colored/instagram.svg?raw"
+import sound from "@/assets/icons/socials-colored/sound.svg?raw"
+import tiktok from "@/assets/icons/socials-colored/tiktok.svg?raw"
+import twitter from "@/assets/icons/socials-colored/twitter.svg?raw"
+import LoaderComponent from "@/components/LoaderComponent.vue";
+const socials = ref([
+  { id: 1, name: "Spotify", placeholder: "https://spotify.com/yourpage", icon: spotify, unavailable: false, class: 'text-[#1DB953]' },
+  { id: 2, name: "Deezer", placeholder: "https://deezer.com/yourpage", icon: deezer, unavailable: false, class: 'text-1E1D24'},
+  { id: 3, name: "Apple Music", placeholder: "https://apple.com/yourpage", icon: apple, unavailable: false, class: 'text-1E1D24' },
+  { id: 4, name: "Soundcloud", placeholder: "https:/soundcloud/.com/yourpage", icon: sound, unavailable: false, class: 'text-transparent bg-clip-text bg-gradient-to-br from-orange to-red' },
+  { id: 5, name: "Facebook", placeholder: "https://facebook.com/yourpage", icon: facebook, unavailable: false, class: 'text-1E1D24' },
+  { id: 6, name: "Twitter", placeholder: "https://twitter.com/yourpage", icon: twitter, unavailable: false, class: 'text-1E1D24' },
+  { id: 7, name: "Instagram", placeholder: "https://instagram.com/yourpage", icon: instagram, unavailable: false, class: 'text-1E1D24' },
+  { id: 8, name: "Tik Tok", placeholder: "https://tiktok.com/yourpage", icon: tiktok, unavailable: false, class: 'text-1E1D24' },
+])
 
 const talentStore = useTalentStore();
 await talentStore.fetchWaitlists();
 let loading = ref(false);
+let getArtistloading = ref(false);
 let detailModal = ref(false);
 let acceptModal = ref(false);
 let rejectModal = ref(false);
 let selectedId = ref(null);
 
-const { waitlistsLists } = storeToRefs(talentStore)
+const { waitlistsLists, waitlistsList } = storeToRefs(talentStore)
 
 
 
@@ -363,16 +401,16 @@ const table = reactive({
     },
     {
       label: "Links",
-      field: "links",
+      field: "social",
       // width: "15%",
       sortable: true,
     },
-    {
-      label: "Nationality",
-      field: "nationality",
-      // width: "15%",
-      sortable: true,
-    },
+    // {
+    //   label: "Nationality",
+    //   field: "nationality",
+    //   // width: "15%",
+    //   sortable: true,
+    // },
     {
       label: "Action",
       field: "action",
@@ -388,7 +426,7 @@ const table = reactive({
           '<span data-id="' +
           row.id +
           '" class="' +
-          row?.status?.join(' ', '') +
+          row?.status?.toLowerCase().replaceAll(' ', '_') +
           '">' +
           row.status +
           "</span>"
@@ -403,7 +441,10 @@ const table = reactive({
       name: `${item?.first_name} ${item?.last_name}`,
       id: item?.id,
       invite_date: item.invite_date,
-      phone_number: item.phone_number
+      social: item.social,
+      genre: item.genre,
+      stage_name: item.stage_name,
+      status: item.status
     }
   }),
   totalRecordCount: waitlistsLists.value?.data?.length,
@@ -424,9 +465,15 @@ const tableLoadingFinish = (elements) => {
   });
 };
 
-const open = (id) => {
+const open = async (id) => {
+  getArtistloading.value = true
   detailModal.value = !detailModal.value
   selectedId.value = id
+  await talentStore.fetchWaitlist(id).then( () => {
+    getArtistloading.value = false
+  }).catch( () => {
+    getArtistloading.value = false
+  });
 }
 
 
