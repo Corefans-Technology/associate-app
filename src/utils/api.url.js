@@ -58,6 +58,13 @@ export const ROUTES = function (param = "") {
     campaignFunding: `/v1/manager/campaigns/${param}/funding`,
     goLive: `/v1/manager/campaigns/${param}/activate`,
     exclusiveAttribute: "/v1/exclusives/attributes",
+    // waitlist 
+    waitlists: "v1/manager/talents/waiting-list",
+    waitlist: `v1/manager/talents/waiting-list/${param}`,
+    acceptedWaitlist: `v1/manager/talents/waiting-list/${param}/accepted`,
+    inReviewWaitlist: `v1/manager/talents/waiting-list/${param}/in-review`,
+    rejectedWaitlist: `v1/manager/talents/waiting-list/${param}/rejected`,
+    
 
     // Generics
     banks: "v1/banks",
