@@ -43,7 +43,7 @@
       <li class="flex-none links">
         <router-link
           class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
-          :to="{ name: 'talents.index', query: { tab: 'All' } }"
+          :to="{ name: 'talents.invited', query: { tab: 'All' } }"
         >
           <Icon name="users" />
           <span>Talents</span>

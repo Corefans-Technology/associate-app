@@ -78,7 +78,7 @@
           <li class="flex-none mobile_links">
             <router-link
               class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
-              :to="{ name: 'talents.index', query: { tab: 'All' } }"
+              :to="{ name: 'talents.invited', query: { tab: 'All' } }"
             >
               <span>Talents</span>
             </router-link>
