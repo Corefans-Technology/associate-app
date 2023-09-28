@@ -40,7 +40,8 @@
           name: `${item?.first_name} ${item?.last_name}`,
           id: item?.id,
           invite_date: item.invite_date,
-          phone_number: item.phone_number
+          phone_number: item.phone_number,
+          status: item.status
         }
       })" :key="index" class="py-2 flex space-x-4 items-center">
         <div class="p-[10px] flex-none">
@@ -48,7 +49,10 @@
         </div>
         <div class="space-y-2 py-3 flex-grow">
             <h4 class="text-sm text-1E1D24 font-medium">{{item.name}}</h4>
-            <p class="text-xs text-#7D7C80 font-normal">Musician</p>
+            <span :data-id="item.id" :class="[item?.status?.toLowerCase().replaceAll(' ', '_')]"> 
+              {{ item?.status }}
+            </span>
+            <!-- <p class="text-xs text-#7D7C80 font-normal">Musician</p> -->
         </div>
         <BaseButton type='button' @click="open(item.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8 flex-none px-0'>
         <span class="flex items-center space-x-1">
@@ -208,16 +212,15 @@
 
   <Modal
     :is-open="detailModal"
-    @close="detailModal = !detailModal"
+    @close="close"
   >
     <div
       class="w-full flex justify-center relative"
     >
-      <div v-if="getArtistloading" class="inset-0 bg-white flex items-center justify-center">
-        <LoaderComponent />
-      </div>
+    <!-- {{ getArtistloading }} -->
+      
       <DialogPanel
-        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-6 text-left shadow-xl transition-all space-y-4"
+        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-6 text-left shadow-xl transition-all space-y-4 relative"
       >
         <div class="mx-auto flex justify-between items-start">
           <div class="space-y-1">
@@ -229,7 +232,7 @@
             </span>
           </div>
 
-          <button @click.prevent="detailModal = !detailModal" class=" w-6 h-6 rounded-full bg-#E9E8E9 flex items-center justify-center">
+          <button @click.prevent="close" class=" w-6 h-6 rounded-full bg-#E9E8E9 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M10.4752 11.1824L4.81832 5.5255C4.62505 5.33223 4.62505 5.01167 4.81832 4.8184C5.0116 4.62512 5.33215 4.62512 5.52543 4.8184L11.1823 10.4753C11.3756 10.6685 11.3756 10.9891 11.1823 11.1824C10.989 11.3756 10.6685 11.3756 10.4752 11.1824Z" fill="#1E1D24"/>
               <path d="M4.81772 11.1824C4.62444 10.9891 4.62444 10.6685 4.81772 10.4753L10.4746 4.8184C10.6678 4.62512 10.9884 4.62512 11.1817 4.8184C11.375 5.01167 11.375 5.33223 11.1817 5.5255L5.52482 11.1824C5.33155 11.3756 5.01099 11.3756 4.81772 11.1824Z" fill="#1E1D24"/>
@@ -271,7 +274,7 @@
           <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Request Date</h4>
             <p class="text-base text-#7D7C80 font-medium">
-              {{ waitlistsList?.last_name }}
+              {{ useFormat(waitlistsList?.date_created) }}
             </p>
           </div>
         </div>
@@ -279,17 +282,19 @@
         <div v-if="waitlistsList?.status === 'Awaiting Review'" class="space-y-4 pt-4">
           <BaseButton
             type="button"
-            @click.prevent="acceptModal = !acceptModal; detailModal = !detailModal"
+            @click.prevent="setForReview"
+            :is-loading="loading"
             class="tex-#7D7C80 rounded-lg flex-1 bg-gradient-to-br from-orange to-red w-full text-white"
           >
             Set For Review
           </BaseButton>
         </div>
-
-        <div v-else class="space-y-4 pt-4">
+        
+        <div v-if="waitlistsList?.status === 'In review'" class="space-y-4 pt-4">
           <BaseButton
             type="button"
-            @click.prevent="acceptModal = !acceptModal; detailModal = !detailModal"
+            :is-loading="acceptloading"
+            @click.prevent="acceptArtist"
             class="tex-#7D7C80 rounded-lg flex-1 bg-gradient-to-br from-orange to-red w-full text-white"
           >
             Accept Request
@@ -298,7 +303,7 @@
             <BaseButton
             :is-loading="loading"
             type="button"
-            @click.prevent="rejectModal = !rejectModal; detailModal = !detailModal"
+            @click.prevent="rejectArtist"
             class="bg-white rounded-lg w-full text-center flex-1"
           >
             <!-- <PaperAirplaneIcon class="h-4 -rotate-45 pb-x" /> -->
@@ -309,7 +314,9 @@
           </div>
         </div>
 
-        
+        <div v-if="getArtistloading" class="inset-0 bg-white flex items-center justify-center absolute">
+        <LoaderComponent />
+      </div>
       </DialogPanel>
 
     </div>
@@ -337,6 +344,7 @@ import sound from "@/assets/icons/socials-colored/sound.svg?raw"
 import tiktok from "@/assets/icons/socials-colored/tiktok.svg?raw"
 import twitter from "@/assets/icons/socials-colored/twitter.svg?raw"
 import LoaderComponent from "@/components/LoaderComponent.vue";
+import { useFormat } from "@/composables/duration.js";
 const socials = ref([
   { id: 1, name: "Spotify", placeholder: "https://spotify.com/yourpage", icon: spotify, unavailable: false, class: 'text-[#1DB953]' },
   { id: 2, name: "Deezer", placeholder: "https://deezer.com/yourpage", icon: deezer, unavailable: false, class: 'text-1E1D24'},
@@ -351,6 +359,7 @@ const socials = ref([
 const talentStore = useTalentStore();
 await talentStore.fetchWaitlists();
 let loading = ref(false);
+let acceptloading = ref(false);
 let getArtistloading = ref(false);
 let detailModal = ref(false);
 let acceptModal = ref(false);
@@ -373,6 +382,62 @@ const revokeInvite = async () => {
   selectedId.value = true
   revokeModal.value = !revokeModal.value
 }
+
+const setForReview = async () => {
+  loading.value = true;
+  await talentStore.setForReview().then(() => {
+    Toast.fire({
+      icon: "success",
+      title: "Application set to review",
+    });
+  }).catch( (err) => {
+    loading.value = false;
+    Toast.fire({
+      icon: "error",
+      title: err.response.data.message,
+    });
+  });
+  loading.value = false;
+  // selectedId.value = true
+  // revokeModal.value = !revokeModal.value
+}
+
+const rejectArtist = async () => {
+  loading.value = true;
+  await talentStore.rejectArtist().then(() => {
+    Toast.fire({
+      icon: "success",
+      title: "Application set to review",
+    });
+  }).catch( (err) => {
+    loading.value = false;
+    Toast.fire({
+      icon: "error",
+      title: err.response.data.message,
+    });
+  });
+  loading.value = false;
+  // selectedId.value = true
+  // revokeModal.value = !revokeModal.value
+}
+
+const acceptArtist = async () => {
+  acceptloading.value = true;
+  await talentStore.acceptArtist().then(() => {
+    Toast.fire({
+      icon: "success",
+      title: "Artisan will be seed an invitation",
+    });
+  }).catch( (err) => {
+    acceptloading.value = false;
+    Toast.fire({
+      icon: "error",
+      title: err.response.data.message,
+    });
+  });
+  acceptloading.value = false;
+}
+
 
 const table = reactive({
   isLoading: false,
@@ -476,6 +541,12 @@ const open = async (id) => {
   });
 }
 
+const close = async () => {
+  detailModal.value = !detailModal.value
+  await talentStore.fetchWaitlists()
+  // location.reload()
+}
+
 
 </script>
 
@@ -520,6 +591,16 @@ export default {
   background: rgba(255, 158, 11, 0.10);
   border-radius: 100px;
 }
+
+::v-deep(.invited) {
+  color: #00c48c;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 5px 10px;
+  background: rgba(0, 196, 140, 0.1);
+  border-radius: 100px;
+}
+
 ::v-deep(.awaiting_review) {
   color: #3d6abe;
   font-size: 11px;

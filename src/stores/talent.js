@@ -42,6 +42,7 @@ export const useTalentStore = defineStore("talent", {
       this.waitlistsLists = data;
     },
     async fetchWaitlist(id) {
+      this.waitlistsList = null
       const { data } = await API.get(ROUTES(id).waitlist);
       this.waitlistsList = data;
     },
@@ -49,16 +50,39 @@ export const useTalentStore = defineStore("talent", {
     async sendInvite(form) {
       return await API.post(ROUTES().invite, form );
     },
-
+    
     async revokeInvite(invite) {
       return await API.get(ROUTES(invite).inviteRevoke).then(() => {
         this.inviteeList.data = this.inviteeList.data.filter(invitee => invitee.id !== invite);
       });
     },
 
+    async rejectArtist() {
+      return await API.post(ROUTES(this.waitlistsList.id).rejectedWaitlist).then(() => {
+        this.fetchWaitlist(this.waitlistsList.id)
+        // this.fetchWaitlists()
+        // this.inviteeList.data = this.inviteeList.data.filter(invitee => invitee.id !== invite);
+      });
+    },
+
+    async acceptArtist() {
+      return await API.post(ROUTES(this.waitlistsList.id).acceptedWaitlist).then(() => {
+        this.fetchWaitlist(this.waitlistsList.id)
+        // this.waitlistsList.status = "Invited"
+        // this.inviteeList.data = this.inviteeList.data.filter(invitee => invitee.id !== invite);
+      });
+    },
+
+    async setForReview() {
+      return await API.post(ROUTES(this.waitlistsList.id).inReviewWaitlist).then(() => {
+        // this.waitlistsList.status = "In review"
+        this.fetchWaitlist(this.waitlistsList.id)
+        // this.inviteeList.data = this.inviteeList.data.filter(invitee => invitee.id !== invite);
+      });
+    },
+
     invite() {
       API.post(ROUTES().invite);
-
     },
   },
 })

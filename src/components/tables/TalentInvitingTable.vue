@@ -37,6 +37,9 @@
     </div>
 
     <div class="divide-y md:hidden">
+      <!-- <pre>
+        {{ inviteeList }}
+      </pre> -->
       <div v-for="(item, index) in inviteeList?.data.map( (item) => {
         return {
           accept_invite: item?.accept_invite,
@@ -52,7 +55,9 @@
         </div>
         <div class="space-y-2 py-3 flex-grow">
             <h4 class="text-sm text-1E1D24 font-medium">{{item.name}}</h4>
-            <p class="text-xs text-#7D7C80 font-normal">Musician</p>
+            <p class="text-xs text-#7D7C80 font-normal">
+              {{ item?.invite_date }}
+            </p>
         </div>
         <BaseButton type='button' @click="open(item.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8 flex-none px-0'>
           <span class="flex items-center space-x-1">
