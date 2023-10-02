@@ -140,18 +140,15 @@
           <div class="p-6 space-y-2">
             <div>
               <p class="flex items-center space-x-2 font-medium">
-                <span>NO OF TRANSACTIONS</span>
+                <span>NO OF TALENTS</span>
                 <span class="text-white">
                   <Icon name="help" />
                 </span>
               </p>
+
               <Suspense>
                 <template #default>
-                  <h3 class="text-[#333333] text-[1.7rem] font-bold">
-                    {{
-                      transactions.length
-                    }}
-                  </h3>
+                  <TotalInvitedTalent />
                 </template>
                 <template #fallback>
                   loading...
@@ -222,6 +219,7 @@ import GraphView from "./GraphView.vue";
 import LoaderComponent from "@/components/LoaderComponent.vue";
 import WalletManagerTable from "@/components/tables/WalletManagerTable.vue";
 import Icon from "@/components/Icon.vue"
+import TotalInvitedTalent from "@/components/TotalInvitedTalent";
 const managerStore = useManagerStore();
 managerStore.profile();
 
