@@ -172,11 +172,7 @@
               </p>
               <Suspense>
                 <template #default>
-                  <h3 class="text-[#333333] text-[1.7rem] font-bold">
-                    {{
-                      transactions.length
-                    }}
-                  </h3>
+                  <TotalTalentCampaign />
                 </template>
                 <template #fallback>
                   loading...
@@ -220,12 +216,12 @@ import LoaderComponent from "@/components/LoaderComponent.vue";
 import WalletManagerTable from "@/components/tables/WalletManagerTable.vue";
 import Icon from "@/components/Icon.vue"
 import TotalInvitedTalent from "@/components/TotalInvitedTalent.vue";
+import TotalTalentCampaign from "@/components/TotalTalentCampaign.vue";
 const managerStore = useManagerStore();
 managerStore.profile();
 
 const walletStore = useWalletStore();
 walletStore.getTransactions();
-const { transactions } = storeToRefs(walletStore);
 
 // const { $breadcrumbs } = useNuxtApp()
 // console.log('Breadcrumbs array', $breadcrumbs)

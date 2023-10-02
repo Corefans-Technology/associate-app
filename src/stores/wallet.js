@@ -8,6 +8,7 @@ export const useWalletStore = defineStore("wallet", {
   state: () => ({
     balance: null,
     transactions: null,
+    campaigns: null,
   }),
   getters: {},
   actions: {
@@ -16,6 +17,12 @@ export const useWalletStore = defineStore("wallet", {
       await this.csrf();
       const { data } = await API.get(ROUTES().balance);
       this.balance = data.balance
+    },
+
+    async getCreativeCampaign() {
+      await this.csrf();
+      const { data } = await API.get(ROUTES().creativeCampaign);
+      this.campaigns = data
     },
 
     async getTransactions() {

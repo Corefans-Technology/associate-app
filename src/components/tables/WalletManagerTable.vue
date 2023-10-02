@@ -154,8 +154,12 @@ import {format, differenceInDays, formatRelative, subDays} from "date-fns";
 
 
 const walletStore = useWalletStore();
+
 await walletStore.getTransactions();
+walletStore.getCreativeCampaign();
+
 const { transactions } = storeToRefs(walletStore);
+const { campaigns } = storeToRefs(walletStore);
 
 
 
@@ -172,7 +176,7 @@ const table = reactive({
   columns: [
     {
       label: "Name",
-      field: "name",
+      field: "title",
       // width: "3%",
       sortable: true,
       isKey: true,
@@ -182,6 +186,9 @@ const table = reactive({
       field: "talent",
       // width: "10%",
       sortable: true,
+      display: function (row) {
+        return row.creative.name;
+      },
     },
     {
       label: "Category",
@@ -191,12 +198,12 @@ const table = reactive({
     },
     {
       label: "Goal Amount",
-      field: "goal_amount",
+      field: "goal",
       sortable: true,
     },
     {
       label: "Amount Raised",
-      field: "goal_amount",
+      field: "raise",
       sortable: true,
     },
     {
@@ -218,12 +225,12 @@ const table = reactive({
     },
     {
       label: "Created",
-      field: "created_at",
+      field: "date_created",
       // width: "15%",
       sortable: true,
     },
   ],
-  rows: transactions,
+  rows: campaigns,
   // rows: [
   //   {
   //     id: "3r3hfa44343",
