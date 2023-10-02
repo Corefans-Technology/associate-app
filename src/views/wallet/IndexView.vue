@@ -219,7 +219,7 @@ import GraphView from "./GraphView.vue";
 import LoaderComponent from "@/components/LoaderComponent.vue";
 import WalletManagerTable from "@/components/tables/WalletManagerTable.vue";
 import Icon from "@/components/Icon.vue"
-import TotalInvitedTalent from "@/components/TotalInvitedTalent";
+import TotalInvitedTalent from "@/components/TotalInvitedTalent.vue";
 const managerStore = useManagerStore();
 managerStore.profile();
 
