@@ -259,7 +259,7 @@
           <div class="space-y-3 py-3 border-b">
             <h4 class="text-sm text-1E1D24 font-medium">Genre</h4>
             <p class="text-base text-#7D7C80 font-medium">
-              {{ waitlistsList?.genre }}
+              {{ waitlistsList?.genre.join(', ') }}
             </p>
           </div>
           <div class="space-y-3 py-3 border-b">
@@ -457,7 +457,11 @@ const table = reactive({
     {
       label: "Genre",
       field: "genre",
-      // width: "15%",
+      display: function (row) {
+        return (
+            row?.genre?.join(', ')
+        );
+      },
     },
     {
       label: "Stage Name",
@@ -477,11 +481,6 @@ const table = reactive({
     //   sortable: true,
     // },
     {
-      label: "Action",
-      field: "action",
-    },
-
-    {
       label: "Status",
       field: "status",
       // width: "15%",
@@ -497,6 +496,10 @@ const table = reactive({
           "</span>"
         );
       },
+    },
+    {
+      label: "Action",
+      field: "action",
     },
   ],
   rows: waitlistsLists.value?.data.map( (item) => {

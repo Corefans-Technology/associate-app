@@ -44,6 +44,7 @@ export const ROUTES = function (param = "") {
     listBanks: "/v1/manager/banks",
     addBank: "/v1/manager/banks/create",
     balance: "/v1/manager/wallet/balance",
+    creativeCampaign: "/v1/manager/wallet/creative-campaign",
     withdraw: "/v1/manager/wallet/withdraw",
     withdrawConfirmation: "/v1/manager/wallet/withdraw-confirmation",
     transactions: "/v1/manager/wallet/transactions",
