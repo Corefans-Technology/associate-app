@@ -48,7 +48,7 @@ const schemas = [
       test: async (value, ctx) => {
         try {
           // add the selectedCountryCode to the phone number
-          const phoneNumber = ctx.parent.country_code + value;
+          const phoneNumber = ctx.parent.country_code.dialing_code + value;
           const parsedNumber = phoneUtil.parse(phoneNumber);
           const isValid = phoneUtil.isValidNumber(parsedNumber);
           if (!isValid) {
@@ -60,7 +60,7 @@ const schemas = [
         }
       },
     }).nullable().label("Phone Number"),
-    country_code: string().required().label("Country Code"),
+    country_code: object().required().label("Country Code"),
   }),
   object({
     number: number("Not a Valid Account Number").required().label("Account Number"),
@@ -76,7 +76,15 @@ const { handleSubmit, errors, isSubmitting, setValues, setErrors   } = useForm({
   validationSchema: currentSchema,
   keepValuesOnUnmount: true,
   initialValues: {
-    country_code: "+234",
+    country_code:  { 
+      "id": "01hbtgs0gmj9wvk2k64ag54d47", 
+      "name": "Nigeria", 
+      "code": "NG", 
+      "currency": "NGN", 
+      "currency_name": "Nigeria Naira", 
+      "dialing_code": "+234", 
+      "flag_url": "https://flagcdn.com/ng.svg" 
+    },
   },
 })
 
@@ -86,7 +94,7 @@ const onSubmit = handleSubmit( async (values, actions) => {
   }
   if (currentStep.value === 2) {
     await managerStore
-      .signUp({ name: accountName.value, ...values })
+      .signUp({ name: accountName.value, ...values, country_code: values.country_code.dialing_code })
       .then(() => {
         Toast.fire({
           icon: "success",
@@ -186,12 +194,12 @@ const resolveAccountNumber = async () => {
             <Spacer size="10" />
             <div>
               <div class="space-y-3">
-                <RouterLink
+                <!-- <RouterLink
                   :to="{ name: 'awaiting.list' }"
                   class="flex items-center justify-center border border-orange text-transparent bg-clip-text bg-gradient-to-b from-orange to-red rounded-lg text-base font-medium h-12"
                 >
                   <span>I don’t have an invitation</span>
-                </RouterLink>
+                </RouterLink> -->
 
 
                 <BaseButton

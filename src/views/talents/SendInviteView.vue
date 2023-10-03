@@ -8,7 +8,7 @@
       @submit.prevent="onSubmit"
     >
       <DialogPanel
-        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white py-4 px-6 text-left shadow-xl transition-all space-y-4"
+        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white py-4 pb-8 px-6 text-left shadow-xl transition-all space-y-4"
       >
         <div class="flex items-center justify-between">
           <DialogTitle
@@ -73,7 +73,7 @@
             number="phone_number"
             label="Phone Number"
             :options="genericStore.countries"
-            class="bg-white rounded-lg border-beerus focus:border-beerus focus:border-beerus"
+            class="bg-white rounded-lg border-beerus focus:border-beerus "
             :error="errors.phone_number"
           />
 
@@ -190,7 +190,7 @@
             class=" bg-gradient-to-br from-orange to-red text-white rounded-lg text-center text-sm w-full"
             @click="$router.push({ name: 'talents.index' })"
           >
-          Close
+            Close
           </BaseButton>
           <!-- <BaseButton
             class="bg-1E1D24 text-white rounded text-center font-light hidden"
@@ -213,7 +213,6 @@ import {
 
 import {
   XMarkIcon,
-  PaperAirplaneIcon,
 } from "@heroicons/vue/24/outline";
 import Icon from "@/components/Icon.vue";
 import { computed, ref } from "vue";
@@ -250,7 +249,7 @@ const currentSchema = computed(() => {
       test: async (value, ctx) => {
         try {
           // add the selectedCountryCode to the phone number
-          const phoneNumber = ctx.parent.country_code + value;
+          const phoneNumber = ctx.parent.country_code.dialing_code + value;
           const parsedNumber = phoneUtil.parse(phoneNumber);
           const isValid = phoneUtil.isValidNumber(parsedNumber);
           if (!isValid) {
@@ -262,19 +261,32 @@ const currentSchema = computed(() => {
         }
       },
     }).label("Phone Number"),
+    country_code: object().required().label("Country Code"),
   });
 });
 
-const { handleSubmit, errors, isSubmitting, values } = useForm({
+const { handleSubmit, errors, isSubmitting } = useForm({
   validationSchema: currentSchema,
   keepValuesOnUnmount: true,
+  initialValues: {
+    country_code:  { 
+      "id": "01hbtgs0gmj9wvk2k64ag54d47", 
+      "name": "Nigeria", 
+      "code": "NG", 
+      "currency": "NGN", 
+      "currency_name": "Nigeria Naira", 
+      "dialing_code": "+234", 
+      "flag_url": "https://flagcdn.com/ng.svg", 
+    },
+  },
 })
 
 const onSubmit = handleSubmit( async ( values, actions ) => {
 
   await talentStore
-    .sendInvite(values)
+    .sendInvite({...values, country_code: values.country_code.dialing_code})
     .then(() => {
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "success",
         title: "Invite Sent!!",
@@ -283,6 +295,7 @@ const onSubmit = handleSubmit( async ( values, actions ) => {
       isInviteOpen.value = false;
       router.push({ name: "talents.invitee"})
     }).catch((error) => {
+      // eslint-disable-next-line no-undef
       Toast.fire({
         icon: "error",
         title: error.response.data.message,
