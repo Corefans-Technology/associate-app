@@ -514,7 +514,7 @@ const table = reactive({
       stage_name: item.stage_name,
       status: item.status
     }
-  }),
+  }).filter( item => item.status !== 'Invited'),
   totalRecordCount: waitlistsLists.value?.data?.length,
   sortable: {
     order: "created_at",
