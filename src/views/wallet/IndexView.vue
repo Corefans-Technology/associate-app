@@ -102,7 +102,7 @@
                   <AccountBalance />
                 </template>
                 <template #fallback>
-                  loading...
+                  <BalanceSkeleton />
                 </template>
               </Suspense>
               <p class="flex items-center gap-1 text-[#42C458]">
@@ -130,7 +130,7 @@
               </template>
               <template #fallback>
                 <div class="mt-40 grid place-items-center place-content-center">
-                  <LoaderComponent />
+                  <ChartSkeleton />
                 </div>
               </template>
             </Suspense>
@@ -151,7 +151,7 @@
                   <TotalInvitedTalent />
                 </template>
                 <template #fallback>
-                  loading...
+                  <BalanceSkeleton />
                 </template>
               </Suspense>
             </div>
@@ -175,7 +175,7 @@
                   <TotalTalentCampaign />
                 </template>
                 <template #fallback>
-                  loading...
+                  <BalanceSkeleton />
                 </template>
               </Suspense>
             </div>
@@ -194,7 +194,7 @@
           </template>
           <template #fallback>
             <div class="mt-40 grid place-items-center place-content-center">
-              <LoaderComponent />
+              <!-- <LoaderComponent /> -->
             </div>
           </template>
         </Suspense>
@@ -205,7 +205,7 @@
 </template>
 
 <script setup>
-import {storeToRefs} from "pinia";
+// import {storeToRefs} from "pinia";
 import Layout from "@/layouts/DashboardLayout.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import AccountBalance from "@/components/AccountBalance.vue";
@@ -217,6 +217,8 @@ import WalletManagerTable from "@/components/tables/WalletManagerTable.vue";
 import Icon from "@/components/Icon.vue"
 import TotalInvitedTalent from "@/components/TotalInvitedTalent.vue";
 import TotalTalentCampaign from "@/components/TotalTalentCampaign.vue";
+import BalanceSkeleton from "@/components/skeleton/Balance.vue";
+import ChartSkeleton from "@/components/skeleton/Chart.vue";
 const managerStore = useManagerStore();
 managerStore.profile();
 
