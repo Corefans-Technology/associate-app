@@ -115,12 +115,12 @@ managerStore.profile();
             <DisclosurePanel class="md:px-4 px-2 pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
               <p class="text-base text-#2E0B34">
                 Learn more about the role of a Corefans associate and it’s responsibilities by clicking 
-                <RouterLink
-                  to="/"
+                <a
+                  href="https://demo.corefans.co/"
                   class="text-transparent bg-clip-text bg-gradient-to-br from-orange to-red cursor-pointer"
                 >
                   here
-                </RouterLink>
+                </a>
               </p>
             </DisclosurePanel>
           </Disclosure>
@@ -247,7 +247,7 @@ managerStore.profile();
               <div class="w-full flex items-center space-x-4 pt-3">
                 <BaseButton
                   class="bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg font-medium h-9"
-                  @click.prevent="$router.push({ name: 'settings' })"
+                  @click.prevent="$router.push({ name: 'settings.profile' })"
                 >
                   Profile Settings
                 </BaseButton>
