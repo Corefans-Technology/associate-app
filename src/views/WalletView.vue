@@ -1,7 +1,9 @@
 <template>
   <layout>
     <div class="p-[2.5rem] space-y-8">
-      <h2 class="text-2xl text-black font-medium pb-6 border-b">Wallet</h2>
+      <h2 class="text-2xl text-black font-medium pb-6 border-b">
+        Wallet
+      </h2>
 
       <div class="flex items-center space-x-4">
         <div class="flex-none text-sm text-[#272643] space-y-4">
@@ -11,29 +13,33 @@
               <Icon name="help" />
             </span>
           </p>
-          <h3 class="text-[#333333] text-[2rem] font-bold">NGN 509,123.45</h3>
+          <h3 class="text-[#333333] text-[2rem] font-bold">
+            NGN 509,123.45
+          </h3>
         </div>
         <div class="flex-grow flex justify-end">
           <div class="flex items-center space-x-2">
-            <div class="bg-[#00A438] h-[6px] w-[20px]"></div>
-            <p class="text-sm text-[#626E8B]">Inflows</p>
+            <div class="bg-[#00A438] h-[6px] w-[20px]" />
+            <p class="text-sm text-[#626E8B]">
+              Inflows
+            </p>
           </div>
         </div>
         <div class="flex-none">
           <input
+            id=""
             class="w-[7.875rem] h-[2.25rem] border border-[#D6DFE8] rounded-[4px] text-[#626E8B]"
             type="date"
             name=""
             :value="new Date()"
-            id=""
           />
         </div>
       </div>
 
       <div>
         <button
-          @click="openModal"
           class="bg-gradient-to-r from-orange to-red text-white text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2"
+          @click="openModal"
         >
           Withdraw
         </button>
@@ -45,7 +51,7 @@
           type="bar"
           :options="options"
           :series="series"
-        ></VueApexCharts>
+        />
       </div>
 
       <div class="flex items-center space-x-4">
@@ -77,7 +83,7 @@
               <span>Filter</span>
             </PopoverButton>
 
-            <PopoverPanel class="absolute z-50 bg-white"> </PopoverPanel>
+            <PopoverPanel class="absolute z-50 bg-white" />
           </Popover>
         </div>
 
@@ -89,7 +95,7 @@
             <span>Export</span>
           </PopoverButton>
 
-          <PopoverPanel class="absolute z-50 bg-white"> </PopoverPanel>
+          <PopoverPanel class="absolute z-50 bg-white" />
         </Popover>
       </div>
 
@@ -97,9 +103,9 @@
         <TabList class="flex space-x-5 900/20 p-1">
           <Tab
             v-for="(tab, index) in tabs"
-            as="template"
             :key="index"
             v-slot="{ selected }"
+            as="template"
           >
             <button
               type="button"
@@ -114,7 +120,7 @@
                 :class="[selected ? 'opacity-100' : 'opacity-0']"
                 class="absolute -bottom-3 inset-x-0 flex justify-center"
               >
-                <span class="w-[6px] h-[6px] rounded-full bg-[#FF9E0B]"></span>
+                <span class="w-[6px] h-[6px] rounded-full bg-[#FF9E0B]" />
               </div>
             </button>
           </Tab>
@@ -150,7 +156,10 @@
         </TabPanels>
       </TabGroup>
 
-      <Modal @close="isOpen = !isOpen" :isOpen="isOpen">
+      <Modal
+        :is-open="isOpen"
+        @close="isOpen = !isOpen"
+      >
         <DialogPanel
           class="w-full max-w-[37.5rem] transform overflow-hidden rounded-2xl bg-white py-[3.625rem] px-[1.5rem] text-left align-middle shadow-xl transition-all space-y-8"
         >
@@ -162,7 +171,9 @@
           </DialogTitle>
           <div class="flex items-center justify-center space-x-4">
             <div class="flex items-start space-x-2">
-              <h3 class="text-sm text-[#626E8B] leading-10">NGN</h3>
+              <h3 class="text-sm text-[#626E8B] leading-10">
+                NGN
+              </h3>
               <h3 class="text-[3rem] font-bold text-black p-0 m-0 leading-none">
                 00.0
               </h3>
@@ -174,11 +185,17 @@
             <span class="font-bold">509,123.45</span>
           </p>
 
-          <form class="space-y-4" action="">
+          <form
+            class="space-y-4"
+            action=""
+          >
             <!-- Bank -->
             <div class="space-y-1 relative">
               <label for="bank">Bank Account</label>
-              <Listbox v-slot="{ open }" v-model="formData.bank.bank">
+              <Listbox
+                v-slot="{ open }"
+                v-model="formData.bank.bank"
+              >
                 <div class="relative mt-1">
                   <ListboxButton
                     class="py-3 px-4 pr-8 w-full relative border rounded"
@@ -198,7 +215,12 @@
                       <p>{{ formData.bank.bank.name }}</p>
                     </div>
                     <!-- placeholder -->
-                    <p v-else class="text-left text-#98A2B3">Select Account</p>
+                    <p
+                      v-else
+                      class="text-left text-#98A2B3"
+                    >
+                      Select Account
+                    </p>
                     <span
                       class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
                     >
@@ -230,14 +252,19 @@
                             {{ bank.account_number }}
                           </p>
                         </div>
-                        <p class="uppercase">{{ bank.name }}</p>
+                        <p class="uppercase">
+                          {{ bank.name }}
+                        </p>
                       </div>
                     </ListboxOption>
-                    <ListboxOption value="bank" :disabled="true">
+                    <ListboxOption
+                      value="bank"
+                      :disabled="true"
+                    >
                       <button
                         type="button"
-                        @click="newBank = !newBank"
                         class="text-orange text-[0.8125rem] flex items-center py-3 px-4 font-semibold space-x-2 text-sm"
+                        @click="newBank = !newBank"
                       >
                         <PlusIcon class="h-5" />
                         <span>Add Campaign</span>
@@ -263,24 +290,23 @@
             <div class="space-y-1 relative">
               <label for="description">Description</label>
               <textarea
+                id="description"
+                v-model="formData.bank.description"
                 class="placeholder:text-[#98A2B3] placeholder:text-sm placeholder:text-left placeholder:font-normal border focus:outline-none border-[#D9D9D9] px-[1rem] py-[0.75rem] rounded-[0.5rem] w-full text-sm text-[#1E1D24]"
                 placeholder="Enter description"
-                v-model="formData.bank.description"
-                @input="$v.bank.description.$touch()"
                 :class="[
                   $v.bank.description.$error
                     ? 'border-[#E52053]'
                     : 'border-[#D9D9D9]',
                 ]"
                 name=""
-                id="description"
                 rows="3"
-              >
-              </textarea>
+                @input="$v.bank.description.$touch()"
+              />
               <div
                 class="text-[#999CA0] text-[0.75rem] flex items-center justify-between"
               >
-                <p></p>
+                <p />
                 <p>0/20</p>
               </div>
               <!-- Error -->
@@ -299,8 +325,8 @@
             <div class="flex items-center justify-end">
               <button
                 type="button"
-                @click="submitWithdraw"
                 class="bg-gradient-to-r from-orange to-red text-white text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2"
+                @click="submitWithdraw"
               >
                 <span> Withdraw </span>
               </button>
@@ -309,7 +335,10 @@
         </DialogPanel>
       </Modal>
 
-      <Modal @close="newBank = !newBank" :isOpen="newBank">
+      <Modal
+        :is-open="newBank"
+        @close="newBank = !newBank"
+      >
         <DialogPanel
           class="w-full max-w-[34.5rem] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all divide-y"
         >
@@ -320,11 +349,17 @@
             New Account
           </DialogTitle>
 
-          <form class="space-y-4 py-4 px-6" action="">
+          <form
+            class="space-y-4 py-4 px-6"
+            action=""
+          >
             <!-- Bank -->
             <div class="space-y-1 relative">
               <label for="bank">Bank Name</label>
-              <Listbox v-slot="{ open }" v-model="formData.bank.bank">
+              <Listbox
+                v-slot="{ open }"
+                v-model="formData.bank.bank"
+              >
                 <div class="relative mt-1">
                   <ListboxButton
                     class="py-3 px-4 pr-8 w-full relative border rounded"
@@ -336,7 +371,12 @@
                       <p>{{ formData.bank.bank.bank }}</p>
                     </div>
                     <!-- placeholder -->
-                    <p v-else class="text-left text-#98A2B3">Select Bank</p>
+                    <p
+                      v-else
+                      class="text-left text-#98A2B3"
+                    >
+                      Select Bank
+                    </p>
                     <span
                       class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
                     >
@@ -360,7 +400,9 @@
                       <div
                         class="flex relative rounded justify-between items-center py-3 px-4 pr-8 w-full"
                       >
-                        <p class="uppercase">{{ bank.bank }}</p>
+                        <p class="uppercase">
+                          {{ bank.bank }}
+                        </p>
                       </div>
                     </ListboxOption>
                   </ListboxOptions>
@@ -385,7 +427,6 @@
               <input
                 id="account_number"
                 v-model="formData.bank.account_number"
-                @input="$v.bank.account_number.$touch()"
                 :class="[
                   $v.bank.account_number.$error
                     ? 'border-[#E52053]'
@@ -394,6 +435,7 @@
                 class="placeholder:text-[#98A2B3] placeholder:text-sm placeholder:text-left placeholder:font-normal border focus:outline-none px-[1rem] py-[0.75rem] rounded-[0.5rem] w-full text-sm text-[#1E1D24]"
                 placeholder="Enter account number "
                 type="text"
+                @input="$v.bank.account_number.$touch()"
               />
               <!-- Error -->
               <p
@@ -411,15 +453,15 @@
             <div class="flex items-center space-x-3 justify-end">
               <button
                 type="button"
-                @click="newBank = !newBank"
                 class="border border-#626E8B text-#626E8B text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2"
+                @click="newBank = !newBank"
               >
                 <span> Cancel </span>
               </button>
               <button
                 type="button"
-                @click="submitWithdraw"
                 class="bg-gradient-to-r from-orange to-red text-white text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2"
+                @click="submitWithdraw"
               >
                 <span> Add Account </span>
               </button>
@@ -428,7 +470,10 @@
         </DialogPanel>
       </Modal>
 
-      <Modal @close="otpModal = !otpModal" :isOpen="otpModal">
+      <Modal
+        :is-open="otpModal"
+        @close="otpModal = !otpModal"
+      >
         <DialogPanel
           class="w-full max-w-[37.5rem] transform overflow-hidden rounded-2xl bg-white py-[3.625rem] px-[1.5rem] text-left align-middle shadow-xl transition-all space-y-8"
         >
@@ -444,11 +489,18 @@
             >
               Check your messages
             </DialogTitle>
-            <p class="text-center text-[#667085]">We sent a an OTP code</p>
-            <p class="text-center text-[#667085]">Oloyedetobi45@gmail.com</p>
+            <p class="text-center text-[#667085]">
+              We sent a an OTP code
+            </p>
+            <p class="text-center text-[#667085]">
+              Oloyedetobi45@gmail.com
+            </p>
           </div>
 
-          <form class="pb-20 pt-5 flex items-center justify-center" action="">
+          <form
+            class="pb-20 pt-5 flex items-center justify-center"
+            action=""
+          >
             <v-otp-input
               ref="otpInput"
               input-classes="otp-input-2 w-[4.625rem] h-[4.625rem] text-center focus:outline-none mx-2 rounded-xl text-2xl font-medium"
@@ -456,18 +508,23 @@
               :num-inputs="5"
               :should-auto-focus="true"
               :is-input-num="true"
-              :conditionalClass="['one', 'two', 'three', 'four', 'five']"
+              :conditional-class="['one', 'two', 'three', 'four', 'five']"
               :placeholder="['', '', '', '', '', '']"
               @on-change="handleOnChange"
               @on-complete="handleOnPinComplete"
             />
           </form>
 
-          <p class="text-[#626E8B] text-center">Code expires in 19:59</p>
+          <p class="text-[#626E8B] text-center">
+            Code expires in 19:59
+          </p>
         </DialogPanel>
       </Modal>
 
-      <Modal @close="pinModal = !pinModal" :isOpen="pinModal">
+      <Modal
+        :is-open="pinModal"
+        @close="pinModal = !pinModal"
+      >
         <DialogPanel
           class="w-full max-w-[37.5rem] h-[45.4375rem] transform overflow-hidden rounded-2xl bg-white py-[3.625rem] px-[1.5rem] text-left align-middle shadow-xl transition-all space-y-8"
         >
@@ -486,10 +543,15 @@
             <p class="text-center text-[#667085]">
               This PIN would be use to process all
             </p>
-            <p class="text-center text-[#667085]">your monetary transactions</p>
+            <p class="text-center text-[#667085]">
+              your monetary transactions
+            </p>
           </div>
 
-          <form class="pb-20 pt-5 flex items-center justify-center" action="">
+          <form
+            class="pb-20 pt-5 flex items-center justify-center"
+            action=""
+          >
             <v-otp-input
               ref="otpInput"
               input-classes="otp-input-3 focus:outline-none"
@@ -497,18 +559,23 @@
               :num-inputs="4"
               :should-auto-focus="true"
               :is-input-num="true"
-              :conditionalClass="['one', 'two', 'three', 'four']"
+              :conditional-class="['one', 'two', 'three', 'four']"
               :placeholder="['*', '*', '*', '*']"
               @on-change="handleOnChange"
               @on-complete="handleOnPinComplete"
             />
           </form>
 
-          <p class="text-[#626E8B] text-center">Code expires in 19:59</p>
+          <p class="text-[#626E8B] text-center">
+            Code expires in 19:59
+          </p>
         </DialogPanel>
       </Modal>
 
-      <Modal @close="confirm = !confirm" :isOpen="confirm">
+      <Modal
+        :is-open="confirm"
+        @close="confirm = !confirm"
+      >
         <DialogPanel
           class="w-full max-w-[31.75rem] transform overflow-hidden rounded-2xl py-4 bg-white text-left align-middle shadow-xl transition-all divide-y"
         >
@@ -519,50 +586,80 @@
             Review Transfer
           </DialogTitle>
 
-          <div class="py-4 px-6 divide-y" action="">
+          <div
+            class="py-4 px-6 divide-y"
+            action=""
+          >
             <div class="flex justify-between py-4">
-              <p class="text-[#727273]">Transfer Amount</p>
-              <p class="text-[#333333] font-medium">₦ 509,123</p>
+              <p class="text-[#727273]">
+                Transfer Amount
+              </p>
+              <p class="text-[#333333] font-medium">
+                ₦ 509,123
+              </p>
             </div>
             <div class="flex justify-between py-4">
-              <p class="text-[#727273]">Fee</p>
-              <p class="text-[#333333] font-medium">₦ 40</p>
+              <p class="text-[#727273]">
+                Fee
+              </p>
+              <p class="text-[#333333] font-medium">
+                ₦ 40
+              </p>
             </div>
             <div class="flex justify-between py-4">
-              <p class="text-[#727273]">Total Amount</p>
-              <p class="text-[#333333] font-medium">₦ 509,123.50</p>
+              <p class="text-[#727273]">
+                Total Amount
+              </p>
+              <p class="text-[#333333] font-medium">
+                ₦ 509,123.50
+              </p>
             </div>
             <div class="flex justify-between py-4">
-              <p class="text-[#727273]">Receipient Name</p>
-              <p class="text-[#333333] font-medium">OLOYEDE TOBI E</p>
+              <p class="text-[#727273]">
+                Receipient Name
+              </p>
+              <p class="text-[#333333] font-medium">
+                OLOYEDE TOBI E
+              </p>
             </div>
             <div class="flex justify-between py-4">
-              <p class="text-[#727273]">Receipient Details</p>
-              <p class="text-[#333333] font-medium">2120795158 - UBA</p>
+              <p class="text-[#727273]">
+                Receipient Details
+              </p>
+              <p class="text-[#333333] font-medium">
+                2120795158 - UBA
+              </p>
             </div>
             <div class="flex justify-between py-4">
-              <p class="text-[#727273]">Date</p>
-              <p class="text-[#333333] font-medium">₦ 509,123.45</p>
+              <p class="text-[#727273]">
+                Date
+              </p>
+              <p class="text-[#333333] font-medium">
+                ₦ 509,123.45
+              </p>
             </div>
             <div class="pt-8 flex items-center space-x-4">
               <button
-                @click.prevent="(confirm = !confirm)"
                 class="text-orange border flex-1 border-orange text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2 w-full text-center focus:outline-none"
+                @click.prevent="(confirm = !confirm)"
               >
                 Cancel
               </button>
               <button
-                @click.prevent="confirmPay"
                 class="bg-gradient-to-r flex-1 from-orange to-red text-white text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2 w-full text-center focus:outline-none"
+                @click.prevent="confirmPay"
               >
-              Confirm
+                Confirm
               </button>
             </div>
           </div>
         </DialogPanel>
       </Modal>
 
-      <Modal @close="success = !success" :isOpen="success">
+      <Modal
+        :is-open="success"
+        @close="success = !success"
+      >
         <DialogPanel
           class="w-full max-w-[31.75rem] h-[37.5rem] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all flex flex-col p-8"
         >
@@ -574,7 +671,10 @@
             />
             <div class="space-y-3 pb-6">
               <div>
-                <DialogTitle as="h3" class="text-[#667085] text-center">
+                <DialogTitle
+                  as="h3"
+                  class="text-[#667085] text-center"
+                >
                   Transfer to OLOYEDE TOBI E.
                 </DialogTitle>
                 <p class="text-[2rem] font-bold text-center text-black">
@@ -591,8 +691,8 @@
 
           <div class="flex-none">
             <button
-              @click.prevent="success = false"
               class="bg-gradient-to-r from-orange to-red text-white text-[0.8125rem] h-[40px] px-4 rounded flex items-center justify-center space-x-2 w-full text-center focus:outline-none"
+              @click.prevent="success = false"
             >
               Continue
             </button>
@@ -789,11 +889,11 @@ const table = reactive({
       sortable: true,
       display: function (row) {
         return (
-          '<span data-id="' +
+          "<span data-id=\"" +
           row.id +
-          '" class="' +
+          "\" class=\"" +
           row.status +
-          '">' +
+          "\">" +
           row.status +
           "</span>"
         );

@@ -15,10 +15,10 @@ managerStore.profile();
     <div class="px-5 md:px-[40px] space-y-6 py-8 md:space-y-8">
       <div class="space-y-1">
         <h1 class="text-lg md:text-2xl text-black font-bold font-power ">
-          Hi, {{ managerStore.data.first_name }}! Welcome to Corefans 🔥
+          Hi, {{ managerStore.data.first_name }}! Get to know about Corefans associates 🔥
         </h1>
         <p class="text-[#444349] text-sm md:text-base">
-          Here’s an overview of your campaigns and funds
+          Earn money inviting and approving music talent.
         </p>
       </div>
       <div class="">
@@ -97,10 +97,10 @@ managerStore.profile();
               <!-- <Icon name="know" /> -->
               <div class=" flex-grow">
                 <p class="font-semibold text-#2E0B34 text-left whitespace-nowrap">
-                  Get to know Corefans
+                  How it works
                 </p>
                 <p class="text-#2E0B34 text-left text-sm  pr-10">
-                  Explore all the possibilities on Corefans
+                  Earn money doing what you love
                 </p>
               </div>
               <div class="absolute space-y-0 right-0 flex items-center">
@@ -112,15 +112,9 @@ managerStore.profile();
                 </div>
               </div>
             </DisclosureButton>
-            <DisclosurePanel class="md:px-4 px-2 pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
+            <DisclosurePanel class="pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
               <p class="text-base text-#2E0B34">
-                Learn more about the role of a Corefans associate and it’s responsibilities by clicking 
-                <a
-                  href="https://demo.corefans.co/"
-                  class="text-transparent bg-clip-text bg-gradient-to-br from-orange to-red cursor-pointer"
-                >
-                  here
-                </a>
+                Nominated associates invite and approve artistes onto the Corefans platform. Perks include; Getting paid a commission of 0.012% of total campaign amount every time your invited or approved artistes completes their campaign. 
               </p>
             </DisclosurePanel>
           </Disclosure>
@@ -214,10 +208,10 @@ managerStore.profile();
               </svg>
               <div class=" flex-grow ">
                 <p class="font-semibold text-#2E0B34 text-left whitespace-nowrap">
-                  Complete your profile
+                  Complete your settings
                 </p>
                 <p class="text-#2E0B34 text-left text-sm pr-8">
-                  Add a profile photo and configure your campaign preferences
+                  Add a profile photo and configure your settings
                 </p>
               </div>
               <div class="absolute space-y-0 right-0 flex items-center">
@@ -229,11 +223,14 @@ managerStore.profile();
                 </div>
               </div>
             </DisclosureButton>
-            <DisclosurePanel class="md:px-4 px-2 pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
+            <DisclosurePanel class="pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
               <p class="text-base text-#2E0B34">
-                Set up your profile and give fans a clearer view of your creative personality. A few things to note are;
+                Complete your settings and get the most out of your associates account 
               </p>
-              <ul class="text-#2E0B34 list-disc list-outside ml-5 text-sm md:text-base">
+              <ul
+                v-if="false"
+                class="text-#2E0B34 list-disc list-outside ml-5 text-sm md:text-base "
+              >
                 <li>
                   Use your stage name as your user name
                 </li>
@@ -359,7 +356,7 @@ managerStore.profile();
                   Invite your first talent
                 </p>
                 <p class="text-#2E0B34 text-left text-sm pr-24">
-                  Invite your first creative talent and help them set up to start earning
+                  Click the dropdown to see how to start
                 </p>
               </div>
               <div class="absolute space-y-0 right-0 flex items-center">
@@ -374,12 +371,12 @@ managerStore.profile();
                 </p> -->
               </div>
             </DisclosureButton>
-            <DisclosurePanel class="md:px-4 px-2 pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
+            <DisclosurePanel class="pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
               <p class="text-base text-#2E0B34">
-                Identify promising creative individuals aligned with Corefans' needs. Reach out, express interest in their work, and highlight what you admire about their creativity.
+                Once you have completed your settings, Click the button below, fill in the artite’s information and click send. The artistes get an email with invite code to sign up
               </p>
               <BaseButton
-                class="bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg font-medium h-9"
+                class="bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg font-medium h-9 w-full md:w-fit"
                 @click.prevent="$router.push({ name: 'talents.send.invite' })"
               >
                 Invite Now

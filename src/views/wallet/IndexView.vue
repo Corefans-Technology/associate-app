@@ -212,7 +212,7 @@ import AccountBalance from "@/components/AccountBalance.vue";
 import {useWalletStore} from "@/stores/wallet";
 import { useManagerStore } from "@/stores/manager";
 import GraphView from "./GraphView.vue";
-import LoaderComponent from "@/components/LoaderComponent.vue";
+// import LoaderComponent from "@/components/LoaderComponent.vue";
 import WalletManagerTable from "@/components/tables/WalletManagerTable.vue";
 import Icon from "@/components/Icon.vue"
 import TotalInvitedTalent from "@/components/TotalInvitedTalent.vue";
