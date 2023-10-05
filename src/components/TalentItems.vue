@@ -3,7 +3,7 @@
     v-if="talentStore.invitedList?.data?.length"
     class="space-y-6 flex flex-col overflow-hidden"
   >
-        <div class="flex overflow-x-auto md:flex-wrap gap-5 pt-8 ">
+        <div class="flex flex-col md:flex-row overflow-x-auto md:flex-wrap gap-5 pt-8 ">
           <TalentCard
             v-for="(talent, index) in talentStore.invitedList?.data"
             :key="index"

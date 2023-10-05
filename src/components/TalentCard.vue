@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 h-fit min-h-full max-h-full border rounded-2xl border-light-grey overflow-hidden">
+  <div class="w-full md:w-64 h-fit min-h-full max-h-full border rounded-2xl border-light-grey overflow-hidden">
     <div class="relative">
       <img
         class="w-full object-cover h-52"
