@@ -12,7 +12,7 @@
         <div class="text-1E1D24">
           <h3
             class="font-medium text-lg pt-3 leading-snug font-power"
-            v-text="fullName"
+            v-text="talent?.stage_name"
           />
         </div>
         <!-- <Icon
@@ -28,7 +28,7 @@
         <div
           class="border rounded-full text-black border-black py-1 px-2 text-xs font-semibold"
         >
-          Afrobeats
+          {{ talent?.genre }}
         </div>
         <div
           class="border rounded-full text-#444349 border-black py-1 px-2 text-xs font-semibold flex items-center space-x-1"
