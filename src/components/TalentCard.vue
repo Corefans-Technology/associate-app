@@ -43,9 +43,9 @@
 
       <div class="flex items-center justify-between pt-6">
         <!-- <Status name="pending" /> -->
-        <RouterLink
+        <a
           class="text-sm flex items-center space-x-1"
-          to="/"
+          :href="`https://demo.corefans.co/${talent?.username}`"
         >
           <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">View Campaigns</span>
           <svg
@@ -76,7 +76,7 @@
               </linearGradient>
             </defs>
           </svg>
-        </RouterLink>
+        </a>
       </div>
     </div>
   </div>

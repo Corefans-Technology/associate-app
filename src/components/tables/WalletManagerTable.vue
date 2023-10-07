@@ -119,13 +119,13 @@
           <!-- :is-loading="table.isLoading" -->
           <TableLite
               :has-checkbox="true"
-              :columns="table.columns"
-              :rows="table.rows"
-              :total="table.totalRecordCount"
-              :sortable="table.sortable"
-              :messages="table.messages"
+              :columns="commissions_table.columns"
+              :rows="commissions_table.rows"
+              :total="commissions_table.totalRecordCount"
+              :sortable="commissions_table.sortable"
+              :messages="commissions_table.messages"
               @do-search="doSearch"
-              @is-finished="table.isLoading = false"
+              @is-finished="commissions_table.isLoading = false"
           />
         </TabPanel>
       </TabPanels>
@@ -182,7 +182,7 @@ const table = reactive({
       isKey: true,
     },
     {
-      label: "Talent",
+      label: "Artist",
       field: "talent",
       // width: "10%",
       sortable: true,
@@ -266,6 +266,103 @@ const table = reactive({
     sort: "asc",
   },
 });
+
+const commissions_table = reactive({
+  isLoading: false,
+  columns: [
+    {
+      label: "Name",
+      field: "title",
+      // width: "3%",
+      sortable: true,
+      isKey: true,
+    },
+    {
+      label: "Artist",
+      field: "talent",
+      // width: "10%",
+      sortable: true,
+      display: function (row) {
+        return row.creative.name;
+      },
+    },
+    // {
+    //   label: "Category",
+    //   field: "category",
+    //   // width: "15%",
+    //   sortable: true,
+    // },
+    {
+      label: "Amount Raised",
+      field: "goal",
+      sortable: true,
+    },
+    {
+      label: "Commission Earned",
+      field: "raise",
+      sortable: true,
+    },
+    {
+      label: "Status",
+      field: "status",
+      // width: "15%",
+      sortable: true,
+      display: function (row) {
+        return (
+            "<span data-id=\"" +
+            row.id +
+            "\" class=\"" +
+            row.status +
+            "\">" +
+            row.status +
+            "</span>"
+        );
+      },
+    },
+    // {
+    //   label: "Created",
+    //   field: "date_created",
+    //   // width: "15%",
+    //   sortable: true,
+    // },
+  ],
+  rows: campaigns,
+  // rows: [
+  //   {
+  //     id: "3r3hfa44343",
+  //     name: "Benson Momodu",
+  //     email: "ben@gmail.com",
+  //     amount: "4000.00",
+  //     campaign: "falz night out",
+  //     status: "Successful",
+  //     date: "28 Jul, 2021 2:33 PM",
+  //   },
+  //   {
+  //     id: "100912340175",
+  //     name: "Charlie Sheen",
+  //     email: "charlie.sheen@outlook.com",
+  //     amount: "NGN 509,123.45",
+  //     campaign: "Chasing Paper EP",
+  //     status: "Failed",
+  //     date: "28 Jul, 2021 2:33 PM",
+  //   },
+  //   {
+  //     id: "100912340175",
+  //     name: "Charlie Sheen",
+  //     email: "charlie.sheen@outlook.com",
+  //     amount: "NGN 509,123.45",
+  //     campaign: "Chasing Paper EP",
+  //     status: "Pending",
+  //     date: "28 Jul, 2021 2:33 PM",
+  //   },
+  // ],
+  totalRecordCount: 0,
+  sortable: {
+    order: "id",
+    sort: "asc",
+  },
+});
+
 
 // const doSearch = (offset, limit, order, sort) => {
 //   table.isLoading = true;

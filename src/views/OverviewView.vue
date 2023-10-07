@@ -15,7 +15,8 @@ managerStore.profile();
     <div class="px-5 md:px-[40px] space-y-6 py-8 md:space-y-8">
       <div class="space-y-1">
         <h1 class="text-lg md:text-2xl text-black font-bold font-power ">
-          Hi, {{ managerStore.data.first_name }}! Get to know about Corefans associates 🔥
+          <!-- Hi, {{ managerStore.data.first_name }}! Get to know about Corefans associates 🔥 -->
+          Hi, {{ managerStore.data.first_name }}! Welcome to Corefans 🔥
         </h1>
         <p class="text-[#444349] text-sm md:text-base">
           Earn money inviting and approving music talent.
@@ -389,7 +390,107 @@ managerStore.profile();
         <h3 class="text-xl font-bold font-power text-#252733">
           Learn More:
         </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <HowTo
+            title="Do the Math"
+            text="Check potential earnings as a Corefans associate by entering an amount into the calculator."
+            icon="info"
+            link="/overview/calculate"
+            more="Calculate"
+          >
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                opacity="0.4"
+                d="M23.9993 37.3327C31.3631 37.3327 37.3327 31.3631 37.3327 23.9993C37.3327 16.6356 31.3631 10.666 23.9993 10.666C16.6356 10.666 10.666 16.6356 10.666 23.9993C10.666 31.3631 16.6356 37.3327 23.9993 37.3327Z"
+                fill="url(#paint0_linear_3891_83992)"
+              />
+              <path
+                d="M19.0933 29.3599C18.84 29.3599 18.5867 29.2665 18.3867 29.0665C18 28.6799 18 28.0399 18.3867 27.6532L27.12 18.9199C27.5067 18.5332 28.1467 18.5332 28.5333 18.9199C28.92 19.3065 28.92 19.9465 28.5333 20.3332L19.8 29.0665C19.6 29.2665 19.3467 29.3599 19.0933 29.3599Z"
+                fill="url(#paint1_linear_3891_83992)"
+              />
+              <path
+                d="M19.6403 18.2129C18.5603 18.2129 17.667 19.0929 17.667 20.1862C17.667 21.2662 18.547 22.1595 19.6403 22.1595C20.7203 22.1595 21.6136 21.2796 21.6136 20.1862C21.6003 19.0929 20.7203 18.2129 19.6403 18.2129Z"
+                fill="url(#paint2_linear_3891_83992)"
+              />
+              <path
+                d="M28.36 25.8535C27.28 25.8535 26.3867 26.7335 26.3867 27.8268C26.3867 28.9068 27.2667 29.8002 28.36 29.8002C29.44 29.8002 30.3334 28.9202 30.3334 27.8268C30.3334 26.7335 29.4534 25.8535 28.36 25.8535Z"
+                fill="url(#paint3_linear_3891_83992)"
+              />
+              <rect
+                x="1"
+                y="1"
+                width="46"
+                height="46"
+                rx="23"
+                stroke="#E9E8E9"
+                stroke-width="2"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_3891_83992"
+                  x1="10.666"
+                  y1="10.666"
+                  x2="37.3327"
+                  y2="37.3327"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#F18B1B" />
+                  <stop
+                    offset="1"
+                    stop-color="#E52053"
+                  />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_3891_83992"
+                  x1="18.0967"
+                  y1="18.6299"
+                  x2="28.8267"
+                  y2="29.3565"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#F18B1B" />
+                  <stop
+                    offset="1"
+                    stop-color="#E52053"
+                  />
+                </linearGradient>
+                <linearGradient
+                  id="paint2_linear_3891_83992"
+                  x1="17.667"
+                  y1="18.2129"
+                  x2="21.6136"
+                  y2="22.1595"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#F18B1B" />
+                  <stop
+                    offset="1"
+                    stop-color="#E52053"
+                  />
+                </linearGradient>
+                <linearGradient
+                  id="paint3_linear_3891_83992"
+                  x1="26.3867"
+                  y1="25.8535"
+                  x2="30.3334"
+                  y2="29.8002"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#F18B1B" />
+                  <stop
+                    offset="1"
+                    stop-color="#E52053"
+                  />
+                </linearGradient>
+              </defs>
+            </svg>
+          </HowTo>
           <HowTo
             title="Demo"
             text="See the Corefans product in action for creatives around the world."
@@ -724,5 +825,6 @@ managerStore.profile();
         </div>
       </div>
     </div>
+    <router-view />
   </dashboard-layout>
 </template>

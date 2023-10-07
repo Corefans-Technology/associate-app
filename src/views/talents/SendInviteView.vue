@@ -33,10 +33,9 @@
           <p>0/20</p>
         </div>
         <div class="space-y-4 pt-4">
-          <div class="flex items-start space-x-6">
+          <div class="flex flex-col md:flex-row items-start gap-y-4 gap-x-6">
             <!-- First name -->
             <BaseInput
-              readonly
               name="first_name"
               placeholder="First Name"
               label="First Name"

@@ -121,5 +121,6 @@ const countText = computed(() => {
         class="w-5 h-6"
       />
     </span>
+    <slot />
   </div>
 </template>

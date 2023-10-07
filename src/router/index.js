@@ -21,6 +21,7 @@ import TalentInvitedView from "../views/talents/InvitedView.vue";
 import ArtistDiscoveryView from "../views/talents/ArtistDiscoveryView.vue";
 import TalentInviteeView from "../views/talents/InviteeView.vue";
 import TalentSendInviteView from "../views/talents/SendInviteView.vue";
+import CalculateView from "../views/CalculateView.vue";
 import TalentShowView from "../views/talents/ShowView.vue";
 import ErrorView from "../views/ErrorView.vue";
 import PasswordForgotView from "../views/auth/PasswordForgotView.vue";
@@ -37,6 +38,13 @@ const router = createRouter({
         middleware: "auth",
         name: "Get Started",
       },
+      children: [
+        {
+          path: "calculate",
+          name: "get.started.calculate",
+          component: CalculateView,
+        },
+      ],
     },
     {
       path: "/talents",

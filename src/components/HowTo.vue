@@ -14,7 +14,7 @@
 
     <div class="read-more">
       <RouterLink
-        to="/overview"
+        :to="link"
         class="flex items-center space-x-1 text-#0A0B0D text-sm font-semibold"
       >
         <span>{{ more }}</span>
@@ -31,7 +31,10 @@ import {RouterLink} from "vue-router"
 defineProps({
   title: String,
   text: String,
-  link: String,
+  link: {
+    type: String,
+    default: "/overview",
+  },
   icon: String,
   more: String,
 });
