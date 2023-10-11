@@ -1,7 +1,7 @@
 <template>
   <Modal
-    :is-open="isInviteOpen"
-    @close="isInviteOpen = !isInviteOpen"
+    :is-open="isOpen"
+    @close="isOpen = !isOpen"
   >
     <form
       class="w-full flex justify-center"
@@ -117,55 +117,6 @@
       </DialogPanel>
     </form>
   </Modal>
-  <Modal
-    :is-open="isSuccessOpen"
-    @close="isSuccessOpen = !isSuccessOpen"
-  >
-    <form
-      class="w-full flex justify-center"
-      @submit.prevent="onSubmit"
-    >
-      <DialogPanel
-        class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-10 text-left shadow-xl transition-all space-y-4"
-      >
-        <div class="mx-auto flex justify-center">
-          <!-- <Icon name="success" /> -->
-          <img
-            src="@/assets/images/success.png"
-            alt=""
-            srcset=""
-          />
-        </div>
-
-        <div class="space-y-1">
-          <h1 class="text-2xl font-bold text-black text-center font-power">
-            Success
-          </h1>
-          <p class="text-434345 text-lg font-light text-center">
-            Invitation sent. You can monitor the status of the invite 
-            in the Talent > Pending section
-          </p>
-        </div>
-
-        <div class="flex items-center justify-center space-x-4 pt-4">
-          <BaseButton
-            type="button"
-            class=" bg-gradient-to-br from-orange to-red text-white rounded-lg text-center text-sm w-full"
-            @click="$router.push({ name: 'talents.index' })"
-          >
-            Close
-          </BaseButton>
-          <!-- <BaseButton
-            class="bg-1E1D24 text-white rounded text-center font-light hidden"
-            :is-loading="isSubmitting"
-          >
-            <PaperAirplaneIcon class="h-4 -rotate-45 pb-x" />
-            Send Invite
-          </BaseButton> -->
-        </div>
-      </DialogPanel>
-    </form>
-  </Modal>
 </template>
 
 <script setup>
@@ -182,12 +133,11 @@ import { computed, ref } from "vue";
 import Modal from "@/components/ModalComponent.vue";
 import { object, string } from "yup";
 import {useForm} from "vee-validate";
-import {useTalentStore} from "@/stores/talent";
+// import {useTalentStore} from "@/stores/talent";
 
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import {useGenericStore} from "@/stores/generic";
-import { useRouter } from "vue-router";
 import { vMaska } from "maska"
 const options = {
   preProcess: val => val.replace(/[$,]/g, ""),
@@ -204,13 +154,9 @@ const options = {
   },
 }
 
-const router = useRouter();
 const genericStore = useGenericStore();
 genericStore.getCountries();
-const talentStore = useTalentStore();
-
-const isSuccessOpen = ref(false);
-const isInviteOpen = ref(true);
+const isOpen = ref(true);
 
 
 const currentSchema = computed(() => {
@@ -220,33 +166,25 @@ const currentSchema = computed(() => {
   });
 });
 
-const { handleSubmit, errors, isSubmitting } = useForm({
+const { handleSubmit, errors, isSubmitting, setFieldValue } = useForm({
   validationSchema: currentSchema,
   keepValuesOnUnmount: true,
 })
 
-const onSubmit = handleSubmit( async ( values, actions ) => {
+function calculateAssociateCommission(artistEarnings) {
+  // Platform's 12% charge
+  const platformCharge = artistEarnings * 0.12;
 
-  await talentStore
-    .sendInvite({...values, country_code: values.country_code.dialing_code})
-    .then(() => {
-      // eslint-disable-next-line no-undef
-      Toast.fire({
-        icon: "success",
-        title: "Invite Sent!!",
-      });
-      isSuccessOpen.value = true;
-      isInviteOpen.value = false;
-      router.push({ name: "talents.invitee"})
-    }).catch((error) => {
-      // eslint-disable-next-line no-undef
-      Toast.fire({
-        icon: "error",
-        title: error.response.data.message,
-      });
-      actions.setErrors(error.response.data.errors);
-    });
+  // Associate's 10% commission from the platform's charge
+  const associateCommission = platformCharge * 0.10;
 
+  setFieldValue("your_pay",  associateCommission)
+
+  return associateCommission;
+}
+
+const onSubmit = handleSubmit( async ( values ) => {
+  calculateAssociateCommission(values.talent_earns.replace(/,/g, ""))
 });
 
 
