@@ -73,6 +73,7 @@ const tabs = ref({
   "Security": "settings.security",
   "Funding Account": "settings.funding.account",
   "Preferences": "settings.preference",
+  "Support": "settings.support",
 });
 
 </script>

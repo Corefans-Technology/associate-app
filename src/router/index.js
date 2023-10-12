@@ -26,7 +26,7 @@ import TalentShowView from "../views/talents/ShowView.vue";
 import ErrorView from "../views/ErrorView.vue";
 import PasswordForgotView from "../views/auth/PasswordForgotView.vue";
 import { useManagerStore } from "@/stores/manager";
-
+import SettingSupportView from "../views/settings/SupportView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -140,6 +140,11 @@ const router = createRouter({
           path: "funding-account",
           name: "settings.funding.account",
           component: SettingFundingAccountView,
+        },
+        {
+          path: "support",
+          name: "settings.support",
+          component: SettingSupportView,
         },
         {
           path: "preferences",

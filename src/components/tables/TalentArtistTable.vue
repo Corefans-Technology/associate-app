@@ -13,19 +13,31 @@
           :sortable="table.sortable"
           @is-finished="tableLoadingFinish"
       >
+
+        <template v-slot:name="data">
+          <div class="flex items-center gap-2">
+            <img v-if="data.value.photo_path" class="w-7 h-7 rounded-full" :src="data.value.photo_path" alt="">
+            <div v-else class="w-7 h-7 rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
+              {{ useGetNameLetter(data.value.name) }}
+            </div>
+            <span>{{ data.value.name }}</span>
+          </div>
+        </template>
+
         <template v-slot:action="data">
           <p class="bg-gradient-to-br from-orange to-red p-px rounded-lg w-fit ">
             <BaseButton type='button' @click="open(data.value.id)" class='revoke-invite bg-white text-xs rounded-lg max-h-8'>
             <span class="flex items-center space-x-1">
               <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">Details</span>
             </span>
-          </BaseButton>
+          </BaseButton> 
           </p>
         </template>
 
         <template v-slot:social="data">
           <p class="flex items-center space-x-2">
             <!-- <Icon :name="item.name" /> -->
+            <!-- {{ data.value.social }} -->
             <span v-for="(item, index) in data.value.social" :key="index" v-html="socials.find( i => i.name === index).icon" />
           </p>
         </template>
@@ -41,11 +53,16 @@
           id: item?.id,
           invite_date: item.invite_date,
           phone_number: item.phone_number,
-          status: item.status
+          status: item.status,
+          photo_path: item.photo_path
         }
       })" :key="index" class="py-2 flex space-x-4 items-center">
         <div class="p-[10px] flex-none">
           <input class="rounded border-[#CBCCCE]" type="checkbox" name="" value="">
+        </div>
+        <img v-if="item.photo_path" class="w-10 h-10 rounded-full" :src="item.photo_path" alt="">
+        <div v-else class="w-10 h-10 rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
+          {{ useGetNameLetter(item.name) }}
         </div>
         <div class="space-y-2 py-3 flex-grow">
             <h4 class="text-sm text-1E1D24 font-medium">{{item.name}}</h4>
@@ -223,13 +240,22 @@
         class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-4 md:p-6 text-left shadow-xl transition-all space-y-4 relative"
       >
         <div class="mx-auto flex justify-between items-start">
-          <div class="space-y-1">
-            <h3 class="text-2xl font-medium font-power flex items-end gap-1">
-              <span>{{ waitlistsList?.first_name }} {{ waitlistsList?.last_name }}</span> <Status :name="waitlistsList?.status" />
-            </h3>
-            <span class=" text-sm text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">
-              {{ waitlistsList?.last_name }}
-            </span>
+          <div class="space-y-1 flex items-center gap-4">
+            <img v-if="waitlistsList.photo_path" class="w-[51px] h-[51px] rounded-full" :src="waitlistsList.photo_path" alt="">
+            <div v-else class="w-[51px] h-[51px] rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
+              {{ useGetNameLetter(`${waitlistsList.first_name} ${waitlistsList.last_name}`) }}
+            </div>
+            <div>
+              <h3 class="text-2xl font-medium font-power flex items-end gap-1">
+                <span>{{ waitlistsList?.first_name }} {{ waitlistsList?.last_name }}</span> 
+              </h3>
+              <div class="flex items-center">
+                <span class=" text-sm text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">
+                  {{ waitlistsList?.last_name }}
+                </span>
+                <Status :name="waitlistsList?.status" />
+              </div>
+            </div>
           </div>
 
           <button @click.prevent="close" class=" w-6 h-6 rounded-full bg-#E9E8E9 flex items-center justify-center">
@@ -345,6 +371,7 @@ import tiktok from "@/assets/icons/socials-colored/tiktok.svg?raw"
 import twitter from "@/assets/icons/socials-colored/twitter.svg?raw"
 import LoaderComponent from "@/components/LoaderComponent.vue";
 import { useFormat } from "@/composables/duration.js";
+import { useGetNameLetter } from "@/composables/useGetNameLetter.js";
 const socials = ref([
   { id: 1, name: "Spotify", placeholder: "https://spotify.com/yourpage", icon: spotify, unavailable: false, class: 'text-[#1DB953]' },
   { id: 2, name: "Deezer", placeholder: "https://deezer.com/yourpage", icon: deezer, unavailable: false, class: 'text-1E1D24'},
@@ -512,7 +539,8 @@ const table = reactive({
       social: item.social,
       genre: item.genre,
       stage_name: item.stage_name,
-      status: item.status
+      status: item.status,
+      photo_path: item.photo_path
     }
   }).filter( item => item.status !== 'Invited'),
   totalRecordCount: waitlistsLists.value?.data?.length,
