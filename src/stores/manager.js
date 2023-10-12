@@ -77,6 +77,36 @@ export const useManagerStore = defineStore("manager", {
       this.data = response.data;
     },
 
+    async support(form) {
+      
+      
+      const formData = new FormData();
+      // attachment
+      formData.append("subject", form.subject);
+      // if(form.campaign_id == null) {
+      //   formData.append("campaign_id", "");
+      // }else {
+      //   formData.append("campaign_id", form.campaign_id);
+      // }
+      formData.append("campaign_id", form.campaign_id);
+      
+      formData.append("type", form.type);
+      formData.append("description", form.description);
+
+      for (let i = 0; i < form.attachment.length; i++) {
+        formData.append("attachment", form.attachment[i]);
+        
+      }
+
+      const { data:response } = await API.post(ROUTES().support, formData,  {
+        "headers": {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      this.data = response.data;
+
+    },
+
     async signUp(form) {
       const { data } = await API.post(ROUTES().register, form);
 

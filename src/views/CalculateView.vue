@@ -128,13 +128,10 @@ import {
 import {
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
-// import Icon from "@/components/Icon.vue";
 import { computed, ref } from "vue";
 import Modal from "@/components/ModalComponent.vue";
 import { object, string } from "yup";
 import {useForm} from "vee-validate";
-// import {useTalentStore} from "@/stores/talent";
-
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import {useGenericStore} from "@/stores/generic";
@@ -172,15 +169,21 @@ const { handleSubmit, errors, isSubmitting, setFieldValue } = useForm({
 })
 
 function calculateAssociateCommission(artistEarnings) {
+
   // Platform's 12% charge
   const platformCharge = artistEarnings * 0.12;
 
   // Associate's 10% commission from the platform's charge
   const associateCommission = platformCharge * 0.10;
 
-  setFieldValue("your_pay",  associateCommission)
+  const formated = Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  }).format(associateCommission).replace("₦", "") ;
 
-  return associateCommission;
+  setFieldValue("your_pay",  formated);
+
+  return formated
 }
 
 const onSubmit = handleSubmit( async ( values ) => {

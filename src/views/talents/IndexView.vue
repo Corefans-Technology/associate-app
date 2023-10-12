@@ -316,7 +316,7 @@ const genericStore = useGenericStore();
 genericStore.getCountries();
 const tabs = ref({
   "All" : "talents.invited",
-  "Invites": "talents.invitee",
+  "Active and Pending": "talents.invitee",
   "Artist Discovery": "talents.artist",
 });
 // const query = useRoute().query

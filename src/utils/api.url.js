@@ -60,6 +60,7 @@ export const ROUTES = function (param = "") {
     goLive: `/v1/manager/campaigns/${param}/activate`,
     exclusiveAttribute: "/v1/exclusives/attributes",
     // waitlist 
+    support: "/v1/manager/complaints",
     waitlists: "v1/manager/talents/waiting-list",
     waitlist: `v1/manager/talents/waiting-list/${param}`,
     acceptedWaitlist: `v1/manager/talents/waiting-list/${param}/accepted`,

@@ -46,6 +46,9 @@
               :error="errors.type"
             />
             <!-- Genres -->
+            <!-- <pre>
+              {{ campaigns }}
+            </pre> -->
             <BaseSelect
               v-if="controlledValues.type === 'Campaign Issue'"
               label="Campaign"
@@ -99,7 +102,7 @@
 import { TabPanel } from "@headlessui/vue";
 import {ref,  onMounted, computed} from "vue";
 import { useManagerStore } from "@/stores/manager";
-import { useGenericStore } from "@/stores/generic";
+// import { useGenericStore } from "@/stores/generic";
 import {mixed, object, string} from "yup";
 import { useForm } from "vee-validate";
 import BaseButton from "@/components/base/BaseButton.vue";
@@ -107,14 +110,20 @@ import BaseInput from "@/components/base/BaseInput.vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import BaseSelect from "@/components/base/BaseSelect.vue";
 import BaseFileWithoutPreview from "@/components/base/BaseFileWithoutPreview.vue";
-import {useCampaignStore} from "@/stores/campaign";
+import {useWalletStore} from "@/stores/wallet";
+import {storeToRefs} from "pinia";
+
+
+
+const walletStore = useWalletStore();
+walletStore.getCreativeCampaign();
+const { campaigns } = storeToRefs(walletStore);
 
 const creativeStore = useManagerStore();
-const genericStore = useGenericStore();
-const campaignStore = useCampaignStore();
+// const genericStore = useGenericStore();
 
 
-genericStore.getGenres();
+// genericStore.getGenres();
 
 const loading = ref(false);
 
@@ -128,15 +137,6 @@ const schema = computed(() => {
     attachment: mixed().label("Attachment (optional)"),
   })
 });
-
-const campaigns = computed( () => {
-  return campaignStore.data.map( c => {
-    return {
-      id: c.id,
-      name: c.basic.title,
-    }
-  })
-})
 
 const { handleSubmit, errors, resetForm, controlledValues } = useForm({
   validationSchema: schema,
@@ -153,6 +153,7 @@ const submit = handleSubmit( async (values, actions) => {
   }).then(() => {
     // eslint-disable-next-line no-undef
     resetForm()
+    // eslint-disable-next-line no-undef
     Toast.fire({
       icon: "success",
       title:  "Saved!",
@@ -168,7 +169,7 @@ const submit = handleSubmit( async (values, actions) => {
 });
 
 onMounted( async() => {
-  await campaignStore.index();
+  await walletStore.getCreativeCampaign();
 })
 </script>
 

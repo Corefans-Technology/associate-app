@@ -71,9 +71,9 @@ function changeTab(index) {
 const tabs = ref({
   "Profile" : "settings.profile",
   "Security": "settings.security",
+  "Support": "settings.support",
   "Funding Account": "settings.funding.account",
   "Preferences": "settings.preference",
-  "Support": "settings.support",
 });
 
 </script>

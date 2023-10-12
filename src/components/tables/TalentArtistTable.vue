@@ -241,17 +241,18 @@
       >
         <div class="mx-auto flex justify-between items-start">
           <div class="space-y-1 flex items-center gap-4">
-            <img v-if="waitlistsList.photo_path" class="w-[51px] h-[51px] rounded-full" :src="waitlistsList.photo_path" alt="">
+            <img v-if="waitlistsList?.photo_path" class="w-[51px] h-[51px] rounded-full" :src="waitlistsList?.photo_path" alt="">
             <div v-else class="w-[51px] h-[51px] rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
-              {{ useGetNameLetter(`${waitlistsList.first_name} ${waitlistsList.last_name}`) }}
+              <!-- {{ name }} -->
+              {{ useGetNameLetter(name) }}
             </div>
             <div>
-              <h3 class="text-2xl font-medium font-power flex items-end gap-1">
+              <h3 class="text-2xl font-medium font-power flex items-end gap-1 capitalize">
                 <span>{{ waitlistsList?.first_name }} {{ waitlistsList?.last_name }}</span> 
               </h3>
-              <div class="flex items-center">
-                <span class=" text-sm text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">
-                  {{ waitlistsList?.last_name }}
+              <div class="flex items-center gap-2">
+                <span class=" text-sm text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium capitalize">
+                  {{ waitlistsList?.stage_name }}
                 </span>
                 <Status :name="waitlistsList?.status" />
               </div>
@@ -355,7 +356,7 @@ import {
 } from "@headlessui/vue";
 import Modal from "@/components/ModalComponent.vue";
 import Status from "@/components/Status.vue";
-import {ref, reactive} from "vue";
+import {ref, reactive, computed } from "vue";
 import TableLite from "@/components/TableLite.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import Icon from "@/components/Icon.vue";
@@ -395,7 +396,9 @@ let selectedId = ref(null);
 
 const { waitlistsLists, waitlistsList } = storeToRefs(talentStore)
 
-
+const name = computed( () => {
+  return `${waitlistsList.value?.first_name} ${waitlistsList.value?.last_name}`
+})
 
 const revokeInvite = async () => {
   loading.value = true;
