@@ -11,7 +11,7 @@ import {storeToRefs} from "pinia";
 
 
 const walletStore = useWalletStore();
-walletStore.getCreativeCampaign();
+await walletStore.getCreativeCampaign();
 const { campaigns } = storeToRefs(walletStore);
 </script>
 

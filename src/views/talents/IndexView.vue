@@ -298,9 +298,6 @@ import { TabGroup, TabList, Tab, TabPanels } from "@headlessui/vue";
 import Icon from "@/components/Icon.vue";
 import DashboardLayout from "@/layouts/DashboardLayout.vue";
 import { PlusIcon } from "@heroicons/vue/24/outline";
-// import { useTalentStore } from "@/stores/talent";
-// import TalentItems from "@/components/TalentItems.vue";
-// import LoaderComponent from "@/components/LoaderComponent.vue";
 
 
 import {
@@ -311,18 +308,13 @@ import {
 
 import {useGenericStore} from "@/stores/generic";
 import BaseButton from "@/components/base/BaseButton.vue";
-// import { useRoute } from "vue-router"
 const genericStore = useGenericStore();
 genericStore.getCountries();
 const tabs = ref({
-  "All" : "talents.invited",
-  "Active and Pending": "talents.invitee",
+  "Active" : "talents.invited",
+  "Pending": "talents.invitee",
   "Artist Discovery": "talents.artist",
 });
-// const query = useRoute().query
-// const errors = ref([]);
-// const success = ref(false);
-// const loading = ref(false);
 
 
 </script>

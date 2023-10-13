@@ -30,7 +30,7 @@
             /> 
             <span>Talent Invites Left</span>
           </p>
-          <p>0/20</p>
+          <p>{{ totalNumberInvites }}/20</p>
         </div>
         <div class="space-y-4 pt-4">
           <div class="flex flex-col md:flex-row items-start gap-y-4 gap-x-6">
@@ -78,7 +78,10 @@
 
 
 
-          <div class="flex items-center justify-end space-x-4 pt-4">
+          <div
+            v-if="totalNumberInvites < 21"
+            class="flex items-center justify-end space-x-4 pt-4"
+          >
             <div class=" bg-gradient-to-br from-orange to-red p-px rounded-lg">
               <BaseButton
                 type="button"
@@ -149,6 +152,13 @@
               </span>
             </BaseButton>
           </div>
+          <div
+            v-else
+            class="flex items-center justify-end space-x-2 pt-4 text-error font-power"
+          >
+            <ExclamationTriangleIcon class="w-5 h-5" />
+            <p>You have reach limit</p>
+          </div>
         </div>
       </DialogPanel>
     </form>
@@ -212,28 +222,32 @@ import {
 
 import {
   XMarkIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/vue/24/outline";
 import Icon from "@/components/Icon.vue";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import Modal from "@/components/ModalComponent.vue";
 import { object, string } from "yup";
 import {useForm} from "vee-validate";
 import {useTalentStore} from "@/stores/talent";
-
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import PhoneNumberInput from "@/components/PhoneNumberInput.vue";
 import PhoneNumber from "google-libphonenumber";
 import {useGenericStore} from "@/stores/generic";
 import { useRouter } from "vue-router";
-
+import {storeToRefs} from "pinia";
 const router = useRouter();
 const genericStore = useGenericStore();
 genericStore.getCountries();
 const talentStore = useTalentStore();
-
+const { invitedList, inviteeList } = storeToRefs(talentStore)
 const isSuccessOpen = ref(false);
 const isInviteOpen = ref(true);
+
+const totalNumberInvites = computed( () => {
+  return invitedList.value?.data?.length + inviteeList.value?.data?.length
+})
 
 const phoneUtil = PhoneNumber.PhoneNumberUtil.getInstance();
 
@@ -304,5 +318,10 @@ const onSubmit = handleSubmit( async ( values, actions ) => {
 
 });
 
+
+onMounted( async () => {
+  await talentStore.fetchInvited();
+  await talentStore.fetchInvitee();
+})
 
 </script>
