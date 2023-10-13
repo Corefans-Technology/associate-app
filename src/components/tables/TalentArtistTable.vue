@@ -45,18 +45,7 @@
     </div>
 
     <div class="divide-y md:hidden">
-      <div v-for="(item, index) in waitlistsLists?.data.map( (item) => {
-        return {
-          accept_invite: item?.accept_invite,
-          email: item?.email,
-          name: `${item?.first_name} ${item?.last_name}`,
-          id: item?.id,
-          invite_date: item.invite_date,
-          phone_number: item.phone_number,
-          status: item.status,
-          photo_path: item.photo_path
-        }
-      })" :key="index" class="py-2 flex space-x-4 items-center">
+      <div v-for="(item, index) in formated" :key="index" class="py-2 flex space-x-4 items-center">
         <div class="p-[10px] flex-none">
           <input class="rounded border-[#CBCCCE]" type="checkbox" name="" value="">
         </div>
@@ -468,6 +457,23 @@ const acceptArtist = async () => {
   acceptloading.value = false;
 }
 
+const formated = computed( () => {
+  return waitlistsLists.value?.data.map( (item) => {
+    return {
+      accept_invite: item?.accept_invite,
+      email: item?.email,
+      name: `${item?.first_name} ${item?.last_name}`,
+      id: item?.id,
+      invite_date: item.invite_date,
+      social: item.social,
+      genre: item.genre,
+      stage_name: item.stage_name,
+      status: item.status,
+      photo_path: item.photo_path,
+    }
+  }).filter( item => item.status !== 'Invited')
+})
+
 
 const table = reactive({
   isLoading: false,
@@ -532,20 +538,7 @@ const table = reactive({
       field: "action",
     },
   ],
-  rows: waitlistsLists.value?.data.map( (item) => {
-    return {
-      accept_invite: item?.accept_invite,
-      email: item?.email,
-      name: `${item?.first_name} ${item?.last_name}`,
-      id: item?.id,
-      invite_date: item.invite_date,
-      social: item.social,
-      genre: item.genre,
-      stage_name: item.stage_name,
-      status: item.status,
-      photo_path: item.photo_path
-    }
-  }).filter( item => item.status !== 'Invited'),
+  rows: formated,
   totalRecordCount: waitlistsLists.value?.data?.length,
   sortable: {
     order: "created_at",

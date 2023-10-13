@@ -40,16 +40,7 @@
       <!-- <pre>
         {{ inviteeList }}
       </pre> -->
-      <div v-for="(item, index) in inviteeList?.data.map( (item) => {
-        return {
-          accept_invite: item?.accept_invite,
-          email: item?.email,
-          name: `${item?.first_name} ${item?.last_name}`,
-          id: item?.id,
-          invite_date: item.invite_date,
-          phone_number: item.phone_number
-        }
-      })" :key="index" class="py-2 flex space-x-4 items-center">
+      <div v-for="(item, index) in formated" :key="index" class="py-2 flex space-x-4 items-center">
         <div class="p-[10px] flex-none">
           <input class="rounded border-[#CBCCCE]" type="checkbox" name="" value="">
         </div>
@@ -179,7 +170,7 @@ import {
   DialogTitle,
 } from "@headlessui/vue";
 import Modal from "@/components/ModalComponent.vue";
-import {ref, reactive} from "vue";
+import {ref, reactive, computed} from "vue";
 import TableLite from "@/components/TableLite.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import Icon from "@/components/Icon.vue";
@@ -208,6 +199,19 @@ const revokeInvite = async () => {
   selectedId.value = true
   revokeModal.value = !revokeModal.value
 }
+
+const formated = computed( () => {
+  return inviteeList.value?.data.map( (item) => {
+    return {
+      accept_invite: item?.accept_invite,
+      email: item?.email,
+      name: `${item?.first_name} ${item?.last_name}`,
+      id: item?.id,
+      invite_date: item.invite_date,
+      phone_number: item.phone_number
+    }
+  })
+})
 
 const table = reactive({
   isLoading: false,
@@ -281,16 +285,7 @@ const table = reactive({
     //   sortable: true,
     // },
   ],
-  rows: inviteeList.value?.data.map( (item) => {
-    return {
-      accept_invite: item?.accept_invite,
-      email: item?.email,
-      name: `${item?.first_name} ${item?.last_name}`,
-      id: item?.id,
-      invite_date: item.invite_date,
-      phone_number: item.phone_number
-    }
-  }),
+  rows: formated,
   totalRecordCount: inviteeList.value?.data?.length,
   sortable: {
     order: "created_at",
