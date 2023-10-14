@@ -115,7 +115,13 @@ managerStore.profile();
             </DisclosureButton>
             <DisclosurePanel class="pt-3 md:pt-4 pb-2 text-sm text-gray-500 space-y-5">
               <p class="text-base text-#2E0B34">
-                Nominated associates invite and approve artistes onto the Corefans platform. Perks include; Getting paid a commission of 0.012% of total campaign amount every time your invited or approved artistes completes their campaign. 
+                With Corefans, artistes sell exclusives to core fans to generate income for their existing or forthcoming music project. These exclusives are an opportunity for core fans to become a part of the project or support an emerging artiste.
+              </p>
+              <p class="text-base text-#2E0B34">
+                As a nominated corefans associates - send invite and approve talents onto the corefans platform.
+              </p>
+              <p class="text-base text-#2E0B34">
+                Earn a 10% commission on the platform fee every time your invited or approved talents completes their campaign. Calculate your earnings below.
               </p>
             </DisclosurePanel>
           </Disclosure>
