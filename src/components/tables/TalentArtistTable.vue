@@ -16,7 +16,7 @@
 
         <template v-slot:name="data">
           <div class="flex items-center gap-2">
-            <img v-if="data.value.photo_path" class="w-7 h-7 rounded-full" :src="data.value.photo_path" alt="">
+            <img v-if="data.value.photo_path" class="w-10 h-10 rounded-full object-cover" :src="data.value.photo_path" :alt="data.value.name">
             <div v-else class="w-7 h-7 rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
               {{ useGetNameLetter(data.value.name) }}
             </div>
@@ -49,7 +49,7 @@
         <div class="p-[10px] flex-none">
           <input class="rounded border-[#CBCCCE]" type="checkbox" name="" value="">
         </div>
-        <img v-if="item.photo_path" class="w-10 h-10 rounded-full" :src="item.photo_path" alt="">
+        <img v-if="item.photo_path" class="w-10 h-10 rounded-full object-cover" :src="item.photo_path" alt="">
         <div v-else class="w-10 h-10 rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
           {{ useGetNameLetter(item.name) }}
         </div>
@@ -230,7 +230,7 @@
       >
         <div class="mx-auto flex justify-between items-start">
           <div class="space-y-1 flex items-center gap-4">
-            <img v-if="waitlistsList?.photo_path" class="w-[51px] h-[51px] rounded-full" :src="waitlistsList?.photo_path" alt="">
+            <img v-if="waitlistsList?.photo_path" class="w-[51px] h-[51px] rounded-full object-cover" :src="waitlistsList?.photo_path" alt="">
             <div v-else class="w-[51px] h-[51px] rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-xl font-bold text-1E1D24 uppercase">
               <!-- {{ name }} -->
               {{ useGetNameLetter(name) }}
