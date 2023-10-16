@@ -313,7 +313,7 @@ const resolveAccountNumber = async () => {
           <template v-if="currentStep === 2">
             <FormHeader
               name="Let’s get started"
-              desc="Tell us a bit about yourself"
+              desc="Create your profile"
             />
             <Spacer size="8" />
             <div class="space-y-2">
@@ -321,8 +321,10 @@ const resolveAccountNumber = async () => {
                 <div class="w-full absolute inset-y-0 bg-gradient-to-r from-orange to-red rounded-[10px]" />
               </div>
               <p class="">
-                Talent Information: 2/2
+                Bank Information: 2/2
+
               </p>
+              <small>For testing: select <b>Access bank</b> and use a/c: <b>0690000010</b></small>
             </div>
             <Spacer size="8" />
             <div class="space-y-5">

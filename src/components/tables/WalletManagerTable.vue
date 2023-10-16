@@ -200,11 +200,17 @@ const table = reactive({
       label: "Goal Amount",
       field: "goal",
       sortable: true,
+      display: function (row) {
+        return row.goal.formatted;
+      },
     },
     {
       label: "Amount Raised",
-      field: "raise",
+      field: "raised",
       sortable: true,
+      display: function (row) {
+        return row.raised.formatted;
+      },
     },
     {
       label: "Status",
