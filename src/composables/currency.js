@@ -10,7 +10,7 @@ export function useCurrency(amount, type = "NGN", locale = "en-NG", display = "c
     currency: type,
     // currencyDisplay: display,
     minimumFractionDigits: 2,
-  }).format(parseFloat(amt) / 100);
+  }).format(amt);
 
   return result.value;
 }
