@@ -387,7 +387,7 @@ const associateCommission = platformCharge * 0.10;
 const formated = Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
-}).format(associateCommission).replace("₦", "") ;
+}).format(associateCommission);
 
 return formated
 }
