@@ -300,13 +300,19 @@ const commissions_table = reactive({
     // },
     {
       label: "Amount Raised",
-      field: "goal",
+      field: "raised",
       sortable: true,
+      display: function (row) {
+        return row?.raised?.formatted;
+      },
     },
     {
       label: "Commission Earned",
       field: "raise",
       sortable: true,
+      display: function (row) {
+        return calculateAssociateCommission(row?.raised?.value);
+      },
     },
     {
       label: "Status",
@@ -368,6 +374,23 @@ const commissions_table = reactive({
     sort: "asc",
   },
 });
+
+
+function calculateAssociateCommission(artistEarnings) {
+
+// Platform's 12% charge
+const platformCharge = artistEarnings * 0.12;
+
+// Associate's 10% commission from the platform's charge
+const associateCommission = platformCharge * 0.10;
+
+const formated = Intl.NumberFormat("en-NG", {
+  style: "currency",
+  currency: "NGN",
+}).format(associateCommission).replace("₦", "") ;
+
+return formated
+}
 
 
 // const doSearch = (offset, limit, order, sort) => {
