@@ -18,7 +18,7 @@
       </p> -->
       <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
+          class="flex items-center space-x-3 text-white py-2 px-4 text-sm hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent"
           :to="{ name: 'overview' }"
         >
           <Icon
@@ -30,7 +30,7 @@
       </li>
       <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
+          class="flex items-center space-x-3 text-white py-2 px-4 text-sm hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent"
           :to="{ name: 'wallet' }"
         >
           <Icon
@@ -42,7 +42,7 @@
       </li>
       <li class="flex-none links">
         <router-link
-          class="flex items-center space-x-3 text-white py-2 px-4 text-sm"
+          class="flex items-center space-x-3 text-white py-2 px-4 text-sm hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent"
           :to="{ name: 'talents.invited', query: { tab: 'All' } }"
         >
           <Icon name="users" />
@@ -54,7 +54,7 @@
     <ul class="hidden md:flex flex-col flex-none pt-4">
       <li class="links">
         <router-link
-          class="flex items-center w-full space-x-3 text-white py-2 px-4"
+          class="flex items-center w-full space-x-3 text-white py-2 px-4 hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent"
           :to="{ name: 'settings.profile', query: { tab: 'Profile' } }"
         >
           <Icon
