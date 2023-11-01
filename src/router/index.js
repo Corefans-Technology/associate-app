@@ -78,8 +78,8 @@ const router = createRouter({
       ],
     },
     {
-      path: "/talents/:id",
-      name: "talents.show",
+      path: "/talents/invited/campaign/:id",
+      name: "talents.campaign.show",
       component: TalentShowView,
       meta: {
         middleware: "auth",

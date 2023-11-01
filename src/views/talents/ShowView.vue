@@ -16,7 +16,7 @@
               class="text-sm text-[#444349] font-medium"
               href="#"
             >
-              Campaigns
+              Talents
             </p>
           </button>
           <h2 class="text-2xl font-bold font-power text-black pr-[2rem]">
@@ -170,22 +170,22 @@
           <TabPanels class="">
             <TabPanel>
               <Suspense>
-                <CampaignSupportTable />
-
-                <template #fallback>
-                  Loading...
-                </template>
-              </Suspense>
-            </tabpanel>
-            <TabPanel>
-              <Suspense>
                 <CampaignOrderTable />
 
                 <template #fallback>
                   Loading...
                 </template>
               </Suspense>
-            </tabpanel>
+            </Tabpanel>
+            <TabPanel>
+              <Suspense>
+                <CampaignSupportTable />
+
+                <template #fallback>
+                  Loading...
+                </template>
+              </Suspense>
+            </Tabpanel>
           </TabPanels>
         </TabGroup>
       </div>
@@ -214,7 +214,7 @@ import CampaignOrderTable from "@/components/tables/CampaignOrderTable.vue";
 
 const route = useRoute();
 const router = useRouter();
-const tabs = ref(["Support", "Orders"]);
+const tabs = ref(["Orders", "Support"]);
 
 const campaignStore = useCampaignStore();
 
@@ -224,7 +224,7 @@ campaignStore.getCampaignById(route.params.id)
 
 const { campaign } = storeToRefs(campaignStore)
 
-campaignStore.getTransactions(route.params.id);
+// campaignStore.getTransactions(route.params.id);
 
 </script>
 

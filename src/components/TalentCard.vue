@@ -43,11 +43,12 @@
 
       <div class="flex items-center justify-between pt-6">
         <!-- <Status name="pending" /> -->
+        <!-- talents.campaign.show -->
         <a
           class="text-sm flex items-center space-x-1"
           :href="`https://demo.corefans.co/${talent?.username}`"
         >
-          <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">View Campaigns</span>
+          <span class=" text-transparent bg-clip-text bg-gradient-to-br from-orange to-red font-medium">View</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -77,6 +78,13 @@
             </defs>
           </svg>
         </a>
+
+        <BaseButton
+          class="bg-gradient-to-br from-orange to-red text-white text-sm rounded-lg font-medium h-9 w-full md:w-fit"
+          @click.prevent="$router.push({ name: 'talents.campaign.show', params: { id: talent?.campaign?.id} })"
+        >
+          Details
+        </BaseButton>
       </div>
     </div>
   </div>
@@ -85,7 +93,7 @@
 <script setup>
 // import Status from "@/components/Status.vue";
 // import { ArrowRightIcon } from "@heroicons/vue/24/outline";
-import { RouterLink } from "vue-router";
+import BaseButton from "@/components/base/BaseButton.vue";
 import {computed} from "vue";
 import Icon from "@/components/Icon.vue";
 
