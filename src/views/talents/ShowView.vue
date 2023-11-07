@@ -1,10 +1,10 @@
 <template>
   <DashboardLayout>
     <div class="px-5 md:px-[2.5rem] py-6 md:py-6 space-y-6 h-full">
-      <div class="md:flex flex-col md:flex-row md:items-center md:space-x-4 md:justify-between">
-        <div class="md:space-y-5 pt-2 md:pt-0">
+      <div class="">
+        <div class="md:space-y-5 pt-2 md:pt-0 pb-5">
           <button
-            class="items-center space-x-1 hidden md:flex"
+            class="items-center space-x-1 flex"
             @click.prevent="router.back()"
           >
             <span
@@ -16,77 +16,128 @@
               class="text-sm text-[#444349] font-medium"
               href="#"
             >
-              Talents
+              Campaigns
             </p>
           </button>
-          <h2 class="text-2xl font-bold font-power text-black pr-[2rem]">
-            {{ campaign?.title }} 
-          </h2>
         </div>
+        <div class="flex flex-col md:flex-row gap-5">
+          <img
+            class="w-24 h-24 rounded-lg object-cover flex-none mx-auto md:mx-0 order-1"
+            :src="campaign?.photo_path ? campaign?.photo_path : 'https://placehold.co/600x400'"
+            :alt="campaign?.title"
+          />
+          
+          <div class="flex flex-col flex-grow gap-y-1 order-3 md:order-2">
+            <h2 class="text-xl md:text-2xl font-bold font-power text-black pr-[2rem] flex-grow text-center md:text-left">
+              {{ campaign?.title }} 
+            </h2>
+            <div class="flex-none flex items-center gap-4">
+              <div class="flex items-center gap-2">
+                <img 
+                  v-if="campaign?.creative?.photo_path" 
+                  class="w-[34px] h-[34px] rounded-full object-cover" 
+                  :src="campaign?.creative?.photo_path"
+                  :alt="campaign?.creative?.stage_name"
+                />
+                <div
+                  v-else
+                  class="w-[34px] h-[34px] rounded-full flex items-center justify-center border border-#A3A2A5 bg-#E9E8E9 text-sm font-bold text-1E1D24 uppercase"
+                >
+                  {{ useGetNameLetter(campaign?.creative?.stage_name ? campaign?.creative?.stage_name : 'Shaddy Badboi') }}
+                </div>
+                <div class="text-[11px] md:text-sm text-black">
+                  <p class=" text-#697386">
+                    Talent
+                  </p>
+                  <span>{{ campaign?.creative?.stage_name ? campaign?.creative?.stage_name : 'Shaddy Badboi' }}</span>
+                </div>
+              </div>
+              <div class="w-[1px] h-[32px] bg-[#EAECF0] flex-none" />
+              <div class="text-[11px] md:text-sm text-black">
+                <p class=" text-#697386">
+                  Date
+                </p>
+                <span>{{ 'August 21, 2018' }}</span>
+              </div>
+              <div class="w-[1px] h-[32px] bg-[#EAECF0] flex-none" />
+              <div class="text-[11px] md:text-sm text-black">
+                <p class=" text-#697386">
+                  Category
+                </p>
+                <span>{{ 'Afrobeats' }}</span>
+              </div>
+            </div>
+          </div>
+          
 
-        <!-- <div class="hidden md:flex items-center justify-end">
-          <button
-            class="bg-gradient-to-br from-orange to-red text-white text-[0.8125rem] h-[37px] px-4 rounded-lg flex items-center justify-center space-x-2"
-          >
-            <Icon name="plus"/>
-            <span>Stop campaign</span>
-          </button>
-        </div> -->
+          <div class="flex items-center justify-center md:justify-end flex-none order-2 md:order-3">
+            <a
+              class="bg-gradient-to-br from-orange to-red text-white text-[0.8125rem] h-[37px] px-4 rounded-lg flex items-center justify-center space-x-2"
+              :href="`https://demo.corefans.co/${campaign?.talent_id}/campaigns/${campaign.id}`"
+            >
+              <!-- <Icon name="plus" /> -->
+              <span>View campaign</span>
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div class="grid xl:grid-cols-2 gap-4">
+      <div class="xl:grid xl:grid-cols-3 gap-4 space-y-4 md:space-y-0">
         <div
-          class="flex flex-col md:flex-row md:p-[1.125rem] py-2 rounded-[0.625rem] border border-[#EAECF0] space-y-3 md:space-y-0"
+          class="flex flex-row md:p-[1.125rem] py-2 rounded-[0.625rem] border border-[#EAECF0] gap-y-3 "
         >
           <Statistic
-            title="Total Amount Raised"
-            class="px-4 md:px-0"
+            title="Total Exclusives Sold"
+            class="px-4 md:px-0 text-sm flex-1"
             :amount="campaign.claim.formatted"
             volume="0.50%"
           />
 
-          <div class="w-full md:w-[1px] h-px md:h-full md:mx-4 bg-[#EAECF0] flex-none" />
+          <div class="w-[1px] sh-full md:mx-4 bg-[#EAECF0] flex-none" />
 
           <Statistic
-            title="Total Contributions"
-            class="px-4 md:px-0"
+            title="Total Corefans"
+            class="px-4 md:px-0 text-sm flex-1"
             :amount="campaign.fans"
             volume="0.50%"
             :is-currency="false"
           />
         </div>
         <div
-          class="p-4 px-1 rounded-[0.625rem] border border-[#EAECF0]"
+          class="p-4 px-1 rounded-[0.625rem] border border-[#EAECF0] col-span-2"
         >
           <div
             class="bg-[#FAFAFA] w-full rounded-b-[1.5rem] shadow-[0px_20px_40px_rgba(5,32,58,0.05)] px-3 space-y-2 flex flex-col h-full"
           >
-            <div class="space-y-2 flex-grow">
+            <div class="">
+              <p class="text-sm text-#3A495D">
+                Available balance / Goal amount
+              </p>
               <div class="text-base text-black font-medium flex justify-between">
                 <h5 class="font-bold font-power text-#091C35"> 
-                  {{ campaign.claim.formatted }}
+                  {{ campaign.claim.formatted }} / {{ campaign?.goal.formatted }}
                   <!-- <span class="text-sm">raised</span> -->
                 </h5>
                 <!-- <h5>{{ useDuration(campaign.duration) }}</h5> -->
               </div>
-              <div
+              <!-- <div
                 class="text-[#989C9E] flex items-center space-x-3 text-xs"
               >
                 <p class="text-sm text-#444349 font-medium px-2 rounded-full bg-[#8080801A]">
                   {{ useDuration(campaign.duration) }} days left
                 </p>
                 <span class="text-#3A495D">Goal amount: {{ campaign?.goal.formatted }}</span>
-              </div>
+              </div> -->
             </div>
 
-            <div class="flex items-center space-x-2 flex-none">
-              <div class="w-full rounded-full bg-[#FEF3E8] relative h-5 border border-1E1D24 overflow-hidden">
+            <div class="flex-none flex flex-col gap-1 pt-2">
+              <div class="w-full rounded-full bg-[#CCD5DF] relative h-2 border-1E1D24 overflow-hidden">
                 <!-- :style="{ width: useProgress(campaign.funding.goal, campaign.claim) + '%' }" -->
                 <div
                   :style="{ width: useProgress(campaign?.goal?.value, campaign?.claim?.value) + '%' }"
-                  class="rounded-full bg-gradient-to-br from-orange to-red absolute inset-0 h-full"
+                  class="rounded-full bg-gradient-to-br from-[#62CE74] to-[#62CE74] absolute inset-0 h-full"
                 />
-                <p
+                <!-- <p
                   v-if="campaign.fans > 0"
                   class="absolute left-0 inset-y-0 flex items-center justify-center px-2 text-xs font-semibold text-white"
                 >
@@ -94,6 +145,36 @@
                 </p>
                 <p class="absolute right-0 inset-y-0 flex items-center justify-center px-2 text-xs font-semibold text-1E1D24">
                   {{ useProgress(campaign?.goal?.value, campaign?.claim?.value) + '%' }}
+                </p> -->
+              </div>
+              <div class="flex text-#3A495D justify-between items-center">
+                <p>{{ useProgress(campaign?.goal?.value, campaign?.claim?.value) + '%' }} Completed</p>
+                <p class="flex items-center gap-1">
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_4269_170864)">
+                      <path
+                        d="M11.9051 2.4926H11.317V1.31641H10.1408V2.4926H4.25981V1.31641H3.08362V2.4926H2.49553C1.84862 2.4926 1.31934 3.02188 1.31934 3.66879V13.0783C1.31934 13.7252 1.84862 14.2545 2.49553 14.2545H11.9051C12.552 14.2545 13.0812 13.7252 13.0812 13.0783V3.66879C13.0812 3.02188 12.552 2.4926 11.9051 2.4926ZM11.9051 13.0783H2.49553V6.60926H11.9051V13.0783ZM11.9051 5.43307H2.49553V3.66879H11.9051V5.43307Z"
+                        fill="#3A495D"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_4269_170864">
+                        <rect
+                          width="14.1143"
+                          height="14.1143"
+                          fill="white"
+                          transform="translate(0.143555 0.728516)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <span>Nov 15, 2023</span>
                 </p>
               </div>
             </div>
@@ -205,12 +286,12 @@ import { useCampaignStore } from "@/stores/campaign";
 import {useRoute, useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 // import { useCurrency } from "@/composables/currency";
-import { useDuration } from "@/composables/duration";
+// import { useDuration } from "@/composables/duration";
 import { useProgress } from "@/composables/progress";
 // import Status from "@/components/Status.vue";
 import CampaignSupportTable from "@/components/tables/CampaignSupportTable.vue";
 import CampaignOrderTable from "@/components/tables/CampaignOrderTable.vue";
-
+import { useGetNameLetter } from "@/composables/useGetNameLetter.js";
 
 const route = useRoute();
 const router = useRouter();

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import TalentItems from "@/components/TalentItems.vue";
+import TalentItems from "@/components/tables/TalentItems.vue";
 import LoaderComponent from "@/components/LoaderComponent.vue";
 
 

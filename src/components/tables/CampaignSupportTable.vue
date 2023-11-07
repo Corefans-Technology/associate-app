@@ -1,12 +1,21 @@
 <template>
-  <table-lite
-    :has-checkbox="true"
-    :columns="table.columns"
-    :rows="table.rows"
-    :total="table.totalRecordCount"
-    :sortable="table.sortable"
-    @is-finished="tableLoadingFinish"
-  />
+  <div class="hidden md:block">
+    <table-lite
+      :has-checkbox="true"
+      :columns="table.columns"
+      :rows="table.rows"
+      :total="table.totalRecordCount"
+      :sortable="table.sortable"
+      @is-finished="tableLoadingFinish"
+    />
+  </div>
+  <div class="divide-y md:hidden">
+    <WalletTableItem
+      v-for="item in getFundTypeBySupport"
+      :key="item.id"
+      :item="item"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -16,6 +25,7 @@ import { useCampaignStore } from "@/stores/campaign";
 import { useFormat } from "@/composables/duration";
 import {storeToRefs} from "pinia";
 import {reactive} from "vue";
+import WalletTableItem from "@/components/WalletTableItem.vue";
 const campaignStore = useCampaignStore();
 const { getFundTypeBySupport } = storeToRefs(campaignStore)
 

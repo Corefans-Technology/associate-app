@@ -313,7 +313,7 @@ genericStore.getCountries();
 const tabs = ref({
   "Active" : "talents.invited",
   "Pending": "talents.invitee",
-  "Artist Discovery": "talents.artist",
+  "Requests": "talents.artist",
 });
 
 

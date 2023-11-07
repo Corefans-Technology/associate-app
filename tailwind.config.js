@@ -81,6 +81,7 @@ module.exports = {
         "#E9E8E9": "#E9E8E9",
         "#101828": "#101828",
         "#EAEAEA": "#EAEAEA",
+        "#697386": "#697386"
       },
       aria: {
         invalid: "true",
