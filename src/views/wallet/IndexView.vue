@@ -208,27 +208,27 @@
           <!-- Active Campaign -->
           <div class="col-span-2 flex flex-col gap-4">
             <div
-              v-for="(item, index) in 2"
-              :key="index"
-              class="flex gap-6 border border-#E9E8E9 p-4 md:p-6 pb-14 md:pb-6 rounded-lg  relative"
+                v-for="(campaign, index) in activeCampaigns.data"
+                :key="index"
+                class="flex gap-6 border border-#E9E8E9 p-4 md:p-6 pb-14 md:pb-6 rounded-lg  relative"
             >
               <img
-                class="w-14 lg:w-[10rem] h-14 lg:h-[10rem] rounded-lg flex-none object-cover"
-                src="https://placehold.co/600x400"
-                alt=""
+                  class="w-14 lg:w-[10rem] h-14 lg:h-[10rem] rounded-lg flex-none object-cover"
+                  :src="campaign.thumbnail"
+                  alt=""
               />
               <div class="flex flex-col justify-between flex-grow">
                 <div class="spacey-2 md:space-y-5">
-                  <h2 class="text-lg md:text-[22px] font-bold font-power text-black pr-[2rem] flex-grow text-left line-clamp-1">
-                    {{ 'The Act Album Listening Party' }} 
+                  <h2 class="text-lg md:text-[22px] font-bold font-power text-black pr-[2rem] flex-grow text-left line-clamp-1 capitalize">
+                    {{ campaign.title }}
                   </h2>
                   <div class="">
                     <p class="text-xs text-#3A495D hidden md:block">
                       Available balance / Goal amount
                     </p>
                     <div class="text-lg md:text-xl text-black font-medium flex justify-between">
-                      <h5 class="font-bold font-power text-#091C35"> 
-                        {{ '₦0.00' }} / <span class="text-#3A495D text-base md:text-lg">{{ '₦0.00' }}</span>
+                      <h5 class="font-bold font-power text-#091C35">
+                        {{ campaign?.raised?.formatted }} / <span class="text-#3A495D text-base md:text-lg">{{ campaign.goal.formatted }}</span>
                       </h5>
                     </div>
                   </div>
@@ -236,38 +236,38 @@
                 <div class="flex-none flex flex-col gap-1 pt-4 absolute inset-x-0 lg:relative bottom-2 px-4 lg:px-0">
                   <div class="w-full rounded-full bg-[#CCD5DF] relative h-2 border-1E1D24 overflow-hidden">
                     <div
-                      :style="{ width: useProgress(10000, 3000) + '%' }"
-                      class="rounded-full bg-gradient-to-br from-[#62CE74] to-[#62CE74] absolute inset-0 h-full"
+                        :style="{ width: useProgress(campaign?.goal?.value, campaign?.raised?.value) + '%' }"
+                        class="rounded-full bg-gradient-to-br from-[#62CE74] to-[#62CE74] absolute inset-0 h-full"
                     />
                   </div>
                   <div class="flex text-#3A495D justify-between items-center text-sm md:text-base">
-                    <p>{{ useProgress(10000, 3000) + '%' }} Completed</p>
+                    <p>{{ useProgress(campaign?.goal?.value, campaign?.raised?.value) + '%' }} Completed</p>
                     <p class="flex items-center gap-1">
                       <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 15 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
                       >
                         <g clip-path="url(#clip0_4269_170864)">
                           <path
-                            d="M11.9051 2.4926H11.317V1.31641H10.1408V2.4926H4.25981V1.31641H3.08362V2.4926H2.49553C1.84862 2.4926 1.31934 3.02188 1.31934 3.66879V13.0783C1.31934 13.7252 1.84862 14.2545 2.49553 14.2545H11.9051C12.552 14.2545 13.0812 13.7252 13.0812 13.0783V3.66879C13.0812 3.02188 12.552 2.4926 11.9051 2.4926ZM11.9051 13.0783H2.49553V6.60926H11.9051V13.0783ZM11.9051 5.43307H2.49553V3.66879H11.9051V5.43307Z"
-                            fill="#3A495D"
+                              d="M11.9051 2.4926H11.317V1.31641H10.1408V2.4926H4.25981V1.31641H3.08362V2.4926H2.49553C1.84862 2.4926 1.31934 3.02188 1.31934 3.66879V13.0783C1.31934 13.7252 1.84862 14.2545 2.49553 14.2545H11.9051C12.552 14.2545 13.0812 13.7252 13.0812 13.0783V3.66879C13.0812 3.02188 12.552 2.4926 11.9051 2.4926ZM11.9051 13.0783H2.49553V6.60926H11.9051V13.0783ZM11.9051 5.43307H2.49553V3.66879H11.9051V5.43307Z"
+                              fill="#3A495D"
                           />
                         </g>
                         <defs>
                           <clipPath id="clip0_4269_170864">
                             <rect
-                              width="14.1143"
-                              height="14.1143"
-                              fill="white"
-                              transform="translate(0.143555 0.728516)"
+                                width="14.1143"
+                                height="14.1143"
+                                fill="white"
+                                transform="translate(0.143555 0.728516)"
                             />
                           </clipPath>
                         </defs>
                       </svg>
-                      <span>Nov 15, 2023</span>
+                      <span>{{  useFormat(campaign?.duration, 'MMM dd, Y') }}</span>
                     </p>
                   </div>
                 </div>
@@ -328,11 +328,16 @@ import TotalTalentCampaign from "@/components/TotalTalentCampaign.vue";
 import BalanceSkeleton from "@/components/skeleton/Balance.vue";
 import ChartSkeleton from "@/components/skeleton/Chart.vue";
 import { useProgress } from "@/composables/progress";
+import { useFormat } from "@/composables/duration";
+import {storeToRefs} from "pinia/dist/pinia";
 const managerStore = useManagerStore();
 managerStore.profile();
 
 const walletStore = useWalletStore();
 walletStore.getTransactions();
+walletStore.getActiveCampaigns();
+const { activeCampaigns } = storeToRefs(walletStore);
+walletStore.getTopTalents();
 
 // const { $breadcrumbs } = useNuxtApp()
 // console.log('Breadcrumbs array', $breadcrumbs)
