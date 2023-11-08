@@ -23,7 +23,7 @@
         <div class="flex flex-col md:flex-row gap-6">
           <img
             class="w-[100px] h-[100px] rounded-lg object-cover flex-none mx-auto md:mx-0 order-1"
-            :src="campaign?.photo_path ? campaign?.photo_path : 'https://placehold.co/600x400'"
+            :src="campaign?.thumbnail ? campaign?.thumbnail : 'https://placehold.co/600x400'"
             :alt="campaign?.title"
           />
           
@@ -34,9 +34,9 @@
             <div class="flex-none flex items-center justify-between md:justify-start gap-3 md:gap-6">
               <div class="flex items-center gap-2">
                 <img 
-                  v-if="campaign?.creative?.photo_path" 
+                  v-if="campaign?.creative?.photo" 
                   class="w-[34px] h-[34px] rounded-full object-cover" 
-                  :src="campaign?.creative?.photo_path"
+                  :src="campaign?.creative?.photo"
                   :alt="campaign?.creative?.stage_name"
                 />
                 <div
@@ -57,14 +57,14 @@
                 <p class=" text-#697386">
                   Date
                 </p>
-                <span>{{ 'August 21, 2018' }}</span>
+                <span>{{ campaign?.date_created ? useFormat(campaign?.date_created) : 'August 21, 2018' }}</span>
               </div>
               <div class="w-[1px] h-[32px] bg-[#EAECF0] flex-none" />
               <div class="text-[11px] md:text-sm text-black">
                 <p class=" text-#697386">
                   Category
                 </p>
-                <span>{{ 'Afrobeats' }}</span>
+                <span>{{ campaign?.category ? campaign?.category : 'Afrobeats' }}</span>
               </div>
             </div>
           </div>
@@ -154,7 +154,7 @@
                       </clipPath>
                     </defs>
                   </svg>
-                  <span>Nov 15, 2023</span>
+                  <span>{{ campaign?.duration ? useFormat(campaign?.duration, "MMMM Y") : 'August 21, 2018' }}</span>
                 </p>
               </div>
             </div>
@@ -369,6 +369,7 @@ import {useRoute, useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 // import { useCurrency } from "@/composables/currency";
 // import { useDuration } from "@/composables/duration";
+import { useFormat } from "@/composables/duration";
 import { useProgress } from "@/composables/progress";
 // import Status from "@/components/Status.vue";
 import CampaignSupportTable from "@/components/tables/CampaignSupportTable.vue";

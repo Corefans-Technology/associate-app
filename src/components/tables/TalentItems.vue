@@ -505,23 +505,23 @@ const table = reactive({
     //   // width: "15%",
     //   sortable: true,
     // },
-    {
-      label: "Status",
-      field: "status",
-      // width: "15%",
-      sortable: true,
-      display: function (row) {
-        return (
-          '<span data-id="' +
-          row.id +
-          '" class="' +
-          row?.status?.toLowerCase().replaceAll(' ', '_') +
-          '">' +
-          row.status +
-          "</span>"
-        );
-      },
-    },
+    // {
+    //   label: "Status",
+    //   field: "status",
+    //   // width: "15%",
+    //   sortable: true,
+    //   display: function (row) {
+    //     return (
+    //       '<span data-id="' +
+    //       row.id +
+    //       '" class="' +
+    //       row?.status?.toLowerCase().replaceAll(' ', '_') +
+    //       '">' +
+    //       row.status +
+    //       "</span>"
+    //     );
+    //   },
+    // },
     {
       label: "Action",
       field: "action",
