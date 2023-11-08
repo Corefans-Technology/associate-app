@@ -66,7 +66,7 @@ let options = ref({
   },
   xaxis: {
       type: 'category',
-      categories: [],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec'],
       tickAmount: undefined,
       tickPlacement: 'between',
       min: undefined,
@@ -77,7 +77,7 @@ let options = ref({
       overwriteCategories: undefined,
       position: 'bottom',
       labels: {
-          show: false,
+          show: true,
           rotate: -45,
           rotateAlways: false,
           hideOverlappingLabels: true,
@@ -86,11 +86,11 @@ let options = ref({
           minHeight: undefined,
           maxHeight: 120,
           style: {
-              colors: [],
+              colors: ['#667085'],
               fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontFamily: '"Gilroy", sans-serif',
               fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
+              cssClass: 'apexcharts-xaxis-label text-[#667085] font-sans',
           },
           offsetX: 0,
           offsetY: 0,
@@ -105,12 +105,12 @@ let options = ref({
           },
       },
       axisBorder: {
-          show: false,
-          color: '#E9E8E9',
+          show: true,
+          color: '#F18B1B',
           height: 1,
           width: '100%',
           offsetX: 0,
-          offsetY: 0
+          offsetY: -1
       },
       axisTicks: {
           show: false,
@@ -178,7 +178,12 @@ let options = ref({
           show: false,
       },
       axisBorder: {
-          show: false,
+          show: true,
+          color: '#E5E5E5',
+          height: 1,
+          width: '100%',
+          offsetX: 0,
+          offsetY: 0
       },
       axisTicks: {
           show: false,
@@ -192,12 +197,12 @@ let options = ref({
     sition: 'back',
     xaxis: {
         lines: {
-            show: true
+            show: false
         }
     },   
     yaxis: {
         lines: {
-            show: false
+            show: true
         }
     },  
     row: {

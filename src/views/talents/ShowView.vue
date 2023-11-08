@@ -84,26 +84,6 @@
 
       <div class="xl:grid xl:grid-cols-3 gap-4 space-y-4 md:space-y-0">
         <div
-          class="flex flex-row md:p-[1.125rem] py-2 rounded-[0.625rem] border border-[#EAECF0] gap-y-3 "
-        >
-          <Statistic
-            title="Total Exclusives Sold"
-            class="px-4 md:px-0 text-sm flex-1"
-            :amount="campaign.claim.formatted"
-            volume="0.50%"
-          />
-
-          <div class="w-[1px] sh-full md:mx-4 bg-[#EAECF0] flex-none" />
-
-          <Statistic
-            title="Total Corefans"
-            class="px-4 md:px-0 text-sm flex-1"
-            :amount="campaign.fans"
-            volume="0.50%"
-            :is-currency="false"
-          />
-        </div>
-        <div
           class="p-6 rounded-[0.625rem] border border-[#EAECF0] col-span-2"
         >
           <div
@@ -113,9 +93,9 @@
               <p class="text-sm text-#3A495D">
                 Available balance / Goal amount
               </p>
-              <div class="text-base text-black font-medium flex justify-between">
+              <div class="text-[22px] text-black font-medium flex justify-between">
                 <h5 class="font-bold font-power text-#091C35"> 
-                  {{ campaign.claim.formatted }} / {{ campaign?.goal.formatted }}
+                  {{ campaign.claim.formatted }} / <span class="text-#3A495D"> {{ campaign?.goal.formatted }}</span>
                   <!-- <span class="text-sm">raised</span> -->
                 </h5>
                 <!-- <h5>{{ useDuration(campaign.duration) }}</h5> -->
@@ -190,6 +170,27 @@
               />
             </div> -->
           </div>
+        </div>
+
+        <div
+          class="flex flex-row md:p-[1.125rem] py-2 rounded-[0.625rem] border border-[#EAECF0] gap-y-3 "
+        >
+          <Statistic
+            title="Total Exclusives Sold"
+            class="px-4 md:px-0 text-sm flex-1"
+            :amount="campaign.claim.formatted"
+            volume="0.50%"
+          />
+
+          <div class="w-[1px] sh-full md:mx-4 bg-[#EAECF0] flex-none" />
+
+          <Statistic
+            title="Total Corefans"
+            class="px-4 md:px-0 text-sm flex-1"
+            :amount="campaign.fans"
+            volume="0.50%"
+            :is-currency="false"
+          />
         </div>
       </div>
 

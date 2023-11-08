@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 py-2 px-[1.125rem] flex flex-col">
+  <div class="flex-1 py-2 px-[1.125rem] flex flex-col gap-2">
     <div class="flex items-center justify-between flex-none">
       <h4 class="text-sm text-[#232859]">
         {{ title }}
