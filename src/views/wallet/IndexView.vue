@@ -281,26 +281,26 @@
 
             <div class="divide-y divide-[#F2F4F7]">
               <div
-                v-for="(item, index) in 5"
+                v-for="(talent, index) in topTalents"
                 :key="index"
                 class="flex items-center gap-3 py-5"
               >
                 <img
                   class="w-10 h-10 rounded-full flex-none object-cover"
-                  src="https://placehold.co/600x400"
+                  :src="talent.photo"
                   alt=""
                   srcset=""
                 />
                 <div class="flex-grow">
                   <p class="text-sm text-#101828 font-semibold">
-                    Andi Lane
+                    {{ talent.first_name }} {{ talent.last_name }}
                   </p>
                   <p class="text-sm text-#667085">
-                    @andilane
+                    {{ talent.stage_name }}
                   </p>
                 </div>
                 <p class="text-sm text-#667085">
-                  40 Campaigns
+                  {{ talent.campaigns_count }} Campaigns
                 </p>
               </div>
             </div>
@@ -336,8 +336,8 @@ managerStore.profile();
 const walletStore = useWalletStore();
 walletStore.getTransactions();
 walletStore.getActiveCampaigns();
-const { activeCampaigns } = storeToRefs(walletStore);
 walletStore.getTopTalents();
+const { activeCampaigns, topTalents } = storeToRefs(walletStore);
 
 // const { $breadcrumbs } = useNuxtApp()
 // console.log('Breadcrumbs array', $breadcrumbs)
