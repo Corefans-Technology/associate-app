@@ -218,13 +218,13 @@ let options = ref({
   toolbar: {
     enabled: false,
   },
-  noData: {
-    text: "No Data",
-    align: "center",
-    verticalAlign: "middle",
-    offsetX: 0,
-    offsetY: 0,
-  },
+  // noData: {
+  //   text: "No Data",
+  //   align: "center",
+  //   verticalAlign: "middle",
+  //   offsetX: 0,
+  //   offsetY: 0,
+  // },
   fill: {
     type: "gradient",
     gradient: {

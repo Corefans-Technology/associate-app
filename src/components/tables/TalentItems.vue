@@ -1,5 +1,5 @@
 <template>
-  <div v-if="talentStore.waitlistsLists?.data?.length">
+  <div v-if="invitedList?.data?.length">
     <!-- <pre>
       {{ waitlistsLists }}
     </pre> -->

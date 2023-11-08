@@ -1,7 +1,7 @@
 <template>
   <dashboard-layout>
     <div class="md:p-[2.5rem] p-6 py-6 space-y-6 h-full">
-      <div class="flex items-center md:space-x-4">
+      <div class="flex items-center md:gap-x-4">
         <!-- <h2 class="text-2xl font-medium text-1E1D24 flex-none pr-[2rem]">
           
         </h2> -->

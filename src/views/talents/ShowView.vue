@@ -1,8 +1,8 @@
 <template>
   <DashboardLayout>
-    <div class="px-5 md:px-[2.5rem] py-6 md:py-6 space-y-6 h-full">
+    <div class="px-5 md:px-[2.5rem] py-6 md:py-6 space-y-8 h-full">
       <div class="">
-        <div class="md:space-y-5 pt-2 md:pt-0 pb-5">
+        <div class="md:space-y-5 pt-3 md:pt-0 pb-6">
           <button
             class="items-center space-x-1 flex"
             @click.prevent="router.back()"
@@ -20,9 +20,9 @@
             </p>
           </button>
         </div>
-        <div class="flex flex-col md:flex-row gap-5">
+        <div class="flex flex-col md:flex-row gap-6">
           <img
-            class="w-24 h-24 rounded-lg object-cover flex-none mx-auto md:mx-0 order-1"
+            class="w-[100px] h-[100px] rounded-lg object-cover flex-none mx-auto md:mx-0 order-1"
             :src="campaign?.photo_path ? campaign?.photo_path : 'https://placehold.co/600x400'"
             :alt="campaign?.title"
           />
@@ -31,7 +31,7 @@
             <h2 class="text-xl md:text-2xl font-bold font-power text-black pr-[2rem] flex-grow text-center md:text-left">
               {{ campaign?.title }} 
             </h2>
-            <div class="flex-none flex items-center gap-4">
+            <div class="flex-none flex items-center justify-between md:justify-start gap-3 md:gap-6">
               <div class="flex items-center gap-2">
                 <img 
                   v-if="campaign?.creative?.photo_path" 
@@ -104,10 +104,10 @@
           />
         </div>
         <div
-          class="p-4 px-1 rounded-[0.625rem] border border-[#EAECF0] col-span-2"
+          class="p-6 rounded-[0.625rem] border border-[#EAECF0] col-span-2"
         >
           <div
-            class="bg-[#FAFAFA] w-full rounded-b-[1.5rem] shadow-[0px_20px_40px_rgba(5,32,58,0.05)] px-3 space-y-2 flex flex-col h-full"
+            class="w-full rounded-b-[1.5rem] space-y-2 flex flex-col h-full"
           >
             <div class="">
               <p class="text-sm text-#3A495D">
@@ -130,7 +130,7 @@
               </div> -->
             </div>
 
-            <div class="flex-none flex flex-col gap-1 pt-2">
+            <div class="flex-none flex flex-col gap-1 pt-4">
               <div class="w-full rounded-full bg-[#CCD5DF] relative h-2 border-1E1D24 overflow-hidden">
                 <!-- :style="{ width: useProgress(campaign.funding.goal, campaign.claim) + '%' }" -->
                 <div
@@ -193,25 +193,106 @@
         </div>
       </div>
 
-      <div class="flex items-center space-x-4">
-        <h2 class="text-2xl font-medium text-black flex-none pr-[2rem] font-power">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mt-2">
+        <h2 class="text-2xl font-medium text-black md:flex-none pr-[2rem] font-power flex-1">
           Transactions
         </h2>
 
-        <label class="relative hidden max-w-[20.5rem] w-full flex-none  lg:block">
-          <span class="sr-only">Search</span>
-          <span
-            class="absolute inset-y-0 left-0 flex items-center px-[0.8125rem]"
-          >
-            <Icon name="search" />
-          </span>
-          <input
-            class="placeholder:text-[#98A2B3] placeholder:text-[13px] placeholder:text-left block bg-white w-full border border-[#EDEDED] rounded py-2 pl-10 pr-3 focus:outline-none focus:border-orange focus:ring-orange focus:ring-1 sm:text-sm placeholder:font-normal"
-            placeholder="Find Transactions"
-            type="text"
-            name="search"
-          />
-        </label>
+        <div class="flex flex-grow gap-2">
+          <label class="relative md:max-w-[12.5rem] w-full h-[37px] flex-grow md:flex-none">
+            <span class="sr-only">Search</span>
+            <span
+              class="absolute inset-y-0 left-0 flex items-center px-[0.8125rem]"
+            >
+              <Icon name="search" />
+            </span>
+            <input
+              class="placeholder:text-[#98A2B3] placeholder:text-[13px] placeholder:text-left block bg-white w-full border border-[#EDEDED] rounded-lg h-[37px] pl-10 pr-3 focus:outline-none focus:border-orange focus:ring-orange focus:ring-1 sm:text-sm placeholder:font-normal"
+              placeholder="Find Transactions"
+              type="text"
+              name="search"
+            />
+          </label>
+          <div class="flex-grow hidden md:block" />
+
+          <Popover class="relative flex-none">
+            <div class="bg-gradient-to-tr from-orange to-red p-px rounded-lg h-[37px]">
+              <div class="bg-white rounded-lg h-full">
+                <PopoverButton
+                  class="focus:outline-none relative text-[0.8125rem] px-2 md:px-4 rounded-lg flex items-center justify-center space-x-2 border border-[#F2F4F7] text-transparent bg-clip-text bg-gradient-to-b from-orange to-red font-medium h-full"
+                >
+                  <svg
+                    width="16"
+                    height="17"
+                    viewBox="0 0 16 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.62675 5.33342C9.50009 5.33342 9.37342 5.28675 9.27342 5.18675L7.92009 3.83342L6.56675 5.18675C6.37342 5.38008 6.05342 5.38008 5.86009 5.18675C5.66675 4.99342 5.66675 4.67342 5.86009 4.48008L7.56675 2.77342C7.76009 2.58008 8.08009 2.58008 8.27342 2.77342L9.98009 4.48008C10.1734 4.67342 10.1734 4.99342 9.98009 5.18675C9.88009 5.28675 9.75342 5.33342 9.62675 5.33342Z"
+                      fill="url(#paint0_linear_3424_661)"
+                    />
+                    <path
+                      d="M7.91992 10.4533C7.64659 10.4533 7.41992 10.2267 7.41992 9.95334V3.17334C7.41992 2.90001 7.64659 2.67334 7.91992 2.67334C8.19326 2.67334 8.41992 2.90001 8.41992 3.17334V9.95334C8.41992 10.2333 8.19326 10.4533 7.91992 10.4533Z"
+                      fill="url(#paint1_linear_3424_661)"
+                    />
+                    <path
+                      d="M8.00008 14.3333C4.56675 14.3333 2.16675 11.9333 2.16675 8.5C2.16675 8.22667 2.39341 8 2.66675 8C2.94008 8 3.16675 8.22667 3.16675 8.5C3.16675 11.3467 5.15341 13.3333 8.00008 13.3333C10.8467 13.3333 12.8334 11.3467 12.8334 8.5C12.8334 8.22667 13.0601 8 13.3334 8C13.6067 8 13.8334 8.22667 13.8334 8.5C13.8334 11.9333 11.4334 14.3333 8.00008 14.3333Z"
+                      fill="url(#paint2_linear_3424_661)"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="paint0_linear_3424_661"
+                        x1="5.71509"
+                        y1="2.62842"
+                        x2="8.12629"
+                        y2="6.55944"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#F18B1B" />
+                        <stop
+                          offset="1"
+                          stop-color="#E52053"
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="paint1_linear_3424_661"
+                        x1="7.41992"
+                        y1="2.67334"
+                        x2="9.38742"
+                        y2="2.92623"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#F18B1B" />
+                        <stop
+                          offset="1"
+                          stop-color="#E52053"
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="paint2_linear_3424_661"
+                        x1="2.16675"
+                        y1="8"
+                        x2="7.4778"
+                        y2="17.7835"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#F18B1B" />
+                        <stop
+                          offset="1"
+                          stop-color="#E52053"
+                        />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <span class="hidden md:block">Export</span>
+                </PopoverButton>
+              </div>
+            </div>
+
+            <PopoverPanel class="absolute z-50 bg-white" />
+          </Popover>
+        </div>
       </div>
 
       <div class="">
@@ -292,6 +373,11 @@ import { useProgress } from "@/composables/progress";
 import CampaignSupportTable from "@/components/tables/CampaignSupportTable.vue";
 import CampaignOrderTable from "@/components/tables/CampaignOrderTable.vue";
 import { useGetNameLetter } from "@/composables/useGetNameLetter.js";
+import {
+  Popover,
+  PopoverButton,
+  PopoverPanel,
+} from "@headlessui/vue";
 
 const route = useRoute();
 const router = useRouter();
