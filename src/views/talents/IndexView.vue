@@ -231,6 +231,7 @@
         <TabGroup
           :selected-index="selectedTab"
           @change="changeTab"
+          :defaultIndex="1"
         >
           <TabList class="flex space-x-8 900/20 border-b overflow-x-auto overflow-y-hidden scrollbar-thumb-white scrollbar-track-white">
             <Tab
@@ -311,8 +312,8 @@ import BaseButton from "@/components/base/BaseButton.vue";
 const genericStore = useGenericStore();
 genericStore.getCountries();
 const tabs = ref({
-  "Active" : "talents.invited",
-  "Pending": "talents.invitee",
+  "Talents" : "talents.invited",
+  "Invites": "talents.invitee",
   "Requests": "talents.artist",
 });
 
