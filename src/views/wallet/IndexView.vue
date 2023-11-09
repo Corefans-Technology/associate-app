@@ -88,7 +88,7 @@
         </BaseButton>
       </div>
       <div class=" border rounded-2xl grid lg:grid-cols-3">
-        <div class="col-span-2 p-6 pb-0 border-r">
+        <div class="lg:col-span-2 p-6 pb-0 border-r">
           <div class="flex items-center space-x-4">
             <div class="flex-none text-sm text-[#151419] space-y-4">
               <p class="flex items-center space-x-2 font-medium">
@@ -141,8 +141,8 @@
             <div>
               <p class="flex items-center space-x-2 font-medium">
                 <span>NO OF TALENTS</span>
-                <span class="text-white">z
-                  <Icon name="help" />
+                <span class="text-white">
+                  <!-- <Icon name="help" /> -->
                 </span>
               </p>
 
@@ -167,7 +167,7 @@
               <p class="flex items-center space-x-2 font-medium">
                 <span>TOTAL CAMPAIGNS</span>
                 <span class="text-white">
-                  <Icon name="help" />
+                  <!-- <Icon name="help" /> -->
                 </span>
               </p>
               <Suspense>
@@ -208,14 +208,14 @@
           <!-- Active Campaign -->
           <div class="col-span-2 flex flex-col gap-4">
             <div
-                v-for="(campaign, index) in activeCampaigns.data"
-                :key="index"
-                class="flex gap-6 border border-#E9E8E9 p-4 md:p-6 pb-14 md:pb-6 rounded-lg  relative"
+              v-for="(campaign, index) in activeCampaigns.data"
+              :key="index"
+              class="flex gap-6 border border-#E9E8E9 p-4 md:p-6 pb-14 md:pb-6 rounded-lg  relative"
             >
               <img
-                  class="w-14 lg:w-[10rem] h-14 lg:h-[10rem] rounded-lg flex-none object-cover"
-                  :src="campaign.thumbnail"
-                  alt=""
+                class="w-14 lg:w-[10rem] h-14 lg:h-[10rem] rounded-lg flex-none object-cover"
+                :src="campaign.thumbnail"
+                alt=""
               />
               <div class="flex flex-col justify-between flex-grow">
                 <div class="spacey-2 md:space-y-5">
@@ -236,38 +236,38 @@
                 <div class="flex-none flex flex-col gap-1 pt-4 absolute inset-x-0 lg:relative bottom-2 px-4 lg:px-0">
                   <div class="w-full rounded-full bg-[#CCD5DF] relative h-2 border-1E1D24 overflow-hidden">
                     <div
-                        :style="{ width: useProgress(campaign?.goal?.value, campaign?.raised?.value) + '%' }"
-                        class="rounded-full bg-gradient-to-br from-[#62CE74] to-[#62CE74] absolute inset-0 h-full"
+                      :style="{ width: useProgress(campaign?.goal?.value, campaign?.raised?.value) + '%' }"
+                      class="rounded-full bg-gradient-to-br from-[#62CE74] to-[#62CE74] absolute inset-0 h-full"
                     />
                   </div>
                   <div class="flex text-#3A495D justify-between items-center text-sm md:text-base">
                     <p>{{ useProgress(campaign?.goal?.value, campaign?.raised?.value) + '%' }} Completed</p>
                     <p class="flex items-center gap-1">
                       <svg
-                          width="15"
-                          height="15"
-                          viewBox="0 0 15 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <g clip-path="url(#clip0_4269_170864)">
                           <path
-                              d="M11.9051 2.4926H11.317V1.31641H10.1408V2.4926H4.25981V1.31641H3.08362V2.4926H2.49553C1.84862 2.4926 1.31934 3.02188 1.31934 3.66879V13.0783C1.31934 13.7252 1.84862 14.2545 2.49553 14.2545H11.9051C12.552 14.2545 13.0812 13.7252 13.0812 13.0783V3.66879C13.0812 3.02188 12.552 2.4926 11.9051 2.4926ZM11.9051 13.0783H2.49553V6.60926H11.9051V13.0783ZM11.9051 5.43307H2.49553V3.66879H11.9051V5.43307Z"
-                              fill="#3A495D"
+                            d="M11.9051 2.4926H11.317V1.31641H10.1408V2.4926H4.25981V1.31641H3.08362V2.4926H2.49553C1.84862 2.4926 1.31934 3.02188 1.31934 3.66879V13.0783C1.31934 13.7252 1.84862 14.2545 2.49553 14.2545H11.9051C12.552 14.2545 13.0812 13.7252 13.0812 13.0783V3.66879C13.0812 3.02188 12.552 2.4926 11.9051 2.4926ZM11.9051 13.0783H2.49553V6.60926H11.9051V13.0783ZM11.9051 5.43307H2.49553V3.66879H11.9051V5.43307Z"
+                            fill="#3A495D"
                           />
                         </g>
                         <defs>
                           <clipPath id="clip0_4269_170864">
                             <rect
-                                width="14.1143"
-                                height="14.1143"
-                                fill="white"
-                                transform="translate(0.143555 0.728516)"
+                              width="14.1143"
+                              height="14.1143"
+                              fill="white"
+                              transform="translate(0.143555 0.728516)"
                             />
                           </clipPath>
                         </defs>
                       </svg>
-                      <span>{{  useFormat(campaign?.duration, 'MMM dd, Y') }}</span>
+                      <span>{{ useFormat(campaign?.duration, 'MMM dd, Y') }}</span>
                     </p>
                   </div>
                 </div>
@@ -292,14 +292,14 @@
                   srcset=""
                 />
                 <div class="flex-grow">
-                  <p class="text-sm text-#101828 font-semibold">
+                  <p class="text-sm text-#101828 font-semibold line-clamp-1">
                     {{ talent.first_name }} {{ talent.last_name }}
                   </p>
-                  <p class="text-sm text-#667085">
+                  <p class="text-sm text-#667085 line-clamp-1">
                     {{ talent.stage_name }}
                   </p>
                 </div>
-                <p class="text-sm text-#667085">
+                <p class="text-sm text-#667085 flex-none whitespace-nowrap">
                   {{ talent.campaigns_count }} Campaigns
                 </p>
               </div>

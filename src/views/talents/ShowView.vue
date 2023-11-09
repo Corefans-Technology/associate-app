@@ -57,7 +57,7 @@
                 <p class=" text-#697386">
                   Date
                 </p>
-                <span>{{ campaign?.date_created ? useFormat(campaign?.date_created) : 'August 21, 2018' }}</span>
+                <span>{{ campaign?.date_created ? useFormat(campaign?.date_created, 'MMM dd, Y') : 'August 21, 2018' }}</span>
               </div>
               <div class="w-[1px] h-[32px] bg-[#EAECF0] flex-none" />
               <div class="text-[11px] md:text-sm text-black">
@@ -154,7 +154,7 @@
                       </clipPath>
                     </defs>
                   </svg>
-                  <span>{{ campaign?.duration ? useFormat(campaign?.duration, "MMMM Y") : 'August 21, 2018' }}</span>
+                  <span>{{ campaign?.duration ? useFormat(campaign?.duration, "MMM dd, Y") : 'August 21, 2018' }}</span>
                 </p>
               </div>
             </div>
@@ -291,7 +291,20 @@
               </div>
             </div>
 
-            <PopoverPanel class="absolute z-50 bg-white" />
+            <PopoverPanel class="absolute z-50 bg-white w-40 shadow-[0_2px_20px_0px_rgba(0,0,0,0.13)] right-0 rounded p-2">
+              <ul>
+                <li class="px-4 py-1 hover:bg-orange hover:bg-opacity-10 rounded group">
+                  <button class="text-1E1D24 group-hover:text-transparent group-hover:bg-clip-text text-xs font-medium group-hover:bg-gradient-to-br group-hover:from-orange group-hover:to-red">
+                    Export as (.xls)
+                  </button>
+                </li>
+                <li class="px-4 py-1 hover:bg-orange hover:bg-opacity-10 rounded group">
+                  <button class="text-1E1D24 group-hover:text-transparent group-hover:bg-clip-text text-xs font-medium group-hover:bg-gradient-to-br group-hover:from-orange group-hover:to-red">
+                    Export as (.csv)
+                  </button>
+                </li>
+              </ul>
+            </PopoverPanel>
           </Popover>
         </div>
       </div>

@@ -13,16 +13,16 @@
 import { ref, reactive } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 import { useWalletStore } from "@/stores/wallet";
-
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import {storeToRefs} from "pinia";
 import {_} from "lodash";
 import {format, differenceInDays, formatRelative, subDays} from "date-fns";
-
-
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const mdAndSmaller = breakpoints.smallerOrEqual('md')
 const walletStore = useWalletStore();
 await walletStore.getTransactions();
 const { transactions } = storeToRefs(walletStore);
-
+const category = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec']
 
 const myObj = _(transactions.value)
   .orderBy("created_at")
@@ -38,6 +38,11 @@ const myObj = _(transactions.value)
   })
   .value();
 
+function removeItemsByOddIndex(array) {
+  // Filter the array to keep only items with even indices
+  const resultArray = array.filter((item, index) => index % 2 === 0);
+  return resultArray;
+}
 
 const getDeliveryEstimate = (date) => {
   return format(new Date(date), "DD");
@@ -66,7 +71,7 @@ let options = ref({
   },
   xaxis: {
       type: 'category',
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec'],
+      categories: mdAndSmaller.value ?  removeItemsByOddIndex(category) : category,
       tickAmount: undefined,
       tickPlacement: 'between',
       min: undefined,
@@ -242,7 +247,7 @@ let options = ref({
 });
 
 let series = ref([{
-  data: myObj,
+  data: mdAndSmaller.value ? removeItemsByOddIndex(myObj) : myObj,
 }]);
 
 
