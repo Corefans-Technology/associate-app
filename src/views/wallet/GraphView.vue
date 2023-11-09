@@ -22,7 +22,7 @@ const mdAndSmaller = breakpoints.smallerOrEqual('md')
 const walletStore = useWalletStore();
 await walletStore.getTransactions();
 const { transactions } = storeToRefs(walletStore);
-const category = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec']
+const category = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const myObj = _(transactions.value)
   .orderBy("created_at")
@@ -38,9 +38,21 @@ const myObj = _(transactions.value)
   })
   .value();
 
+function selectSpecificItems(array) {
+  // Specify the indices you want to keep
+  const desiredIndices = [0, 1, 3, 5, 7, 9, 11];
+
+  // Filter the array to keep only items at the specified indices
+  const resultArray = array.filter((item, index) => {
+    // console.log(desiredIndices.includes(index), index)
+    return desiredIndices.includes(index)
+  });
+  return resultArray;
+}
+
 function removeItemsByOddIndex(array) {
   // Filter the array to keep only items with even indices
-  const resultArray = array.filter((item, index) => index % 2 === 0);
+  const resultArray = array.filter((item, index) => (index + 1) % 2 === 0);
   return resultArray;
 }
 
@@ -71,7 +83,7 @@ let options = ref({
   },
   xaxis: {
       type: 'category',
-      categories: mdAndSmaller.value ?  removeItemsByOddIndex(category) : category,
+      categories: mdAndSmaller.value ?  selectSpecificItems(category) : category,
       tickAmount: undefined,
       tickPlacement: 'between',
       min: undefined,
@@ -247,7 +259,7 @@ let options = ref({
 });
 
 let series = ref([{
-  data: mdAndSmaller.value ? removeItemsByOddIndex(myObj) : myObj,
+  data: mdAndSmaller.value ? selectSpecificItems(myObj) : myObj,
 }]);
 
 
