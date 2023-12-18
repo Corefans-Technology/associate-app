@@ -208,7 +208,7 @@
           <!-- Active Campaign -->
           <div class="col-span-2 flex flex-col gap-4">
             <div
-              v-for="(campaign, index) in activeCampaigns.data"
+              v-for="(campaign, index) in activeCampaigns?.data"
               :key="index"
               class="flex gap-6 border border-#E9E8E9 p-4 md:p-6 pb-14 md:pb-6 rounded-lg  relative"
             >
