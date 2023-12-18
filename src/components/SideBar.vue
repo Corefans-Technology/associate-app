@@ -13,7 +13,7 @@
         class="mx-auto h-7"
       />
     </button>
-    <ul class="flex flex-row items-center justify-between md:justify-start md:items-start md:flex-col h-full md:flex-grow md:pt-8 gap-y-2">
+    <ul class="flex flex-row items-center justify-between md:justify-start md:items-start md:flex-col h-full md:flex-grow md:pt-8 gap-y-2 bg-white md:bg-transparent">
       <!-- <p class="text-xs text-1E1D24 text-opacity-30 pb-2">
         ACTIVITY
       </p> -->
@@ -148,6 +148,7 @@ import MobileDashboardActive from "@/assets/icons/mobile/dashboard-active.svg?co
 import MobileHomeActive from "@/assets/icons/mobile/home-active.svg?component"
 import MobileTalentActive from "@/assets/icons/mobile/talent-active.svg?component"
 import MobileCommissionsActive from "@/assets/icons/mobile/commissions-active.svg?component"
+
 
 const managerStore = useManagerStore();
 
