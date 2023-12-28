@@ -19,7 +19,7 @@
       </p> -->
       <li class="flex-none links w-fit md:w-full">
         <router-link
-          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent relative"
+          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 md:hover:border md:hover:border-black rounded-lg border border-transparent relative transition ease-out delay-500 duration-700"
           :to="{ name: 'overview' }"
         >
           <Icon
@@ -37,7 +37,7 @@
       </li>
       <li class="flex-none links w-fit md:w-full">
         <router-link
-          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent relative"
+          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 md:hover:border md:hover:border-black rounded-lg border border-transparent relative transition ease-out delay-500 duration-700"
           :to="{ name: 'wallet' }"
         >
           <Icon
@@ -130,7 +130,7 @@
       </li>
       <li class="flex-none links w-fit md:w-full">
         <router-link
-          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent relative"
+          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 md:hover:border md:hover:border-black rounded-lg border border-transparent relative transition ease-out delay-500 duration-700"
           :to="{ name: 'talents.invited', query: { tab: 'All' } }"
         >
           <Icon
@@ -291,9 +291,9 @@
         </router-link>
       </li>
 
-      <li class="md:flex-grow links w-fit md:w-full">
+      <li class="md:flex-grow links w-fit md:w-full md:hidden">
         <router-link
-          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent relative"
+          class="flex flex-col md:flex-row items-center gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 md:hover:border md:hover:border-black rounded-lg border border-transparent relative transition ease-out delay-500 duration-700"
           :to="{ name: 'settings.profile', query: { tab: 'Profile' } }"
         >
           <Icon
@@ -426,7 +426,7 @@
 
       <li class="flex-none links w-fit md:w-full md:border-t border-#3A2622 md:pt-4 hidden md:block">
         <router-link
-          class="flex flex-col md:flex-row items-center w-full gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 hover:border hover:border-black rounded-lg border border-transparent relative"
+          class="flex flex-col md:flex-row items-center w-full gap-y-1 gap-3 text-#7D7C80 md:text-white py-2 md:px-4 text-xs md:text-sm font-medium md:font-normal hover:bg-white hover:bg-opacity-10 md:hover:border md:hover:border-black rounded-lg border border-transparent relative transition ease-out delay-500 duration-700"
           :to="{ name: 'settings.profile', query: { tab: 'Profile' } }"
         >
           <Icon

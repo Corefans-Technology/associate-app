@@ -1,7 +1,7 @@
 
 <template>
   <button
-    class="flex-none relative mx-auto bg-#121216 w-full p-4 md:hidden"
+    class="flex-none relative mx-auto bg-#121216 w-full p-4 hidden"
     @click="router.push('/')"
   >
     <img
@@ -10,8 +10,9 @@
       class="mx-auto h-7"
     />
   </button>
+  <!-- rounded-b-2xl -->
   <nav
-    class="h-[65px] md:h-[55px] bg-#121216 md:bg-white w-full flex-none flex  sticky top-0 z-[60] border-EAECF0 border-b rounded-b-2xl md:rounded-b-none px-6 md:px-10"
+    class="h-[65px] md:h-[55px] bg-#121216 md:bg-white w-full flex-none flex  sticky top-0 z-[60] border-EAECF0 border-b  md:rounded-b-none px-6 md:px-10"
   >
     <!-- navigations -->
     <ul
@@ -20,11 +21,26 @@
       <li
         v-if="route.meta.name !== 'Withdraw'"
         class="flex-none text-white md:hidden"
+        @click="toggle = !toggle"
       >
-        <Bars3Icon
+        <!-- <Bars3Icon
           class="w-7 h-7"
           @click="toggle = !toggle"
+        /> -->
+        <img
+          class="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
+          :src="managerStore.data.photo_path"
+          alt=""
+          srcset=""
         />
+        <div class="text-left space-y-1 hidden md:block">
+          <p class="text-xs font-normal text-gray-1 text-1E1D24">
+            {{ managerStore.data.type ? managerStore.data.type : 'Associate' }} 
+          </p>
+          <h3 class="text-sm font-semibold text-#7D7C80 leading-snug">
+            {{ managerStore.data.first_name }}
+          </h3>
+        </div>
       </li>
       <li
         v-if="route.meta.name === 'Withdraw'"
@@ -67,22 +83,22 @@
               <span>Get Started</span>
             </router-link>
           </li>
-          <li class="flex-none mobile_links">
+          <!-- <li class="flex-none mobile_links">
             <router-link
               class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
               :to="{ name: 'wallet' }"
             >
               <span>Home</span>
             </router-link>
-          </li>
-          <li class="flex-none mobile_links">
+          </li> -->
+          <!-- <li class="flex-none mobile_links">
             <router-link
               class="flex items-center justify-center uppercase space-x-3 text-white py-3 px-4"
               :to="{ name: 'talents.invited', query: { tab: 'All' } }"
             >
               <span>Talents</span>
             </router-link>
-          </li>
+          </li> -->
           <li class="mobile_links">
             <router-link
               class="flex items-center justify-center uppercase w-full space-x-3 text-white py-3 px-4"
@@ -113,68 +129,10 @@
           {{ route.meta.name }}
         </h3>
       </li>
-      <!-- About Us -->
-      <!-- <li
-        v-show="!isAuthenticated"
-        class="flex-none hidden lg:block"
-      >
-        <app-link to="https://demo.corefans.co/about">
-          About Us
-        </app-link>
-      </li> -->
-      <!-- Explore -->
-      <!-- <li
-        v-show="!isAuthenticated"
-        class="flex-none hidden lg:block"
-      >
-        <app-link to="https://demo.corefans.co/explore">
-          Explore
-        </app-link>
-      </li> -->
-      <!-- <li
-        v-show="!isAuthenticated"
-        class="flex-none hidden lg:block"
-      >
-        <app-link to="https://demo.corefans.co/explore">
-          Contact
-        </app-link>
-      </li> -->
-      <!-- Start a campaign button -->
-      <!-- <li
-        v-show="!isAuthenticated"
-        class="flex-grow hidden lg:flex items-center justify-end"
-      >
-        <app-link
-          :to="{ name: 'campaigns.create' }"
-          class="bg-gradient-to-r from-orange to-red text-white font-medium text-base h-12 px-4 rounded-lg flex items-center justify-center"
-        >
-          Start a campaign
-        </app-link>
-      </li> -->
-      <!-- Log in -->
-      <!-- <li
-        v-show="!isAuthenticated"
-        class="flex-none hidden lg:block"
-      >
-        <app-link :to="{ name: 'login' }">
-          Log in
-        </app-link>
-      </li> -->
-      <!-- Sign up -->
-      <!-- <li
-        v-show="!isAuthenticated"
-        class="flex-none hidden lg:block"
-      >
-        <app-link :to="{ name: 'sign.up' }">
-          Sign up
-        </app-link>
-      </li> -->
-
-      
 
       <li
         v-if="isAuthenticated"
-        class="flex-none flex items-center space-x-4 md:h-full"
+        class="flex-none flex items-center space-x-4 md:h-full opacity-0 md:opacity-100"
       >
         <Menu
           as="div"
@@ -277,13 +235,6 @@
           <PopoverPanel class="absolute z-50 bg-white" />
         </Popover>
       </li>
-
-      <!-- <li
-        v-if="isAuthenticated"
-        class="flex-none hidden lg:flex items-center justify-end"
-      >
-        
-      </li> -->
     </ul>
   </nav>
 </template>
@@ -296,7 +247,7 @@ import {
   AdjustmentsVerticalIcon,
   ArrowRightOnRectangleIcon,
   ChevronDownIcon,
-  Bars3Icon,
+  // Bars3Icon,
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import Icon from "@/components/Icon.vue";
