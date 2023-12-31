@@ -16,7 +16,7 @@
   >
     <!-- navigations -->
     <ul
-      class="w-full mx-auto flex gap-x-8 text-[#626E8B] items-center md:items-start font-medium text-base border-t md:border-t-0 border-1E1D24"
+      class="w-full mx-auto flex gap-x-8 text-[#626E8B] items-center md:items-start font-medium text-base "
     >
       <li
         v-if="route.meta.name !== 'Withdraw'"
@@ -33,14 +33,14 @@
           alt=""
           srcset=""
         />
-        <div class="text-left space-y-1 hidden md:block">
+        <!-- <div class="text-left space-y-1 hidden md:block">
           <p class="text-xs font-normal text-gray-1 text-1E1D24">
             {{ managerStore.data.type ? managerStore.data.type : 'Associate' }} 
           </p>
           <h3 class="text-sm font-semibold text-#7D7C80 leading-snug">
             {{ managerStore.data.first_name }}
           </h3>
-        </div>
+        </div> -->
       </li>
       <li
         v-if="route.meta.name === 'Withdraw'"
