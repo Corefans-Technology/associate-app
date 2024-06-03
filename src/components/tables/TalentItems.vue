@@ -34,13 +34,13 @@
           </p>
         </template>
 
-        <template v-slot:social="data">
-          <p class="flex items-center space-x-2">
-            <!-- <Icon :name="item.name" /> -->
-            <!-- {{ data.value.social }} -->
-            <span v-for="(item, index) in data.value.social" :key="index" v-html="socials.find( i => i.name === index).icon" />
-          </p>
-        </template>
+<!--        <template v-slot:social="data" v-if="data.social">-->
+<!--          <p class="flex items-center space-x-2">-->
+<!--            &lt;!&ndash; <Icon :name="item.name" /> &ndash;&gt;-->
+<!--            &lt;!&ndash; {{ data.value.social }} &ndash;&gt;-->
+<!--            <span v-for="(item, index) in data.value.social" :key="index" v-html="socials.find( i => i.name === index).icon" />-->
+<!--          </p>-->
+<!--        </template>-->
       </table-lite>
     </div>
 

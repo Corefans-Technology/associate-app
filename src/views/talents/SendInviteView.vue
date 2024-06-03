@@ -230,6 +230,7 @@ import Modal from "@/components/ModalComponent.vue";
 import { object, string } from "yup";
 import {useForm} from "vee-validate";
 import {useTalentStore} from "@/stores/talent";
+import {useManagerStore} from "@/stores/manager";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import PhoneNumberInput from "@/components/PhoneNumberInput.vue";
@@ -239,6 +240,7 @@ import { useRouter } from "vue-router";
 import {storeToRefs} from "pinia";
 const router = useRouter();
 const genericStore = useGenericStore();
+const managerStore = useManagerStore();
 genericStore.getCountries();
 const talentStore = useTalentStore();
 const { invitedList, inviteeList } = storeToRefs(talentStore)
@@ -297,7 +299,11 @@ const { handleSubmit, errors, isSubmitting } = useForm({
 const onSubmit = handleSubmit( async ( values, actions ) => {
 
   await talentStore
-    .sendInvite({...values, country_code: values.country_code.dialing_code})
+    .sendInvite({
+      ...values,
+      country_code: values.country_code.dialing_code,
+      manager_id: managerStore.data.id
+    })
     .then(() => {
       // eslint-disable-next-line no-undef
       Toast.fire({
