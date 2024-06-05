@@ -324,7 +324,6 @@ const resolveAccountNumber = async () => {
                 Bank Information: 2/2
 
               </p>
-              <small>For testing: select <b>Access bank</b> and use a/c: <b>0690000010</b></small>
             </div>
             <Spacer size="8" />
             <div class="space-y-5">
